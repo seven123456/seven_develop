@@ -24,9 +24,9 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         context = getApplicationContext();
+        JMessageClient.init(context,true);
         JMessageClient.setDebugMode(true);
-        JMessageClient.init(context);
-//        Log.i("aaaa", "onCreate: ");
+        Log.i("aaaa", "onCreate: ");
     }
 
     public static Context getContext() {
