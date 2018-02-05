@@ -14,7 +14,7 @@ import android.view.ViewGroup;
  */
 
 public abstract class BaseFragment extends Fragment {
-    private View rootView;
+    public View rootView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
