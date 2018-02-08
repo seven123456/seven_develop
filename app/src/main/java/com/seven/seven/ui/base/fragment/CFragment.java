@@ -1,5 +1,7 @@
 package com.seven.seven.ui.base.fragment;
 
+import android.text.Html;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.seven.seven.R;
@@ -18,12 +20,12 @@ public class CFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-        TextView textView = rootView.findViewById(R.id.text);
-        textView.setText("我是C");
+        ImageView textView = rootView.findViewById(R.id.text);
+//        textView.setText("我是C");
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.layout_fragment;
+        return R.layout.layout_c_fragment;
     }
 }

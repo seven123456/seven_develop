@@ -1,8 +1,11 @@
 package com.seven.seven.ui.base.fragment;
 
+import android.content.Intent;
+import android.view.View;
 import android.widget.TextView;
 
 import com.seven.seven.R;
+import com.seven.seven.ui.home.TestActivity;
 
 /**
  * Created  on 2018-02-05.
@@ -20,6 +23,12 @@ public class AFragment extends BaseFragment {
     protected void initView() {
      TextView textView = rootView.findViewById(R.id.text);
      textView.setText("我是A");
+     textView.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+             startActivity(new Intent(getContext(), TestActivity.class));
+         }
+     });
     }
 
     @Override

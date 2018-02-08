@@ -1,5 +1,6 @@
 package com.seven.seven.ui.base.fragment;
 
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.seven.seven.R;
@@ -18,12 +19,13 @@ public class BFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-        TextView textView = rootView.findViewById(R.id.text);
-        textView.setText("我是B");
+        ImageView textView = rootView.findViewById(R.id.text);
+//        textView.setText("我是B");
+
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.layout_fragment;
+        return R.layout.layout_b_fragment;
     }
 }

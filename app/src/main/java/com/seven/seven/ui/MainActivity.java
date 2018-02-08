@@ -1,5 +1,6 @@
 package com.seven.seven.ui;
 
+import android.graphics.Color;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -28,7 +29,11 @@ public class MainActivity extends BaseActivity {
     private MainActivity mActivity;
     private ViewPager viewPager;
     private TabLayout tabLayout;
-    private String[] titles =new String[]{"我第","二个","三个","第个","五个"};
+    private String[] titles = new String[]{"รอการตรวจสอบ", "รอการตรวจสอบ", "รอการตรวจสอบ", "รอการตรวจสอบ", "รอการตรวจสอบ"};
+    private String[] title1 = new String[]{"Waiting for verification", "待dfsghfggfnjfgnjfgnmjfghmfghmf付款", "代fgfgmfghmfghmfghmfdg发货", "待dfsgmgfghmfghmfghmfdg收货", "退dfsgf货"};
+    private int i = 1;
+    private MyPagerAdapter pagerAdapter;
+
     @Override
     protected void initData() {
 
@@ -36,7 +41,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        mActivity =this;
+        mActivity = this;
         tabLayout = findViewById(R.id.tablayout);
         viewPager = findViewById(R.id.viewpager);
         initViewPager();
@@ -50,13 +55,25 @@ public class MainActivity extends BaseActivity {
         fragmentList.add(new CFragment());
         fragmentList.add(new DFragment());
         fragmentList.add(new EFragment());
-        MyPagerAdapter pagerAdapter = new MyPagerAdapter(getSupportFragmentManager(), fragmentList,titles);
+        if(i==1){
+            pagerAdapter = new MyPagerAdapter(getSupportFragmentManager(), fragmentList, titles);
+            tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+            tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        }else {
+            pagerAdapter = new MyPagerAdapter(getSupportFragmentManager(), fragmentList, title1);
+            tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+            tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        }
         viewPager.setAdapter(pagerAdapter);
 //        tabLayout.addTab(tabLayout.newTab());
 //        reflex(tabLayout);
         tabLayout.setupWithViewPager(viewPager);
-        tabLayout.setTabMode(TabLayout.MODE_FIXED);
-        setLin();
+        tabLayout.setTabTextColors(Color.parseColor("#414141"), Color.parseColor("#FF600A"));
+        tabLayout.setSelectedTabIndicatorColor(Color.parseColor("#FF600A"));
+        tabLayout.setSelectedTabIndicatorHeight(DensityUtil.dip2px(this, 1));
+        //        setLin();
     }
 
     @Override
@@ -69,7 +86,7 @@ public class MainActivity extends BaseActivity {
         super.onDestroy();
     }
 
-    private void  setLin() {
+    private void setLin() {
 
         try {
             //拿到tabLayout的mTabStrip属性
@@ -101,7 +118,7 @@ public class MainActivity extends BaseActivity {
 
                 //设置tab左右间距为10dp  注意这里不能使用Padding 因为源码中线的宽度是根据 tabView的宽度来设置的
                 LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) tabView.getLayoutParams();
-                params.width = width ;
+                params.width = width;
                 params.leftMargin = dp10;
                 params.rightMargin = dp10;
                 tabView.setLayoutParams(params);
