@@ -20,12 +20,13 @@ public class CFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-        ImageView textView = rootView.findViewById(R.id.text);
+//        ImageView textView = rootView.findViewById(R.id.text);
 //        textView.setText("我是C");
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.layout_c_fragment;
+        /*return R.layout.layout_c_fragment;*/
+        return R.layout.layout_fragment;
     }
 }
