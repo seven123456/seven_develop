@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.seven.seven.R;
 import com.seven.seven.common.utils.DensityUtil;
+import com.seven.seven.common.utils.ScaleTransformer;
 import com.seven.seven.ui.base.activity.BaseActivity;
 import com.seven.seven.ui.base.fragment.AFragment;
 import com.seven.seven.ui.base.fragment.BFragment;
@@ -67,8 +68,10 @@ public class MainActivity extends BaseActivity {
 
         }
         viewPager.setAdapter(pagerAdapter);
+//        viewPager.setPageTransformer(false,new ScaleTransformer());
 //        tabLayout.addTab(tabLayout.newTab());
 //        reflex(tabLayout);
+//        viewPager.setPageMargin(80);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabTextColors(Color.parseColor("#414141"), Color.parseColor("#FF600A"));
         tabLayout.setSelectedTabIndicatorColor(Color.parseColor("#FF600A"));

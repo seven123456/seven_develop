@@ -27,7 +27,7 @@ public class ConstantsLayout extends BaseActivity {
 
     @Override
     protected void initView() {
-        StatusBarUtil.setTranslate(this,true);
+        StatusBarUtil.setTranslate(this, true);
         initToolBar();
         ImageView imageView = findViewById(R.id.image_view);
         imageView.setImageResource(R.drawable.p8);
@@ -63,10 +63,8 @@ public class ConstantsLayout extends BaseActivity {
 
     private void initToolBar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
         toolbar.setTitle("这是折叠toolbar");
         setSupportActionBar(toolbar);
-//        getSupportActionBar().setIcon(this.getResources().getDrawable(R.drawable.p8));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,7 +72,6 @@ public class ConstantsLayout extends BaseActivity {
                 onBackPressed();
             }
         });
-//        }
     }
 
     @Override

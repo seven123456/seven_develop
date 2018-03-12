@@ -21,14 +21,14 @@ public class EFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-        TextView textView = rootView.findViewById(R.id.text);
-        textView.setText("我是E");
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(),ConstantsLayout.class));
-            }
-        });
+//        TextView textView = rootView.findViewById(R.id.text);
+//        textView.setText("我是E");
+//        textView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(getActivity(),ConstantsLayout.class));
+//            }
+//        });
     }
 
     @Override
