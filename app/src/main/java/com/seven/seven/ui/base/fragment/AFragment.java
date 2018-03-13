@@ -22,6 +22,7 @@ public class AFragment extends BaseFragment {
     protected void initView() {
      TextView textView = rootView.findViewById(R.id.text);
      textView.setText("我是A");
+     
     /* textView.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
