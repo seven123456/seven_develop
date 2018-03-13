@@ -1,6 +1,7 @@
 package com.seven.seven.common.utils;
 
 import android.app.Activity;
+import android.util.Log;
 
 import java.util.Stack;
 
@@ -69,4 +70,33 @@ public class AppManager {
         }
     }
 
+    /*
+    * 判断集合是否为空
+    * */
+    public boolean isEmptyList() {
+        return activityStack == null && activityStack.size() != 0 ? true : false;
+    }
+
+    /*
+    * 打印出当前所有的activity
+    * */
+    public void getAllActivity() {
+        if (activityStack.size() != 0 && activityStack != null) {
+            for (int i = 0; i < activityStack.size(); i++) {
+                Log.d("AppManager:", "存在栈里面的activity:" + activityStack.get(i).getClass() + "\n");
+            }
+        }else {
+            Log.d("AppManager","集合为null");
+        }
+    }
+
+    /*
+    * 清空栈内所有的activity
+    * */
+    public void removedAlllActivity(Activity activity) {
+        if (activityStack.size() != 0 && activityStack != null) {
+            finishActivity(activity);
+            activityStack.removeAllElements();
+        }
+    }
 }

@@ -5,7 +5,9 @@
     android:layout_height="match_parent">
 
 
-    <!--<com.seven.seven.ui.base.activity.ConstantsLayout
+    <com.seven.seven.ui.base.activity.ConstantsLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>-->
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        />
 </LinearLayout>

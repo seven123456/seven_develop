@@ -7,11 +7,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.seven.seven.R;
+import com.seven.seven.common.utils.AppManager;
 import com.seven.seven.common.utils.DensityUtil;
 import com.seven.seven.common.utils.ScaleTransformer;
 import com.seven.seven.ui.base.activity.BaseActivity;
@@ -46,7 +48,8 @@ public class MainActivity extends BaseActivity {
         tabLayout = findViewById(R.id.tablayout);
         viewPager = findViewById(R.id.viewpager);
         initViewPager();
-
+        Log.d("MainActivity", AppManager.getAppManager().getCurrentActivity() + "=========");
+        AppManager.getAppManager().getAllActivity();
     }
 
     private void initViewPager() {
@@ -56,12 +59,12 @@ public class MainActivity extends BaseActivity {
         fragmentList.add(new CFragment());
         fragmentList.add(new DFragment());
         fragmentList.add(new EFragment());
-        if(i==1){
+        if (i == 1) {
             pagerAdapter = new MyPagerAdapter(getSupportFragmentManager(), fragmentList, titles);
             tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
             tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        }else {
+        } else {
             pagerAdapter = new MyPagerAdapter(getSupportFragmentManager(), fragmentList, title1);
             tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
             tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -87,6 +90,12 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        AppManager.getAppManager().finishActivity(this);
+        if (AppManager.getAppManager().isEmptyList()) {
+            Log.d("MainActivity", "空了1");
+        } else {
+            Log.d("MainActivity", "没空了1");
+        }
     }
 
     private void setLin() {

@@ -19,13 +19,14 @@ public class BFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-        ImageView textView = rootView.findViewById(R.id.text);
+//        ImageView textView = rootView.findViewById(R.id.text);
 //        textView.setText("我是B");
 
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.layout_b_fragment;
+//        return R.layout.layout_b_fragment;
+        return R.layout.layout_fragment;
     }
 }
