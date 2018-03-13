@@ -13,7 +13,7 @@ import java.util.Stack;
  */
 
 public class AppManager {
-    private static AppManager instance;
+    private volatile static AppManager instance;
     private static Stack<Activity> activityStack;
 
     public AppManager() {
@@ -23,8 +23,14 @@ public class AppManager {
     * 单一实例
     * */
     public static AppManager getAppManager() {
-        if (instance == null) {
-            instance = new AppManager();
+        if (instance != null) {
+
+        } else {
+            synchronized (AppManager.class) {
+                if (instance == null) {
+                    instance = new AppManager();
+                }
+            }
         }
         return instance;
     }
@@ -32,7 +38,7 @@ public class AppManager {
     /*
     *add activity到堆栈
     * */
-    public void addActivity(Activity activity) {
+    public static void addActivity(Activity activity) {
         if (activityStack == null) {
             activityStack = new Stack<>();
         }
@@ -85,8 +91,8 @@ public class AppManager {
             for (int i = 0; i < activityStack.size(); i++) {
                 Log.d("AppManager:", "存在栈里面的activity:" + activityStack.get(i).getClass() + "\n");
             }
-        }else {
-            Log.d("AppManager","集合为null");
+        } else {
+            Log.d("AppManager", "集合为null");
         }
     }
 

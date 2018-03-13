@@ -18,8 +18,8 @@ public class DFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-        TextView textView = rootView.findViewById(R.id.text);
-        textView.setText("我是D");
+//        TextView textView = rootView.findViewById(R.id.text);
+//        textView.setText("我是D");
     }
 
     @Override
