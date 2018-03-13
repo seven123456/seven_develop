@@ -16,7 +16,6 @@
             android:layout_height="match_parent"
             android:minHeight="20dp"
             android:theme="@style/ThemeOverlay.AppCompat.Dark"
-            app:contentScrim="@color/colorAccent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
@@ -32,7 +31,6 @@
                 android:layout_height="?attr/actionBarSize"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark"
                 app:layout_collapseMode="pin" />
-
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>
@@ -51,7 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="bottom"
-                android:text="NestedScrollView的子控件" />
+                android:text="自定义view" />
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
