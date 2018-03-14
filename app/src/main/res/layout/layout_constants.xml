@@ -15,8 +15,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:minHeight="20dp"
+            app:statusBarScrim="@android:color/transparent"
             android:theme="@style/ThemeOverlay.AppCompat.Dark"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
             <ImageView
                 android:id="@+id/image_view"

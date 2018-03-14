@@ -27,7 +27,7 @@ public class ConstantsLayout extends BaseActivity {
 
     @Override
     protected void initView() {
-        StatusBarUtil.setTranslate(this, true);
+//        StatusBarUtil.setTranslate(this, true);
         initToolBar();
         ImageView imageView = findViewById(R.id.image_view);
         imageView.setImageResource(R.drawable.p8);
