@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
+import com.seven.seven.common.utils.RxTool;
+
 import cn.jpush.im.android.api.JMessageClient;
 
 /**
@@ -27,6 +29,7 @@ public class MyApplication extends Application {
         JMessageClient.init(context,true);
         JMessageClient.setDebugMode(true);
         Log.i("aaaa", "onCreate: ");
+        RxTool.init(this);
     }
 
     public static Context getContext() {
