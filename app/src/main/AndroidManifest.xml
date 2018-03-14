@@ -119,6 +119,8 @@
             android:authorities="${applicationId}.DataProvider"
             android:exported="true" />
 
+        <activity android:name=".ui.base.activity.ConstantsLayout"/>
+        <activity android:name=".ui.base.activity.ViewTestActivity"/>
     </application>
 
 </manifest>

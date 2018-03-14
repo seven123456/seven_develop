@@ -1,6 +1,7 @@
 package com.seven.seven.ui.base.fragment;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -20,9 +21,18 @@ public class AFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-     TextView textView = rootView.findViewById(R.id.text);
-     textView.setText("我是A");
-     
+        TextView textView = rootView.findViewById(R.id.text);
+        textView.setText("我是A");
+
+        Integer a = 5;
+        Integer b = new Integer(5);
+        String a1 = "a";
+        String b1 = new String("a");
+        a.equals(a1);
+        Log.d("AFragment--->", (a == b) + "");
+        Log.d("AFragment--->", (a.equals(b)) + "");
+//     TextView textView = rootView.findViewById(R.id.text);
+//     textView.setText("我是A");
     /* textView.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
