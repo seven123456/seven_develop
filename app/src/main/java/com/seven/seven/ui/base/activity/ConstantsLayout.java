@@ -1,17 +1,12 @@
 package com.seven.seven.ui.base.activity;
 
-import android.os.Build;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.ViewGroup;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 
 import com.seven.seven.R;
-import com.seven.seven.common.utils.DensityUtil;
-import com.seven.seven.common.utils.StatusBarUtil;
+import com.seven.seven.ui.base.BaseActivity;
 
 /**
  * Created  on 2018-02-25.
@@ -26,7 +21,7 @@ public class ConstantsLayout extends BaseActivity {
     }
 
     @Override
-    protected void initView() {
+    protected void initView(Bundle savedInstanceState) {
 //        StatusBarUtil.setTranslate(this, true);
         initToolBar();
         ImageView imageView = findViewById(R.id.image_view);

@@ -24,22 +24,22 @@ public interface BaseView {
      */
     void showToast(String msg);
 
-    /**
+ /*   *//**
      * 显示等待dialog
      *
      * @param waitMsg 等待消息字符串
-     */
+     *//*
     void showWaitDialog(String waitMsg);
 
-    /**
+    *//**
      * 隐藏等待dialog
-     */
+     *//*
     void hideWaitDialog();
 
-    /**
+    *//**
      * 隐藏键盘
-     */
-    void hideKeybord();
+     *//*
+    void hideKeybord();*/
 
     /**
      * 回退

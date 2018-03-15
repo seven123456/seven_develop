@@ -1,11 +1,9 @@
 package com.seven.seven.ui;
 
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
@@ -15,8 +13,7 @@ import android.widget.TextView;
 import com.seven.seven.R;
 import com.seven.seven.common.utils.AppManager;
 import com.seven.seven.common.utils.DensityUtil;
-import com.seven.seven.common.utils.ScaleTransformer;
-import com.seven.seven.ui.base.activity.BaseActivity;
+import com.seven.seven.ui.base.BaseActivity;
 import com.seven.seven.ui.base.fragment.AFragment;
 import com.seven.seven.ui.base.fragment.BFragment;
 import com.seven.seven.ui.base.fragment.CFragment;
@@ -43,7 +40,7 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    protected void initView() {
+    protected void initView(Bundle savedInstanceState) {
         mActivity = this;
         tabLayout = findViewById(R.id.tablayout);
         viewPager = findViewById(R.id.viewpager);

@@ -1,14 +1,14 @@
 package com.seven.seven.ui.base.activity;
 
 import android.graphics.Color;
+import android.os.Bundle;
 import android.view.View;
 
 import com.seven.seven.R;
 import com.seven.seven.common.utils.AppManager;
 import com.seven.seven.common.utils.StatusBarUtil;
 import com.seven.seven.common.view.CustomCOnstantsView;
-
-import static com.seven.seven.ui.MyApplication.getContext;
+import com.seven.seven.ui.base.BaseActivity;
 
 /**
  * Created  on 2018-03-13.
@@ -27,7 +27,7 @@ public class ViewTestActivity extends BaseActivity {
     }
 
     @Override
-    protected void initView() {
+    protected void initView(Bundle savedInstanceState) {
 //        initStatusBar();
         space = findViewById(R.id.main_action_bar_space);
         customCOnstantsView = findViewById(R.id.custom_view);

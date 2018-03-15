@@ -3,11 +3,9 @@ package com.seven.seven.ui.base.fragment;
 import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.seven.seven.R;
-import com.seven.seven.common.utils.RxToast;
-import com.seven.seven.ui.base.activity.ConstantsLayout;
+import com.seven.seven.common.utils.ToastUtils;
 import com.seven.seven.ui.base.activity.ViewTestActivity;
 
 /**
@@ -29,7 +27,7 @@ public class EFragment extends BaseFragment {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RxToast.success("请稍后");
+                ToastUtils.success("请稍后");
                 startActivity(new Intent(getActivity(),ViewTestActivity.class));
             }
         });

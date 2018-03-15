@@ -6,5 +6,7 @@ package com.seven.seven.ui.base;
  * email:seven2016s@163.com
  */
 
-public interface BaseModel {
+public abstract class BaseModel {
+    public BaseModel() {
+    }
 }

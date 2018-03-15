@@ -29,7 +29,7 @@ import static com.seven.seven.common.utils.RxTool.getContext;
  */
 
 @SuppressLint("InflateParams")
-public class RxToast {
+public class ToastUtils {
 
     @ColorInt
     private static final int DEFAULT_TEXT_COLOR = Color.parseColor("#FFFFFF");
@@ -385,7 +385,7 @@ public class RxToast {
 
     public static boolean doubleClickExit() {
         if ((System.currentTimeMillis() - mExitTime) > 2000) {
-            RxToast.normal("再按一次退出");
+            ToastUtils.normal("再按一次退出");
             mExitTime = System.currentTimeMillis();
             return false;
         }

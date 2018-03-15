@@ -1,12 +1,13 @@
 package com.seven.seven.ui.home;
 
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.widget.TextView;
 
 import com.seven.seven.R;
-import com.seven.seven.ui.base.activity.BaseActivity;
+import com.seven.seven.ui.base.BaseActivity;
 
 /**
  * Created  on 2018-02-07.
@@ -21,7 +22,7 @@ public class TestActivity extends BaseActivity {
     }
 
     @Override
-    protected void initView() {
+    protected void initView(Bundle savedInstanceState) {
         RecyclerView recyclerView = findViewById(R.id.rv_like);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 //        recyclerView.setAdapter();
