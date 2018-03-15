@@ -39,8 +39,8 @@ public class TestPresenter extends TestContract.TestPresenter {
     * */
     @Override
     public void loadTestList() {
-        if (isSuccess) {
+        /*if (isSuccess) {
             if()
-        }
+        }*/
     }
 }

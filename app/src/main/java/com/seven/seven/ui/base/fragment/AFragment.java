@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.seven.seven.R;
+import com.seven.seven.mvp.view.TestActivity3;
 
 /**
  * Created  on 2018-02-05.
@@ -23,7 +24,12 @@ public class AFragment extends BaseFragment {
     protected void initView() {
         TextView textView = rootView.findViewById(R.id.text);
         textView.setText("我是A");
-
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(),TestActivity3.class));
+            }
+        });
         /*Integer a = 5;
         Integer b = new Integer(5);
         String a1 = "a";

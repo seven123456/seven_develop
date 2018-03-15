@@ -121,6 +121,7 @@
 
         <activity android:name=".ui.base.activity.ConstantsLayout"/>
         <activity android:name=".ui.base.activity.ViewTestActivity"/>
+        <activity android:name=".mvp.view.TestActivity3"/>
     </application>
 
 </manifest>
