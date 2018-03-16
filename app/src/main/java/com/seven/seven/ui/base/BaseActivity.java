@@ -34,7 +34,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected abstract void initData();
 
-    private void init(Bundle savedInstanceState) {
+    protected void init(Bundle savedInstanceState) {
         setContentView(getContentViewResId());
         initView(savedInstanceState);
     }

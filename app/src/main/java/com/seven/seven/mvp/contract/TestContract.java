@@ -24,10 +24,10 @@ public interface TestContract {
     }
 
     interface ITestModle extends IBaseModel {
-        Observable<TestInfo> getTestInfo(String a1, String a2, String a3);
+        TestInfo getTestInfo(String a1, String a2, String a3);//获取数据
     }
 
-    interface ITestView extends IBaseView {
+    interface ITestView extends IBaseView {//view层对应的方法
         /*
         * 展示测试数据
         * */

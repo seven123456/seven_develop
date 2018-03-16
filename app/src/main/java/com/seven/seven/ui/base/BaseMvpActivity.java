@@ -23,33 +23,39 @@ public abstract class BaseMvpActivity<P extends BasePresenter, M extends IBaseMo
     protected P mPresenter;
     protected M mModel;
 
+    @Override
+    protected void init(Bundle savedInstanceState) {
+        initPresenter();
+        super.init(savedInstanceState);//不行的吧，因为在init里面还是做了很多操作 不一定是initpresenter是最先执行
+    }
+
     /*
-    * 通过继承关系，p层去持有v层对象
-    * 然后再通过p层去持有M层对象
-    * 最后通过P持有 m层和v层对象，这里面存在一个层级关系
-    * */
+            * 通过继承关系，p层去持有v层对象
+            * 然后再通过p层去持有M层对象
+            * 最后通过P持有 m层和v层对象，这里面存在一个层级关系
+            * */
     @Override
     protected void initData() {
-        mPresenter = (P) initPresenter();
+   /*     mPresenter = (P) initPresenter();
         if (mPresenter != null) {
-            mModel = (M) mPresenter.getModel();
+//            mModel = (M) mPresenter.getModel();
             if (mModel != null) {
-                mPresenter.attachMV(mModel, this);
+//                mPresenter.attachMV(mModel, this);
             }
-        }
+        }*/
     }
 
     /*
     * 通过p层里面的方法来进行解绑v 和M 层的持有关系
     * */
-    @Override
+  /*  @Override
     protected void onDestroy() {
         super.onDestroy();
         if (mPresenter != null) {
             mPresenter.detachMV();
         }
     }
-
+*/
     /*
     * 携带数据跳转并且返回
     * */

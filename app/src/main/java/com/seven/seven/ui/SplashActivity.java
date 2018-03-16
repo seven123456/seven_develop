@@ -27,7 +27,7 @@ public class SplashActivity extends BaseActivity {
 
     }
 
-    @Override
+   /* @Override
     protected void onResume() {
         super.onResume();
         if (AppManager.getAppManager().isEmptyList()) {
@@ -36,7 +36,7 @@ public class SplashActivity extends BaseActivity {
             AppManager.getAppManager().getAllActivity();
             Log.d("SplashActivity", "没空了" + AppManager.getAppManager().getCurrentActivity());
         }
-    }
+    }*/
 
     @Override
     protected int getContentViewResId() {

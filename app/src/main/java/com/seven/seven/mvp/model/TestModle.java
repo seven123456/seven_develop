@@ -22,7 +22,7 @@ public class TestModle extends BaseModel implements TestContract.ITestModle {
     * 网络请求
     * */
     @Override
-    public Observable<TestInfo> getTestInfo(String a1, String a2, String a3) {
-        return null;
+    public TestInfo getTestInfo(String a1, String a2, String a3) {
+        return new TestInfo("model的数据");
     }
 }

@@ -11,4 +11,9 @@ import javax.crypto.SealedObject;
  */
 
 public class TestInfo implements Serializable {
+    public String a;
+
+    public TestInfo(String a) {
+        this.a = a;
+    }
 }

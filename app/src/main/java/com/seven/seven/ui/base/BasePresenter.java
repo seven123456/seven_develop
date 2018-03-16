@@ -10,29 +10,29 @@ import io.reactivex.annotations.NonNull;
  * email:seven2016s@163.com
  */
 
-public abstract class BasePresenter<M, V> {
+public  abstract class BasePresenter<M extends IBaseModel, V extends IBaseView> {
     protected M mModle;
-    protected V mView;
+    public  V mView;
     private RxManager rxManager = new RxManager();
 
 
-    //绑定m和V引用的关系
-    public void attachMV(@NonNull M m, @NonNull V v) {
-        this.mModle = m;
-        this.mView = v;
-        this.onStart();
-    }
+//    //绑定m和V引用的关系
+//    public void attachMV(@NonNull M m, @NonNull V v) {
+//        this.mModle = m;
+//        this.mView = v;
+//        this.onStart();
+//    }
 
-    //解绑m和v的关系
-    public void detachMV() {
-        rxManager.unSubscribe();
-        this.mModle = null;
-        this.mView = null;
-    }
+//    //解绑m和v的关系
+//    public void detachMV() {
+//        rxManager.unSubscribe();
+//        this.mModle = null;
+//        this.mView = null;
+//    }
 
     //m和v绑定以后进行的一些操作，加载数据 刷新ui之类的操作
     public abstract void onStart();
 
     //返回presenter想持有的model
-    public abstract M getModel();
+//    public abstract M getModel();
 }
