@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.seven.seven.mvp.contract.TestContract;
 import com.seven.seven.mvp.model.TestModle;
+import com.seven.seven.mvp.view.TestActivity3;
 
 /**
  * Created  on 2018-03-15.
@@ -39,8 +40,8 @@ public class TestPresenter extends TestContract.TestPresenter {
     * */
     @Override
     public void loadTestList() {
-        /*if (isSuccess) {
-            if()
-        }*/
+        if (isSuccess) {
+//            mView.showTestData("v层拿到m层数据去展示");
+        }
     }
 }

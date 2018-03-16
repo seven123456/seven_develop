@@ -3,7 +3,9 @@ package com.seven.seven.mvp.contract;
 import android.database.Observable;
 
 import com.seven.seven.mvp.model.TestInfo;
+import com.seven.seven.ui.base.BaseModel;
 import com.seven.seven.ui.base.BasePresenter;
+import com.seven.seven.ui.base.BaseView;
 import com.seven.seven.ui.base.IBaseModel;
 import com.seven.seven.ui.base.IBaseView;
 

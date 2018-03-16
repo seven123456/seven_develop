@@ -11,8 +11,8 @@ import io.reactivex.annotations.NonNull;
  */
 
 public abstract class BasePresenter<M, V> {
-    private M mModle;
-    private V mView;
+    protected M mModle;
+    protected V mView;
     private RxManager rxManager = new RxManager();
 
 
