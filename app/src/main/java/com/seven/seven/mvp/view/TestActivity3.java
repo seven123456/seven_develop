@@ -36,7 +36,7 @@ public class TestActivity3 extends BaseMvpActivity<TestContract.TestPresenter, T
     @Override
     protected void initView(Bundle savedInstanceState) {
         mPresenter.loadTestList();//v给p层发送业务处理，举个例子
-        List<String> list2 = new ArrayList<String>();
+       /* List<String> list2 = new ArrayList<String>();
         list2.add("1");
         list2.add("2");
         list2.add("3");
@@ -48,7 +48,7 @@ public class TestActivity3 extends BaseMvpActivity<TestContract.TestPresenter, T
                 break;
             }
         }
-        Log.d("TestActivity3=======",list2.size()+"个");
+        Log.d("TestActivity3=======",list2.size()+"个");*/
     }
 
     @Override

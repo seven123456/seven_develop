@@ -6,7 +6,27 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.seven.seven.R;
+import com.seven.seven.common.Model.BannerInfos;
+import com.seven.seven.common.Model.Infos;
+import com.seven.seven.common.network.ApiRetrofit;
+import com.seven.seven.common.utils.ToastUtils;
 import com.seven.seven.mvp.view.TestActivity3;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.ObservableSource;
+import io.reactivex.Observer;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created  on 2018-02-05.
@@ -15,6 +35,9 @@ import com.seven.seven.mvp.view.TestActivity3;
  */
 
 public class AFragment extends BaseFragment {
+
+    private Observable<List<Infos>> observable;
+
     @Override
     protected void initData() {
 
@@ -22,14 +45,147 @@ public class AFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-        TextView textView = rootView.findViewById(R.id.text);
+       /* Observable<String> observable = Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(ObservableEmitter<String> e) throws Exception {
+                e.onNext("");
+                e.onComplete();
+                e.onNext("我是在oncomplete之后的");
+            }
+        });*/
+//        Observable<String> observable = Observable.just("我是用just发送的数据");
+//        Observable<String> observable = Observable.fromArray("我是用array发送的数据");
+        long a = 1000;
+      /*  Observable.interval(1, TimeUnit.SECONDS).take(6)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Long>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                *//*d.isDisposed();
+                Log.d("AFragment--->", "onSubscribe===" + "我是未发送之前的");*//*
+                        Log.d("AFragment--->", "onSubscribe===" + d.toString());
+                    }
+
+                    @Override
+                    public void onNext(Long s) {
+                        Log.d("AFragment--->", "onNext===" + s);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d("AFragment--->", "onError===" + e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.d("AFragment--->", "onComplete");
+                    }
+                });*/
+       /* Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(ObservableEmitter<String> e) throws Exception {
+                e.onNext("1");
+                e.onNext("2");
+                e.onNext("3");
+                e.onComplete();
+            }
+        }).map(new Function<String, Float>() {
+            @Override
+            public Float apply(String integer) throws Exception {
+                return Float.parseFloat(integer);
+            }
+        }).subscribe(new Consumer<Float>() {
+            @Override
+            public void accept(Float aFloat) throws Exception {
+                Log.d("AFragment--->", "accept===" + aFloat);
+            }
+        });*/
+        /*Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(ObservableEmitter<String> e) throws Exception {
+                e.onNext("1");
+                e.onNext("2");
+                e.onNext("3");
+                e.onComplete();
+            }
+        }).flatMap(new Function<String, ObservableSource<Float>>() {
+            @Override
+            public ObservableSource<Float> apply(String s) throws Exception {
+                List<Float> list = new ArrayList<>();
+                list.add(Float.valueOf(s));
+                list.add(Float.valueOf(s));
+                list.add(Float.valueOf(s));
+                list.add(Float.valueOf(s));
+                return Observable.fromIterable(list).delay(10,TimeUnit.SECONDS);
+            }
+        }).subscribe(new Consumer<Float>() {
+            @Override
+            public void accept(Float aFloat) throws Exception {
+                Log.d("AFragment--->", "accept===" + aFloat);
+            }
+        });*/
+        /*Observable.create(new )*/
+        ApiRetrofit.getApi().getApiServis().getBannerInfos()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<List<BannerInfos>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(List<BannerInfos> infos) {
+                        if (infos.size() != 0) {
+                            ToastUtils.showToast("onNext");
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d("AFragment--->", "onError===" + e.getMessage());
+                        ToastUtils.showToast(e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        ToastUtils.showToast("oncomplete");
+                    }
+                });
+
+       /* Observer<Long> stringObserver = new Observer<Long>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                *//*d.isDisposed();
+                Log.d("AFragment--->", "onSubscribe===" + "我是未发送之前的");*//*
+                Log.d("AFragment--->", "onSubscribe===" + d);
+            }
+
+            @Override
+            public void onNext(Long s) {
+                Log.d("AFragment--->", "onNext===" + s);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.d("AFragment--->", "onError===" + e);
+            }
+
+            @Override
+            public void onComplete() {
+                Log.d("AFragment--->", "onComplete");
+            }
+        };
+        observable.subscribe(stringObserver);*/
+       /* TextView textView = rootView.findViewById(R.id.text);
         textView.setText("我是A");
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getContext(),TestActivity3.class));
             }
-        });
+        });*/
         /*Integer a = 5;
         Integer b = new Integer(5);
         String a1 = "a";

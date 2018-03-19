@@ -55,9 +55,11 @@ public class TestPresenter extends TestContract.TestPresenter {
 //            mView.showTestData("v层拿到m层数据去展示");
 //        }
         TestInfo testInfo = mModle.getTestInfo("a", "a", "a");
-        List<TestInfo> testInfos = new ArrayList<>();
-        testInfos.add(testInfo);
-        mView.showTestData(testInfos);
+        if (testInfo != null) {
+            List<TestInfo> testInfos = new ArrayList<>();
+            testInfos.add(testInfo);
+            mView.showTestData(testInfos);
+        }
 //        mView.showToast("v层拿到m层数据去展示");
 
     }
