@@ -126,20 +126,18 @@ public class AFragment extends BaseFragment {
             }
         });*/
         /*Observable.create(new )*/
-        ApiRetrofit.getApi().getApiServis().getBannerInfos()
+        ApiRetrofit.getApi().getApiServis().getInfos()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<List<BannerInfos>>() {
+                .subscribe(new Observer<Infos>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(List<BannerInfos> infos) {
-                        if (infos.size() != 0) {
-                            ToastUtils.showToast("onNext");
-                        }
+                    public void onNext(Infos infos) {
+                            ToastUtils.showToast("onNext"+infos.getData().toString());
                     }
 
                     @Override
@@ -150,7 +148,7 @@ public class AFragment extends BaseFragment {
 
                     @Override
                     public void onComplete() {
-                        ToastUtils.showToast("oncomplete");
+//                        ToastUtils.showToast("oncomplete");
                     }
                 });
 
