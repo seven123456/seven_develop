@@ -9,6 +9,7 @@ import com.seven.seven.R;
 import com.seven.seven.common.Model.BannerInfos;
 import com.seven.seven.common.Model.Infos;
 import com.seven.seven.common.network.ApiRetrofit;
+import com.seven.seven.common.network.ThreadSchedulersHelper;
 import com.seven.seven.common.utils.ToastUtils;
 import com.seven.seven.mvp.view.TestActivity3;
 
@@ -126,32 +127,41 @@ public class AFragment extends BaseFragment {
             }
         });*/
         /*Observable.create(new )*/
-        ApiRetrofit.getApi().getApiServis().getInfos()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Infos>() {
+        ApiRetrofit.getApiRetrofit().getApiServis().getInfos()
+                .compose(ThreadSchedulersHelper.<Infos>rxSchedulers())
+                .subscribe(new Consumer<Infos>() {
                     @Override
-                    public void onSubscribe(Disposable d) {
-
+                    public void accept(Infos infos) throws Exception {
+                        ToastUtils.showToast("onNext===" + infos.getData().toString());
                     }
-
+                }, new Consumer<Throwable>() {
                     @Override
-                    public void onNext(Infos infos) {
-                            ToastUtils.showToast("onNext"+infos.getData().toString());
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.d("AFragment--->", "onError===" + e.getMessage());
-                        ToastUtils.showToast(e.getMessage());
-                    }
-
-                    @Override
-                    public void onComplete() {
-//                        ToastUtils.showToast("oncomplete");
+                    public void accept(Throwable throwable) throws Exception {
+                        ToastUtils.showToast("throwable===" + throwable.getMessage());
                     }
                 });
+       /* new Observer<Infos>() {
+            @Override
+            public void onSubscribe(Disposable d) {
 
+            }
+
+            @Override
+            public void onNext(Infos infos) {
+                ToastUtils.showToast("onNext" + infos.getData().toString());
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.d("AFragment--->", "onError===" + e.getMessage());
+                ToastUtils.showToast(e.getMessage());
+            }
+
+            @Override
+            public void onComplete() {
+//                        ToastUtils.showToast("oncomplete");
+            }
+        }*/
        /* Observer<Long> stringObserver = new Observer<Long>() {
             @Override
             public void onSubscribe(Disposable d) {

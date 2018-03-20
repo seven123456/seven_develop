@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
+import com.seven.seven.common.network.ApiRetrofit;
 import com.seven.seven.common.utils.RxTool;
 
 import cn.jpush.im.android.api.JMessageClient;
@@ -30,6 +31,7 @@ public class MyApplication extends Application {
         JMessageClient.setDebugMode(true);
         Log.i("aaaa", "onCreate: ");
         RxTool.init(this);
+        ApiRetrofit.getApiRetrofit();
     }
 
     public static Context getContext() {

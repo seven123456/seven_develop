@@ -4,8 +4,6 @@ import com.seven.seven.common.Model.BannerInfos;
 import com.seven.seven.common.Model.Infos;
 
 
-import java.util.List;
-
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 
@@ -15,9 +13,9 @@ import retrofit2.http.GET;
  * email:seven2016s@163.com
  */
 
-public interface ApiServise {
+public interface ApiService {
 
-    @GET("/article/list/1/json")
+    @GET("/article/list/1/json/s")
     Observable<Infos> getInfos();
 
     @GET("banner/json")
