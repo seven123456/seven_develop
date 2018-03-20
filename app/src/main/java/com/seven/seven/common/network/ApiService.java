@@ -15,7 +15,7 @@ import retrofit2.http.GET;
 
 public interface ApiService {
 
-    @GET("/article/list/1/json/s")
+    @GET("/article/list/1/json")
     Observable<Infos> getInfos();
 
     @GET("banner/json")
