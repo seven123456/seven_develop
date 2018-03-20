@@ -1,16 +1,9 @@
 package com.seven.seven.mvp.contract;
 
-import android.database.Observable;
-
-import com.seven.seven.mvp.model.TestInfo;
-import com.seven.seven.ui.base.BaseModel;
-import com.seven.seven.ui.base.BasePresenter;
-import com.seven.seven.ui.base.BaseView;
-import com.seven.seven.ui.base.IBaseModel;
-import com.seven.seven.ui.base.IBaseView;
-
-import java.io.Serializable;
-import java.util.List;
+import com.seven.seven.common.Model.Infos;
+import com.seven.seven.common.base.BasePresenter;
+import com.seven.seven.common.base.IBaseModel;
+import com.seven.seven.common.base.IBaseView;
 
 /**
  * Created  on 2018-03-15.
@@ -24,7 +17,7 @@ public interface TestContract {
     }
 
     interface ITestModle extends IBaseModel {
-        TestInfo getTestInfo(String a1, String a2, String a3);//获取数据
+        io.reactivex.Observable<Infos> getTestInfo();//获取数据
     }
 
     interface ITestView extends IBaseView {//view层对应的方法
@@ -32,7 +25,7 @@ public interface TestContract {
         * 展示测试数据
         * */
 
-        void showTestData(List<TestInfo> testInfoList);//
+        void showTestData(Infos testInfoList);//
 
         /**
          * 显示网络错误

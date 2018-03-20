@@ -7,7 +7,7 @@ import android.text.Html;
 import android.widget.TextView;
 
 import com.seven.seven.R;
-import com.seven.seven.ui.base.BaseActivity;
+import com.seven.seven.common.base.BaseActivity;
 
 /**
  * Created  on 2018-02-07.

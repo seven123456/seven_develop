@@ -1,4 +1,4 @@
-package com.seven.seven.ui.base;
+package com.seven.seven.common.base;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;

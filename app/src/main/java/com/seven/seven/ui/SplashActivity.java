@@ -2,12 +2,11 @@ package com.seven.seven.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 
 import com.seven.seven.R;
 import com.seven.seven.common.utils.AppManager;
-import com.seven.seven.ui.base.BaseActivity;
+import com.seven.seven.common.base.BaseActivity;
 
 /**
  * Created  on 2018-02-02.
@@ -23,8 +22,9 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        startActivity(new Intent(this, MainActivity.class));
-
+//        startActivity(new Intent(this, MainActivity.class));
+        startActivity(MainActivity.class);
+        finish();
     }
 
    /* @Override

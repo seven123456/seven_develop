@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.seven.seven.R;
-import com.seven.seven.ui.base.BaseActivity;
+import com.seven.seven.common.base.BaseActivity;
 
 /**
  * Created  on 2018-02-25.

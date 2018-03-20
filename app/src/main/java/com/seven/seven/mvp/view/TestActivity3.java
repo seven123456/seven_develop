@@ -2,19 +2,14 @@ package com.seven.seven.mvp.view;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.seven.seven.R;
+import com.seven.seven.common.Model.Infos;
 import com.seven.seven.common.utils.ToastUtils;
 import com.seven.seven.mvp.contract.TestContract;
-import com.seven.seven.mvp.model.TestInfo;
 import com.seven.seven.mvp.presenter.TestPresenter;
-import com.seven.seven.ui.base.BaseMvpActivity;
-import com.seven.seven.ui.base.BasePresenter;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.seven.seven.common.base.BaseMvpActivity;
+import com.seven.seven.common.base.BasePresenter;
 
 /**
  * Created  on 2018-01-04.
@@ -57,10 +52,10 @@ public class TestActivity3 extends BaseMvpActivity<TestContract.TestPresenter, T
     }
 
     @Override
-    public void showTestData(List<TestInfo> testInfoList) {
-        for (int i = 0; i < testInfoList.size(); i++) {
-            ToastUtils.showToast(testInfoList.get(i).a);
-        }
+    public void showTestData(Infos testInfoList) {
+//        for (int i = 0; i < testInfoList.size(); i++) {
+            ToastUtils.showToast(testInfoList.getData().toString());
+//        }
     }
 
     @Override

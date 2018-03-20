@@ -1,13 +1,10 @@
-package com.seven.seven.ui.base;
+package com.seven.seven.common.base;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
 import com.seven.seven.common.utils.AppManager;
 import com.seven.seven.common.utils.ToastUtils;
-import com.seven.seven.ui.base.BaseActivity;
-import com.seven.seven.ui.base.BasePresenter;
-import com.seven.seven.ui.base.IBaseView;
 
 /**
  * Created  on 2018-01-05.
@@ -26,7 +23,7 @@ public abstract class BaseMvpActivity<P extends BasePresenter, M extends IBaseMo
     @Override
     protected void init(Bundle savedInstanceState) {
         initPresenter();
-        super.init(savedInstanceState);//不行的吧，因为在init里面还是做了很多操作 不一定是initpresenter是最先执行
+        super.init(savedInstanceState);
     }
 
     /*

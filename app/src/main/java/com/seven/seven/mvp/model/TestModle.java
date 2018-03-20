@@ -1,11 +1,18 @@
+
+
+
+
+
+
 package com.seven.seven.mvp.model;
-
-import android.database.Observable;
 import android.support.annotation.NonNull;
-
+import com.seven.seven.common.Model.Infos;
+import com.seven.seven.common.network.ApiRetrofit;
+import com.seven.seven.common.network.ThreadSchedulersHelper;
 import com.seven.seven.mvp.contract.TestContract;
-import com.seven.seven.ui.base.BaseModel;
-import com.seven.seven.ui.base.IBaseModel;
+import com.seven.seven.common.base.BaseModel;
+
+import io.reactivex.Observable;
 
 /**
  * Created  on 2018-03-15.
@@ -30,7 +37,7 @@ public class TestModle extends BaseModel implements TestContract.ITestModle {
    * 网络请求
    * */
     @Override
-    public TestInfo getTestInfo(String a1, String a2, String a3) {
-        return null;
+    public Observable<Infos> getTestInfo() {
+        return ApiRetrofit.getApiRetrofit().getApiServis().getInfos().compose(ThreadSchedulersHelper.<Infos>rxSchedulers());
     }
 }

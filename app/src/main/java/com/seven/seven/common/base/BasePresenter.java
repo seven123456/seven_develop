@@ -1,8 +1,6 @@
-package com.seven.seven.ui.base;
+package com.seven.seven.common.base;
 
 import com.seven.seven.common.utils.RxManager;
-
-import io.reactivex.annotations.NonNull;
 
 /**
  * Created  on 2018-01-05.

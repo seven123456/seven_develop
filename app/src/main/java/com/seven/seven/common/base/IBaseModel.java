@@ -1,4 +1,4 @@
-package com.seven.seven.ui.base;
+package com.seven.seven.common.base;
 
 /**
  * Created  on 2018-03-15.

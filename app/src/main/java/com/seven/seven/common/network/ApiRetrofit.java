@@ -25,7 +25,7 @@ public class ApiRetrofit {
     private static String baseUrl = NetworkUrl.ANDROID_TEST_SERVICE;
     private static ApiService apiServise;
 
-    public static ApiService getApiServis() {
+    public  ApiService getApiServis() {
         return apiServise;
     }
 

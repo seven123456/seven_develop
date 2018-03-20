@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.seven.seven.R;
 import com.seven.seven.common.utils.AppManager;
 import com.seven.seven.common.utils.DensityUtil;
-import com.seven.seven.ui.base.BaseActivity;
+import com.seven.seven.common.base.BaseActivity;
 import com.seven.seven.ui.base.fragment.AFragment;
 import com.seven.seven.ui.base.fragment.BFragment;
 import com.seven.seven.ui.base.fragment.CFragment;
