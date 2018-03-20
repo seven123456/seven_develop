@@ -7,6 +7,7 @@
 package com.seven.seven.mvp.model;
 import android.support.annotation.NonNull;
 import com.seven.seven.common.Model.Infos;
+import com.seven.seven.common.base.ResponseCustom;
 import com.seven.seven.common.network.ApiRetrofit;
 import com.seven.seven.common.network.ThreadSchedulersHelper;
 import com.seven.seven.mvp.contract.TestContract;
@@ -37,7 +38,7 @@ public class TestModle extends BaseModel implements TestContract.ITestModle {
    * 网络请求
    * */
     @Override
-    public Observable<Infos> getTestInfo() {
-        return ApiRetrofit.getApiRetrofit().getApiServis().getInfos().compose(ThreadSchedulersHelper.<Infos>rxSchedulers());
+    public Observable<ResponseCustom<Infos>> getTestInfo() {
+        return ApiRetrofit.getApiRetrofit().getApiServis().getInfos().compose(ThreadSchedulersHelper.<ResponseCustom<Infos>>rxSchedulers());
     }
 }

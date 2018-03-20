@@ -2,9 +2,11 @@ package com.seven.seven.common.network;
 
 import com.seven.seven.common.Model.BannerInfos;
 import com.seven.seven.common.Model.Infos;
+import com.seven.seven.common.base.ResponseCustom;
 
 
 import io.reactivex.Observable;
+import retrofit2.Response;
 import retrofit2.http.GET;
 
 /**
@@ -16,8 +18,8 @@ import retrofit2.http.GET;
 public interface ApiService {
 
     @GET("/article/list/1/json")
-    Observable<Infos> getInfos();
+    Observable<ResponseCustom<Infos>> getInfos();
 
     @GET("banner/json")
-    Observable<BannerInfos> getBannerInfos();
+    Observable<ResponseCustom<BannerInfos>> getBannerInfos();
 }

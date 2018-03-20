@@ -127,7 +127,7 @@ public class AFragment extends BaseFragment {
             }
         });*/
         /*Observable.create(new )*/
-        ApiRetrofit.getApiRetrofit().getApiServis().getInfos()
+      /*  ApiRetrofit.getApiRetrofit().getApiServis().getInfos()
                 .compose(ThreadSchedulersHelper.<Infos>rxSchedulers())
                 .subscribe(new Consumer<Infos>() {
                     @Override
@@ -139,7 +139,7 @@ public class AFragment extends BaseFragment {
                     public void accept(Throwable throwable) throws Exception {
                         ToastUtils.showToast("throwable===" + throwable.getMessage());
                     }
-                });
+                });*/
        /* new Observer<Infos>() {
             @Override
             public void onSubscribe(Disposable d) {

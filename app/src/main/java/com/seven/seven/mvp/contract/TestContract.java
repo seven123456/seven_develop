@@ -4,6 +4,7 @@ import com.seven.seven.common.Model.Infos;
 import com.seven.seven.common.base.BasePresenter;
 import com.seven.seven.common.base.IBaseModel;
 import com.seven.seven.common.base.IBaseView;
+import com.seven.seven.common.base.ResponseCustom;
 
 /**
  * Created  on 2018-03-15.
@@ -17,7 +18,7 @@ public interface TestContract {
     }
 
     interface ITestModle extends IBaseModel {
-        io.reactivex.Observable<Infos> getTestInfo();//获取数据
+        io.reactivex.Observable<ResponseCustom<Infos>> getTestInfo();//获取数据
     }
 
     interface ITestView extends IBaseView {//view层对应的方法

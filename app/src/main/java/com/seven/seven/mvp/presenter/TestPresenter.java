@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.seven.seven.common.Model.Infos;
 import com.seven.seven.common.base.HttpResultObserver;
+import com.seven.seven.common.base.ResponseCustom;
 import com.seven.seven.common.utils.ToastUtils;
 import com.seven.seven.mvp.contract.TestContract;
 import com.seven.seven.mvp.model.TestInfo;
@@ -77,14 +78,14 @@ public class TestPresenter extends TestContract.TestPresenter {
                 mView.showNetworkError();
             }
         });*/
-        mModle.getTestInfo().subscribe(new HttpResultObserver<Infos>() {
+        mModle.getTestInfo().subscribe(new HttpResultObserver<ResponseCustom<Infos>>() {
             @Override
             protected void onLoading(Disposable d) {
 
             }
 
             @Override
-            protected void onSuccess(Infos o) {
+            protected void onSuccess(ResponseCustom<Infos> o) {
                 ToastUtils.showToast(o.getData().toString());
             }
 
