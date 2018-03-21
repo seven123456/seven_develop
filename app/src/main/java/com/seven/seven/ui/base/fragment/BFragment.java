@@ -4,6 +4,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.seven.seven.R;
+import com.seven.seven.common.view.MarqueeView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created  on 2018-02-05.
@@ -12,6 +16,9 @@ import com.seven.seven.R;
  */
 
 public class BFragment extends BaseFragment {
+
+    private MarqueeView marqueeView;
+
     @Override
     protected void initData() {
 
@@ -19,6 +26,26 @@ public class BFragment extends BaseFragment {
 
     @Override
     protected void initView() {
+        /*marqueeView = rootView.findViewById(R.id.marquee_view);
+        List<String> list = new ArrayList<>();
+//        String a = "第1个";
+//        "第2个", "第3个", "第4个", "第5个", "第6个", "第7个";
+        for (int i = 0; i < 10; i++) {
+            list.add("第" + i + "个");
+        }
+        marqueeView.setText(list);
+        marqueeView.setOnMargueeListener(new MarqueeView.OnMargueeListener() {
+            @Override
+            public void onRollOver() {
+                marqueeView.stopScroll();
+            }
+
+            @Override
+            public void onRollIndex(int position) {
+                marqueeView.startScroll();
+
+            }
+        });*/
 //        ImageView textView = rootView.findViewById(R.id.text);
 //        textView.setText("我是B");
 

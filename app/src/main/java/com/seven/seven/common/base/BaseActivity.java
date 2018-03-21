@@ -44,9 +44,16 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected abstract int getContentViewResId();
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        RxLifeManager.getRxLifeManager().onStopDisposable();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         AppManager.getAppManager().finishActivity(this);
+        RxLifeManager.getRxLifeManager().onDestroy();
     }
 
     /*

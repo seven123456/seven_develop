@@ -4,11 +4,21 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
-    <ImageView
+    <!--<ImageView
         android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/logo_thishop"
         android:scaleType="centerCrop"
-        />
+        />-->
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swf"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <com.seven.seven.common.view.MarqueeView
+        android:id="@+id/marquee_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

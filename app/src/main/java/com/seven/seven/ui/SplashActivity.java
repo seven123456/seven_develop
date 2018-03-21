@@ -2,11 +2,24 @@ package com.seven.seven.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.KeyEvent;
+import android.widget.ImageView;
 
 import com.seven.seven.R;
 import com.seven.seven.common.utils.AppManager;
 import com.seven.seven.common.base.BaseActivity;
+import com.seven.seven.common.utils.ToastUtils;
+
+import java.util.Observable;
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created  on 2018-02-02.
@@ -15,16 +28,58 @@ import com.seven.seven.common.base.BaseActivity;
  */
 
 public class SplashActivity extends BaseActivity {
+
+    private ImageView imageView;
+
     @Override
     protected void initData() {
 
     }
 
+    private int time = 3;
+
     @Override
     protected void initView(Bundle savedInstanceState) {
 //        startActivity(new Intent(this, MainActivity.class));
-        startActivity(MainActivity.class);
-        finish();
+        imageView = findViewById(R.id.text);
+        final Handler handler =new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                switch (msg.what){
+                    case 1:
+                        imageView.setImageResource(R.drawable.timgs);
+                        io.reactivex.Observable.interval(1, TimeUnit.SECONDS).take(3)//角标从0开始
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(new Consumer<Long>() {
+                                    @Override
+                                    public void accept(Long aLong) throws Exception {
+                                        if (time-aLong == 1) {
+                                            startActivity(MainActivity.class);
+                                            finish();
+                                        }
+                                    }
+                                });
+                        break;
+                }
+            }
+        };
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(3000);
+                    Message message =new Message();
+                    message.what=1;
+                    handler.sendMessage(message);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+
     }
 
    /* @Override

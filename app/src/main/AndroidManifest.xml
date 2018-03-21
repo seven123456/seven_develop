@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.seven.seven">
+
     <permission
         android:name="com.seven.seven.permission.JPUSH_MESSAGE"
-        android:protectionLevel="signature"/>
+        android:protectionLevel="signature" />
     <!-- Required -->
     <uses-permission android:name="com.seven.seven.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
@@ -40,13 +41,15 @@
         <activity android:name=".ui.MainActivity">
 
         </activity>
-    <activity android:name=".ui.SplashActivity" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-    </activity>
-    <activity android:name=".ui.home.TestActivity"/>
+        <activity
+            android:name=".ui.SplashActivity"
+            android:theme="@style/FlashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.home.TestActivity" />
         <!-- Required SDK 核心功能-->
         <!-- 可配置android:process参数将PushService放在其他进程中 -->
         <service
@@ -99,7 +102,7 @@
         <!-- Required SDK核心功能 -->
         <receiver
             android:name="cn.jpush.android.service.AlarmReceiver"
-            android:exported="false"/>
+            android:exported="false" />
         <!-- Required. For publish channel feature -->
         <!-- JPUSH_CHANNEL 是为了方便开发者统计APK分发渠道。-->
         <!-- 例如: -->
@@ -119,9 +122,9 @@
             android:authorities="${applicationId}.DataProvider"
             android:exported="true" />
 
-        <activity android:name=".ui.base.activity.ConstantsLayout"/>
-        <activity android:name=".ui.base.activity.ViewTestActivity"/>
-        <activity android:name=".mvp.view.TestActivity3"/>
+        <activity android:name=".ui.base.activity.ConstantsLayout" />
+        <activity android:name=".ui.base.activity.ViewTestActivity" />
+        <activity android:name=".mvp.view.TestActivity3" />
     </application>
 
 </manifest>

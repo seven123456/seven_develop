@@ -36,7 +36,7 @@ public class AppManager {
     }
 
     /*
-    *add activity到堆栈
+    *add activity到栈
     * */
     public static void addActivity(Activity activity) {
         if (activityStack == null) {

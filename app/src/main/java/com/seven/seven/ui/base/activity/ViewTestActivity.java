@@ -2,7 +2,9 @@ package com.seven.seven.ui.base.activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.seven.seven.R;
 import com.seven.seven.common.utils.AppManager;
@@ -55,6 +57,8 @@ public class ViewTestActivity extends BaseActivity {
                 StatusBarUtil.setTranslates(ViewTestActivity.this,true);
             }
         });
+
+//        customCOnstantsView.addMatchViews();
     }
 
 
