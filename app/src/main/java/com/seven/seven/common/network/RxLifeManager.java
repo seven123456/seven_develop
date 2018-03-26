@@ -1,4 +1,4 @@
-package com.seven.seven.common.base;
+package com.seven.seven.common.network;
 
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;

@@ -1,4 +1,4 @@
-package com.seven.seven.common.base;
+package com.seven.seven.common.network;
 
 import java.io.Serializable;
 

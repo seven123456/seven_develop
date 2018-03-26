@@ -1,7 +1,9 @@
 package com.seven.seven.common.base;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.seven.seven.R;
+import com.seven.seven.common.network.RxLifeManager;
 import com.seven.seven.common.utils.AppManager;
 
 
@@ -21,6 +24,7 @@ import com.seven.seven.common.utils.AppManager;
 public abstract class BaseActivity extends AppCompatActivity {
 
     private boolean isTransAnim;//是否使用跳转动画
+    private HttpErrorReceiver httpErrorReceiver;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -97,6 +101,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                     .activity_start_zoom_out);
         }
     }
+
     /*
     * 统一处理toolbar的基本设置
     * */
@@ -113,6 +118,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             }
         });
     }
+
     @Override
     public void finish() {
         super.finish();

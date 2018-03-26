@@ -4,7 +4,7 @@ import com.seven.seven.common.Model.Infos;
 import com.seven.seven.common.base.BasePresenter;
 import com.seven.seven.common.base.IBaseModel;
 import com.seven.seven.common.base.IBaseView;
-import com.seven.seven.common.base.ResponseCustom;
+import com.seven.seven.common.network.ResponseCustom;
 
 /**
  * Created  on 2018-03-15.

@@ -7,7 +7,7 @@
 package com.seven.seven.mvp.model;
 import android.support.annotation.NonNull;
 import com.seven.seven.common.Model.Infos;
-import com.seven.seven.common.base.ResponseCustom;
+import com.seven.seven.common.network.ResponseCustom;
 import com.seven.seven.common.network.ApiRetrofit;
 import com.seven.seven.common.network.ThreadSchedulersHelper;
 import com.seven.seven.mvp.contract.TestContract;

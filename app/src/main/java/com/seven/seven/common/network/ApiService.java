@@ -2,11 +2,9 @@ package com.seven.seven.common.network;
 
 import com.seven.seven.common.Model.BannerInfos;
 import com.seven.seven.common.Model.Infos;
-import com.seven.seven.common.base.ResponseCustom;
 
 
 import io.reactivex.Observable;
-import retrofit2.Response;
 import retrofit2.http.GET;
 
 /**

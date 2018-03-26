@@ -1,4 +1,4 @@
-package com.seven.seven.common.base;
+package com.seven.seven.common.network;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -11,6 +11,7 @@ import io.reactivex.disposables.Disposable;
 
 public abstract class HttpCommonObserver<T> implements Observer<T> {
     private boolean flag = false;//是否切断上下游的事件传递
+    public static final int UN_KNOWN_ERROR = 1000;//未知错误
 
     public HttpCommonObserver() {
     }
@@ -33,6 +34,7 @@ public abstract class HttpCommonObserver<T> implements Observer<T> {
 
     protected abstract void _onNext(T t);
 
+    //    protected abstract void _onError(ApiException e);
     protected abstract void _onError(Throwable e);
 
     /*
@@ -48,6 +50,11 @@ public abstract class HttpCommonObserver<T> implements Observer<T> {
 
     @Override
     public void onError(Throwable e) {
+        /*if (e instanceof ApiException) {
+            _onError((ApiException) e);
+        } else {
+            this._onError(new ApiException(e,UN_KNOWN_ERROR));
+        }*/
         this._onError(e);
     }
 

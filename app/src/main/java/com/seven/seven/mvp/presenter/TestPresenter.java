@@ -1,23 +1,13 @@
 package com.seven.seven.mvp.presenter;
 
-import android.support.annotation.NonNull;
-
 import com.seven.seven.common.Model.Infos;
-import com.seven.seven.common.base.HttpResultObserver;
-import com.seven.seven.common.base.ResponseCustom;
+import com.seven.seven.common.network.HttpResultObserver;
+import com.seven.seven.common.network.ResponseCustom;
 import com.seven.seven.common.utils.ToastUtils;
 import com.seven.seven.mvp.contract.TestContract;
-import com.seven.seven.mvp.model.TestInfo;
 import com.seven.seven.mvp.model.TestModle;
-import com.seven.seven.mvp.view.TestActivity3;
-
-import junit.framework.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 
 /**
  * Created  on 2018-03-15.
@@ -91,7 +81,9 @@ public class TestPresenter extends TestContract.TestPresenter {
 
             @Override
             protected void onFail(Throwable e) {
-                ToastUtils.showToast(e.getMessage());
+                mView.showNetworkError();
+//                ToastUtils.showToast(e.getMessage());
+                ToastUtils.error(e.getMessage().toString());
             }
         });
 //        mView.showToast("v层拿到m层数据去展示");

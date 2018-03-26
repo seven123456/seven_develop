@@ -3,15 +3,22 @@ package com.seven.seven.mvp.view;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import com.seven.seven.R;
 import com.seven.seven.common.Model.Infos;
+import com.seven.seven.common.event.NetWorkChangeEvent;
 import com.seven.seven.common.utils.ToastUtils;
 import com.seven.seven.common.view.MarqueeView;
 import com.seven.seven.mvp.contract.TestContract;
 import com.seven.seven.mvp.presenter.TestPresenter;
 import com.seven.seven.common.base.BaseMvpActivity;
 import com.seven.seven.common.base.BasePresenter;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +35,7 @@ public class TestActivity3 extends BaseMvpActivity<TestContract.TestPresenter, T
     private MarqueeView marqueeView;
     private List<String> list;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private LinearLayout errorLayout;
 
     @NonNull
     @Override
@@ -38,8 +46,11 @@ public class TestActivity3 extends BaseMvpActivity<TestContract.TestPresenter, T
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
         mPresenter.loadTestList();//v给p层发送业务处理，举个例子
         swipeRefreshLayout = findViewById(R.id.swf);
+        errorLayout = findViewById(R.id.error);
+
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -53,33 +64,23 @@ public class TestActivity3 extends BaseMvpActivity<TestContract.TestPresenter, T
         for (int i = 0; i < 10; i++) {
             list.add("第" + i + "个");
         }
-        marqueeView = findViewById(R.id.marquee_view);
-        marqueeView.setText(list);
-        /*marqueeView.setOnMargueeListener(new MarqueeView.OnMargueeListener() {
-            @Override
-            public void onRollOver() {
-                marqueeView.stopScroll();
-            }
+    /*    marqueeView = findViewById(R.id.marquee_view);
+        marqueeView.setText(list);*/
+    }
 
-            @Override
-            public void onRollIndex(int position) {
-                marqueeView.startScroll();
-
-            }
-        });*/
-       /* List<String> list2 = new ArrayList<String>();
-        list2.add("1");
-        list2.add("2");
-        list2.add("3");
-        list2.add("4");
-        list2.add("5");
-        for (String temp : list2) {
-            if ("3".equals(temp)) {
-                list2.remove(temp);
+    @Subscribe(threadMode = ThreadMode.MAIN, priority = 0, sticky = true)
+    public void disposeNetWorkChange(NetWorkChangeEvent netWorkChangeEvent) {
+        switch (netWorkChangeEvent.getWhat()) {
+            case NetWorkChangeEvent.NET_WORK_AVAILABLE://有网
+                errorLayout.setVisibility(View.GONE);
+                if (mPresenter != null) {
+                    mPresenter.loadTestList();
+                }
                 break;
-            }
+            case NetWorkChangeEvent.NET_WORK_DISABLED://没网
+                errorLayout.setVisibility(View.VISIBLE);
+                break;
         }
-        Log.d("TestActivity3=======",list2.size()+"个");*/
     }
 
     @Override
@@ -96,7 +97,7 @@ public class TestActivity3 extends BaseMvpActivity<TestContract.TestPresenter, T
 
     @Override
     public void showNetworkError() {
-
+        errorLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -113,5 +114,11 @@ public class TestActivity3 extends BaseMvpActivity<TestContract.TestPresenter, T
     public void showToast(String msg) {
         super.showToast(msg);
         ToastUtils.showToast(msg);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

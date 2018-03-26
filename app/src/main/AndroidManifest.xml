@@ -121,6 +121,13 @@
             android:name="cn.jpush.android.service.DataProvider"
             android:authorities="${applicationId}.DataProvider"
             android:exported="true" />
+        <receiver
+            android:name=".common.base.HttpErrorReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
 
         <activity android:name=".ui.base.activity.ConstantsLayout" />
         <activity android:name=".ui.base.activity.ViewTestActivity" />
