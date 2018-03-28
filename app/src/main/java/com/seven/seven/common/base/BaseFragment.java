@@ -1,4 +1,4 @@
-package com.seven.seven.ui.base.fragment;
+package com.seven.seven.common.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,7 +13,7 @@ import android.view.ViewGroup;
  * email:seven2016s@163.com
  */
 
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment implements View.OnClickListener {
     public View rootView;
 
     @Override
@@ -28,13 +28,24 @@ public abstract class BaseFragment extends Fragment {
             rootView = inflater.inflate(getLayoutId(), container, false);
         }
         initView();
+        setLisenter();
         initData();
         return rootView;
     }
 
-    protected abstract void initData();
+    protected abstract int getLayoutId();
 
     protected abstract void initView();
 
-    protected abstract int getLayoutId();
+    protected abstract void initData();
+
+    protected abstract void setLisenter();
+
+    protected abstract void widgetClick(View v);
+
+
+    @Override
+    public void onClick(View v) {
+        widgetClick(v);
+    }
 }

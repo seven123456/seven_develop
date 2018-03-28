@@ -58,14 +58,6 @@ public class TestActivity3 extends BaseMvpActivity<TestContract.TestPresenter, T
                 ToastUtils.showToast("下拉咯,跑马灯有没有黑边呢");
             }
         });
-        list = new ArrayList<>();
-//        String a = "第1个";
-//        "第2个", "第3个", "第4个", "第5个", "第6个", "第7个";
-        for (int i = 0; i < 10; i++) {
-            list.add("第" + i + "个");
-        }
-    /*    marqueeView = findViewById(R.id.marquee_view);
-        marqueeView.setText(list);*/
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, priority = 0, sticky = true)
@@ -121,4 +113,5 @@ public class TestActivity3 extends BaseMvpActivity<TestContract.TestPresenter, T
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
+
 }

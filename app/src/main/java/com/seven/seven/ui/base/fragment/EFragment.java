@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.seven.seven.R;
+import com.seven.seven.common.base.BaseFragment;
 import com.seven.seven.common.utils.ToastUtils;
 import com.seven.seven.ui.base.activity.ViewTestActivity;
 
@@ -17,6 +18,16 @@ import com.seven.seven.ui.base.activity.ViewTestActivity;
 public class EFragment extends BaseFragment {
     @Override
     protected void initData() {
+
+    }
+
+    @Override
+    protected void setLisenter() {
+
+    }
+
+    @Override
+    protected void widgetClick(View v) {
 
     }
 

@@ -17,11 +17,6 @@ import io.reactivex.disposables.Disposable;
 
 public class TestPresenter extends TestContract.TestPresenter {
 
-    private boolean isSuccess = true;
-//    @NonNull
-//    public  TestPresenter newInstance(TestContract.ITestView mTestView) {
-////        return new TestPresenter();
-//    }
 
     public TestPresenter(TestContract.ITestView mTestView) {
         mView = mTestView;
@@ -30,44 +25,14 @@ public class TestPresenter extends TestContract.TestPresenter {
 
     @Override
     public void onStart() {
-
     }
 
-    /*
-    *
-    * 拿到m层对象,然后请求网络
-    * *//*
-    @Override
-    public TestContract.ITestModle getModel() {
-        return mModle;
-    }
-*/
     /*
     * 展示数据
-    * isSuccess 伪代码
     * */
     @Override
     public void loadTestList() {//处理数据，完成并返回给view展示
-//        if (isSuccess) {
-//            mView.showTestData("v层拿到m层数据去展示");
-//        }
-       /* TestInfo testInfo = mModle.getTestInfo("a", "a", "a");
-        if (testInfo != null) {
-            List<TestInfo> testInfos = new ArrayList<>();
-            testInfos.add(testInfo);
-            mView.showTestData(testInfos);
-        }*/
-       /* mModle.getTestInfo().subscribe(new Consumer<Infos>() {
-            @Override
-            public void accept(Infos infos) throws Exception {
-                mView.showTestData(infos);
-            }
-        }, new Consumer<Throwable>() {
-            @Override
-            public void accept(Throwable throwable) throws Exception {
-                mView.showNetworkError();
-            }
-        });*/
+
         mModle.getTestInfo().subscribe(new HttpResultObserver<ResponseCustom<Infos>>() {
             @Override
             protected void onLoading(Disposable d) {
@@ -82,11 +47,9 @@ public class TestPresenter extends TestContract.TestPresenter {
             @Override
             protected void onFail(Throwable e) {
                 mView.showNetworkError();
-//                ToastUtils.showToast(e.getMessage());
                 ToastUtils.error(e.getMessage().toString());
             }
         });
-//        mView.showToast("v层拿到m层数据去展示");
 
     }
 }

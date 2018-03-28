@@ -27,13 +27,6 @@ public class TestModle extends BaseModel implements TestContract.ITestModle {
         return new TestModle();
     }
 
-   /* *//*
-    * 网络请求
-    * *//*
-    @Override
-    public Observable<TestInfo> getTestInfo(String a1, String a2, String a3) {
-        return null;
-    }*/
     /*
    * 网络请求
    * */

@@ -1,8 +1,9 @@
 package com.seven.seven.ui.base.fragment;
 
-import android.widget.TextView;
+import android.view.View;
 
 import com.seven.seven.R;
+import com.seven.seven.common.base.BaseFragment;
 
 /**
  * Created  on 2018-02-05.
@@ -13,6 +14,16 @@ import com.seven.seven.R;
 public class DFragment extends BaseFragment {
     @Override
     protected void initData() {
+
+    }
+
+    @Override
+    protected void setLisenter() {
+
+    }
+
+    @Override
+    protected void widgetClick(View v) {
 
     }
 

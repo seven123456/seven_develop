@@ -20,4 +20,10 @@
         android:layout_above="@+id/tablayout"
         android:flipInterval="30"
         android:persistentDrawingCache="animation" />
+
+    <View
+        android:layout_below="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#000000" />
 </RelativeLayout>

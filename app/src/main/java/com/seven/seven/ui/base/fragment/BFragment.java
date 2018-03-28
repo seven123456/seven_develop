@@ -1,13 +1,10 @@
 package com.seven.seven.ui.base.fragment;
 
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.view.View;
 
 import com.seven.seven.R;
+import com.seven.seven.common.base.BaseFragment;
 import com.seven.seven.common.view.MarqueeView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created  on 2018-02-05.
@@ -21,6 +18,16 @@ public class BFragment extends BaseFragment {
 
     @Override
     protected void initData() {
+
+    }
+
+    @Override
+    protected void setLisenter() {
+
+    }
+
+    @Override
+    protected void widgetClick(View v) {
 
     }
 

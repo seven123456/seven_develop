@@ -2,13 +2,11 @@ package com.seven.seven.ui.base.fragment;
 
 import android.content.Intent;
 import android.os.Handler;
-import android.os.HandlerThread;
-import android.text.Html;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.seven.seven.R;
+import com.seven.seven.common.base.BaseFragment;
 import com.seven.seven.common.utils.ToastUtils;
 import com.seven.seven.ui.base.activity.ViewTestActivity;
 
@@ -21,6 +19,16 @@ import com.seven.seven.ui.base.activity.ViewTestActivity;
 public class CFragment extends BaseFragment {
     @Override
     protected void initData() {
+
+    }
+
+    @Override
+    protected void setLisenter() {
+
+    }
+
+    @Override
+    protected void widgetClick(View v) {
 
     }
 

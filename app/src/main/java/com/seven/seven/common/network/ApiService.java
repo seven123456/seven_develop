@@ -6,6 +6,7 @@ import com.seven.seven.common.Model.Infos;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 /**
  * Created  on 2018-03-19.
@@ -15,7 +16,7 @@ import retrofit2.http.GET;
 
 public interface ApiService {
 
-    @GET("/article/list/1/json")
+    @GET("/article/list/0/json")
     Observable<ResponseCustom<Infos>> getInfos();
 
     @GET("banner/json")
