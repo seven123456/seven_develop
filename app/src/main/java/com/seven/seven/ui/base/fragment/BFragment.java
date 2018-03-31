@@ -60,7 +60,7 @@ public class BFragment extends BaseFragment {
 
     @Override
     protected int getLayoutId() {
-//        return R.layout.layout_b_fragment;
-        return R.layout.layout_fragment;
+        return R.layout.layout_b_fragment;
+//        return R.layout.layout_home_fragment;
     }
 }

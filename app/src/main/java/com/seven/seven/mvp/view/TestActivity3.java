@@ -37,6 +37,11 @@ public class TestActivity3 extends BaseMvpActivity<TestContract.TestPresenter, T
     private SwipeRefreshLayout swipeRefreshLayout;
     private LinearLayout errorLayout;
 
+    @Override
+    protected int getContentViewResId() {
+        return R.layout.layout_b_fragment;
+    }
+
     @NonNull
     @Override
     public BasePresenter initPresenter() {//在这里发起
@@ -75,10 +80,6 @@ public class TestActivity3 extends BaseMvpActivity<TestContract.TestPresenter, T
         }
     }
 
-    @Override
-    protected int getContentViewResId() {
-        return R.layout.layout_b_fragment;
-    }
 
     @Override
     public void showTestData(Infos testInfoList) {

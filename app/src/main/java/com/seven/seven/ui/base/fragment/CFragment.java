@@ -55,6 +55,6 @@ public class CFragment extends BaseFragment {
     @Override
     protected int getLayoutId() {
         /*return R.layout.layout_c_fragment;*/
-        return R.layout.layout_fragment;
+        return R.layout.layout_home_fragment;
     }
 }

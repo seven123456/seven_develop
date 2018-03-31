@@ -33,9 +33,13 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
         return rootView;
     }
 
+//    protected abstract void initView(View rootView, Bundle savedInstanceState);
+
     protected abstract int getLayoutId();
 
-    protected abstract void initView();
+    protected  void initView(){
+
+    }
 
     protected abstract void initData();
 

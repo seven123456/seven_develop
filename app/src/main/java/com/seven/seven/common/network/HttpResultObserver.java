@@ -29,8 +29,6 @@ public abstract class HttpResultObserver<T> extends HttpCommonObserver<T> {
 
     protected abstract void onFail(Throwable e);
 
-    private HttpErrorReceiver httpErrorReceiver;
-
     @Override
     protected void onStart(Disposable d) {
         onLoading(d);
