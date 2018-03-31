@@ -1,4 +1,4 @@
-package com.seven.seven.ui.base.fragment;
+package com.seven.seven.ui;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

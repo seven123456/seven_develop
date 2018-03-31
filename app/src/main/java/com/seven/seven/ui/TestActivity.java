@@ -1,4 +1,4 @@
-package com.seven.seven.ui.home;
+package com.seven.seven.ui;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;

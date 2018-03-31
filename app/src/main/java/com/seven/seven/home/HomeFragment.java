@@ -1,4 +1,4 @@
-package com.seven.seven.ui.base.fragment;
+package com.seven.seven.home;
 
 import android.content.Intent;
 import android.view.View;

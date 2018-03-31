@@ -1,4 +1,4 @@
-package com.seven.seven.ui.home;
+package com.seven.seven.ui;
 
 /**
  * Created  on 2018-02-07.

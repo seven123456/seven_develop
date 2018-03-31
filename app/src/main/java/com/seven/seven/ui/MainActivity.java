@@ -8,11 +8,10 @@ import android.support.v4.view.ViewPager;
 import com.seven.seven.R;
 import com.seven.seven.common.utils.AppManager;
 import com.seven.seven.common.base.BaseActivity;
-import com.seven.seven.ui.base.fragment.HomeFragment;
+import com.seven.seven.home.HomeFragment;
 import com.seven.seven.ui.base.fragment.BFragment;
 import com.seven.seven.ui.base.fragment.CFragment;
 import com.seven.seven.ui.base.fragment.DFragment;
-import com.seven.seven.ui.base.fragment.MyPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

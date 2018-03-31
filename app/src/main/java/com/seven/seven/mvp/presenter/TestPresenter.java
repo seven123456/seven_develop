@@ -17,7 +17,6 @@ import io.reactivex.disposables.Disposable;
 
 public class TestPresenter extends TestContract.TestPresenter {
 
-
     public TestPresenter(TestContract.ITestView mTestView) {
         mView = mTestView;
         mModle = TestModle.newInstance();
