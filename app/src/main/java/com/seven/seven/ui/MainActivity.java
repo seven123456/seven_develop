@@ -12,6 +12,8 @@ import com.seven.seven.home.HomeFragment;
 import com.seven.seven.ui.base.fragment.BFragment;
 import com.seven.seven.ui.base.fragment.CFragment;
 import com.seven.seven.ui.base.fragment.DFragment;
+import com.seven.seven.ui.base.fragment.EFragment;
+import com.seven.seven.ui.base.fragment.TabItemInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +22,8 @@ public class MainActivity extends BaseActivity {
     private MainActivity mActivity;
     private ViewPager viewPager;
     private TabLayout tabLayout;
-    private String[] titles = new String[]{"รอการตรวจสอบ", "รอการตรวจสอบ", "รอการตรวจสอบ", "รอการตรวจสอบ", "รอการตรวจสอบ"};
-    private String[] title1 = new String[]{"首页", "分类", "新闻", "个人"};
     private MyPagerAdapter pagerAdapter;
+    private List<TabItemInfo> tabItemInfos;
 
     @Override
     protected int getContentViewResId() {
@@ -43,32 +44,46 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initViewPager() {
-        List<Fragment> fragmentList = new ArrayList<>();
-        fragmentList.add(new HomeFragment());
-        fragmentList.add(new BFragment());
-        fragmentList.add(new CFragment());
-        fragmentList.add(new DFragment());
-//        fragmentList.add(new EFragment());
-        /*if (i == 1) {
-            pagerAdapter = new MyPagerAdapter(getSupportFragmentManager(), fragmentList, titles);
-            tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-            tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
-        } else {*/
-            pagerAdapter = new MyPagerAdapter(getSupportFragmentManager(), fragmentList, title1);
-            tabLayout.setTabMode(TabLayout.MODE_FIXED);
-            tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
-//        }
+        tabItemInfos = new ArrayList<>();
+        HomeFragment homeFragment = new HomeFragment();
+        tabItemInfos.add(new TabItemInfo(homeFragment, R.drawable.error, R.string.tab_main_name));
+        BFragment bFragment = new BFragment();
+        tabItemInfos.add(new TabItemInfo(bFragment, R.drawable.error, R.string.tab_classify_name));
+        CFragment cFragment = new CFragment();
+        tabItemInfos.add(new TabItemInfo(cFragment, R.drawable.error, R.string.tab_news_name));
+        DFragment dFragment = new DFragment();
+        tabItemInfos.add(new TabItemInfo(dFragment, R.drawable.error, R.string.tab_mine_name));
+//        tabItemInfos.add(new EFragment());
+        pagerAdapter = new MyPagerAdapter(getSupportFragmentManager(), tabItemInfos, mActivity);
+        tabLayout.setTabMode(TabLayout.MODE_FIXED);
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         viewPager.setAdapter(pagerAdapter);
+        viewPager.setOffscreenPageLimit(tabItemInfos.size());
         tabLayout.setupWithViewPager(viewPager);
-        //        setLin();
+//        tabLayout.setTabTextColors(R.color.black, R.color.red);
+
+        initTabView();
+    }
+
+    private void initTabView() {
+        for (int i = 0; i < tabLayout.getTabCount(); i++) {
+            TabLayout.Tab tab = tabLayout.getTabAt(i);
+            if (tab != null) {
+                tab.setCustomView(pagerAdapter.getTabView(i));
+            }
+        }
+
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        AppManager.getAppManager().finishActivity(this);
+        if (pagerAdapter != null) {
+            pagerAdapter.destroy();
+            pagerAdapter = null;
+        }
+        tabItemInfos = null;
+        tabLayout = null;
     }
 
 }

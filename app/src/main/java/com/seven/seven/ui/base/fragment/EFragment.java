@@ -33,7 +33,7 @@ public class EFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-        TextView textView = rootView.findViewById(R.id.text);
+       /* TextView textView = rootView.findViewById(R.id.text);
         textView.setText("我是E");
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,7 +41,7 @@ public class EFragment extends BaseFragment {
                 ToastUtils.success("请稍后");
                 startActivity(new Intent(getActivity(),ViewTestActivity.class));
             }
-        });
+        });*/
     }
 
     @Override

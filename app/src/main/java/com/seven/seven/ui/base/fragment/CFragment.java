@@ -3,6 +3,7 @@ package com.seven.seven.ui.base.fragment;
 import android.content.Intent;
 import android.os.Handler;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.seven.seven.R;
@@ -34,7 +35,7 @@ public class CFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-        TextView textView = rootView.findViewById(R.id.text);
+        ImageView textView = rootView.findViewById(R.id.text);
 //        textView.setText("我是C");
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,7 +55,7 @@ public class CFragment extends BaseFragment {
 
     @Override
     protected int getLayoutId() {
-        /*return R.layout.layout_c_fragment;*/
-        return R.layout.layout_home_fragment;
+        return R.layout.layout_c_fragment;
+//        return R.layout.layout_home_fragment;
     }
 }

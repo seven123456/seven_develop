@@ -13,7 +13,7 @@
         app:tabIndicatorHeight="0dp"
         app:tabTextAppearance="@style/TextAppearance.Design.Tab" />
 
-    <android.support.v4.view.ViewPager
+    <com.seven.seven.ui.base.fragment.NoSlideViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -24,6 +24,6 @@
     <View
         android:layout_below="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="1px"
         android:background="#000000" />
 </RelativeLayout>
