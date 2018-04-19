@@ -25,12 +25,13 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     private boolean isTransAnim;//是否使用跳转动画
     private HttpErrorReceiver httpErrorReceiver;
-
+    private BaseActivity mActivity;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//竖屏
         AppManager.getAppManager().addActivity(this);
+        mActivity=this;
         init(savedInstanceState);
         initData();
         isTransAnim = true;

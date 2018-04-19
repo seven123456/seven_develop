@@ -18,7 +18,10 @@ import cn.jpush.im.android.api.JMessageClient;
 public class MyApplication extends Application {
 
     private static Context context;
-
+    private static boolean isDebug =true;//true 玩Android flase 百度
+    public static boolean getIsDebug(){
+        return isDebug;
+    }
     public MyApplication() {
 
     }

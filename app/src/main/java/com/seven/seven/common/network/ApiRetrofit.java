@@ -54,7 +54,7 @@ public class ApiRetrofit {
                 .addConverterFactory(gsonConverterFactory)
                 .addCallAdapterFactory(adapterFactory)
                 .client(okHttpClient)
-                .baseUrl(baseUrl)
+                .baseUrl(NetworkUrl.getNetWorkName())
                 .build();
         apiServise = retrofit.create(ApiService.class);
     }

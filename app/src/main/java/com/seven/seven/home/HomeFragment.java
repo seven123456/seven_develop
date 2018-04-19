@@ -2,8 +2,11 @@ package com.seven.seven.home;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.seven.seven.R;
@@ -12,7 +15,9 @@ import com.seven.seven.common.base.BaseFragment;
 import com.seven.seven.common.base.BasePresenter;
 import com.seven.seven.common.event.NetWorkChangeEvent;
 import com.seven.seven.common.view.ErrorLayoutView;
+import com.seven.seven.home.adapter.HomeAdapter;
 import com.seven.seven.home.contract.HomeContract;
+import com.seven.seven.home.modle.HomeArticleInfo;
 import com.seven.seven.home.presenter.HomePresenter;
 import com.seven.seven.mvp.view.TestActivity3;
 
@@ -20,6 +25,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -35,30 +41,37 @@ public class HomeFragment extends BaseRecyclerFragment<HomeContract.HomePresente
     private ErrorLayoutView errorLayoutView;
     private RecyclerView recyclerView;
     private HomePresenter homePresenter;
+    private List<HomeArticleInfo> homeArticleInfoList = new ArrayList<>();
+    private HomeAdapter homeAdapter;
 
     @NonNull
     @Override
     public BasePresenter initPresenter() {
+        Log.d("init", "initPresenter");
         return homePresenter = new HomePresenter(this);
     }
 
     @Override
     protected int getLayoutId() {
+        Log.d("init", "getLayoutId");
         return R.layout.layout_home_fragment;
     }
 
     @Override
     protected void initView() {
+        Log.d("init", "initView");
         EventBus.getDefault().register(this);
-//        textView = rootView.findViewById(R.id.text);
-//        textView.setText("我是A");
         recyclerView = rootView.findViewById(R.id.recycler);
         errorLayoutView = rootView.findViewById(R.id.error);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        homeAdapter = new HomeAdapter(R.layout.item_home_layout, homeArticleInfoList);
+        recyclerView.setAdapter(homeAdapter);
+        WindowManager windowManager =getActivity().getWindowManager();
+
     }
 
     @Override
     protected void setLisenter() {
-//        textView.setOnClickListener(this);
     }
 
     @Override
@@ -104,6 +117,8 @@ public class HomeFragment extends BaseRecyclerFragment<HomeContract.HomePresente
 
     @Override
     protected void ShowLoadingView() {
+        Log.d("init", "ShowLoadingView");
+      /*  homeAdapter.setEmptyView(errorView);*/
 
     }
 }

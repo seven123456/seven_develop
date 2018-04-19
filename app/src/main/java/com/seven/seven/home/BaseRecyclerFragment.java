@@ -19,9 +19,9 @@ import com.seven.seven.common.base.IBaseModel;
  */
 
 public abstract class BaseRecyclerFragment<P extends BasePresenter, M extends IBaseModel> extends BaseMvpFragment<P, M> {
-    private View errorView;
-    private View loadingView;
-    private View emptyView;
+    protected View errorView;
+    protected View loadingView;
+    protected View emptyView;
 
     @Override
     public void onStart() {
