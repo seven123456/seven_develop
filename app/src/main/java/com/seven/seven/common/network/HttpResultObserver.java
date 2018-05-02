@@ -62,5 +62,4 @@ public abstract class HttpResultObserver<T> extends HttpCommonObserver<T> {
             onFail(e);
         Log.e("网络处理异常", e.getMessage().toString());
     }
-
 }
