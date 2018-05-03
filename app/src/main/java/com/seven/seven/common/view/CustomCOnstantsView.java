@@ -58,7 +58,6 @@ public class CustomCOnstantsView extends RelativeLayout {
         initView(context, attrs);
 
     }
-
     public CustomCOnstantsView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initView(context, attrs);

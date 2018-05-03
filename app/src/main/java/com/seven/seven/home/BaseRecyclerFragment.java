@@ -29,6 +29,11 @@ public abstract class BaseRecyclerFragment<P extends BasePresenter, M extends IB
         ShowLoadingView();
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

@@ -19,6 +19,7 @@ import com.seven.seven.mvp.view.TestActivity3;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -35,6 +36,7 @@ public class HomeFragment extends BaseRecyclerFragment<HomeContract.HomePresente
     private ErrorLayoutView errorLayoutView;
     private RecyclerView recyclerView;
     private HomePresenter homePresenter;
+    private TextView textView;
 
     @NonNull
     @Override
@@ -50,7 +52,7 @@ public class HomeFragment extends BaseRecyclerFragment<HomeContract.HomePresente
     @Override
     protected void initView() {
         EventBus.getDefault().register(this);
-//        textView = rootView.findViewById(R.id.text);
+        textView = rootView.findViewById(R.id.text);
 //        textView.setText("我是A");
         recyclerView = rootView.findViewById(R.id.recycler);
         errorLayoutView = rootView.findViewById(R.id.error);
@@ -58,7 +60,7 @@ public class HomeFragment extends BaseRecyclerFragment<HomeContract.HomePresente
 
     @Override
     protected void setLisenter() {
-//        textView.setOnClickListener(this);
+        textView.setOnClickListener(this);
     }
 
     @Override

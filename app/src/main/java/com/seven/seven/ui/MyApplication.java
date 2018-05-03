@@ -7,7 +7,6 @@ import android.util.Log;
 import com.seven.seven.common.network.ApiRetrofit;
 import com.seven.seven.common.utils.RxTool;
 
-import cn.jpush.im.android.api.JMessageClient;
 
 /**
  * Created  on 2018-01-04.
@@ -27,8 +26,6 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         context = getApplicationContext();
-        JMessageClient.init(context,true);
-        JMessageClient.setDebugMode(true);
         Log.i("aaaa", "onCreate: ");
         RxTool.init(this);
         ApiRetrofit.getApiRetrofit();

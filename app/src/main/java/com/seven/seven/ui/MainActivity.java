@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.MotionEvent;
+import android.view.View;
 
 import com.seven.seven.R;
 import com.seven.seven.common.utils.AppManager;
@@ -41,6 +43,12 @@ public class MainActivity extends BaseActivity {
         tabLayout = findViewById(R.id.tablayout);
         viewPager = findViewById(R.id.viewpager);
         initViewPager();
+        viewPager.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return false;
+            }
+        });
     }
 
     private void initViewPager() {
