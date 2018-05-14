@@ -47,6 +47,10 @@
         </attr>
     </declare-styleable>
 
+    <declare-styleable name="NumberPlayTextView">
+        <attr name="mTextSize" format="integer" />
+    </declare-styleable>
+
     <style name="FlashTheme" parent="AppTheme">
         <!--<item name="android:windowBackground">@android:color/transparent</item>-->
         <item name="android:windowBackground">@drawable/timg</item>

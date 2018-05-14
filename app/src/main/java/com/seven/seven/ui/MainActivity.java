@@ -17,6 +17,7 @@ import com.seven.seven.ui.base.fragment.DFragment;
 import com.seven.seven.ui.base.fragment.EFragment;
 import com.seven.seven.ui.base.fragment.TabItemInfo;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +27,6 @@ public class MainActivity extends BaseActivity {
     private TabLayout tabLayout;
     private MyPagerAdapter pagerAdapter;
     private List<TabItemInfo> tabItemInfos;
-
     @Override
     protected int getContentViewResId() {
         return R.layout.activity_main;

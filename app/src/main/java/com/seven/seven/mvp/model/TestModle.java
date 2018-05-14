@@ -32,6 +32,7 @@ public class TestModle extends BaseModel implements TestContract.ITestModle {
    * */
     @Override
     public Observable<ResponseCustom<Infos>> getTestInfo() {
-        return ApiRetrofit.getApiRetrofit().getApiServis().getInfos().compose(ThreadSchedulersHelper.<ResponseCustom<Infos>>rxSchedulers());
+        return ApiRetrofit.getApiRetrofit().getApiServis().getInfos()
+                .compose(ThreadSchedulersHelper.<ResponseCustom<Infos>>rxSchedulers());
     }
 }
