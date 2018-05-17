@@ -1,8 +1,9 @@
 package com.seven.seven.home.contract;
 
-import com.seven.seven.common.base.BasePresenter;
+import com.seven.seven.common.base.codereview.BasePresenter;
 import com.seven.seven.common.base.IBaseModel;
 import com.seven.seven.common.base.IBaseView;
+import com.seven.seven.common.base.codereview.BaseView;
 
 /**
  * Created  on 2018-03-31.
@@ -11,15 +12,11 @@ import com.seven.seven.common.base.IBaseView;
  */
 
 public interface HomeContract {
-    abstract class HomePresenter extends BasePresenter<IHomeModle, IHomeView> {
-        public abstract void loadBanner();
+    interface View extends BaseView<Object> {
+        void showHomeData();
     }
 
-    interface IHomeModle extends IBaseModel {
-
-    }
-
-    interface IHomeView extends IBaseView{
-
+    interface Parenter {
+        void  getHomeData();
     }
 }

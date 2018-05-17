@@ -1,4 +1,4 @@
-package com.seven.seven.common.base;
+package com.seven.seven.common.base.codereview;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.seven.seven.common.utils.ToastUtils;
 
 /**
  * Created  on 2018-01-05.
@@ -35,6 +37,20 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
 
 //    protected abstract void initView(View rootView, Bundle savedInstanceState);
 
+    /*
+   * 带图片的toast
+   * */
+    public void showSuccessToast(String msg) {
+        ToastUtils.success(msg);
+    }
+
+    /*
+    * error的toast
+    * */
+    public void showErrorToast(String msg) {
+        ToastUtils.error(msg);
+    }
+
     protected abstract int getLayoutId();
 
     protected  void initView(){
@@ -46,7 +62,6 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
     protected abstract void setLisenter();
 
     protected abstract void widgetClick(View v);
-
 
     @Override
     public void onClick(View v) {

@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.seven.seven.R;
-import com.seven.seven.common.base.BaseActivity;
+import com.seven.seven.common.base.codereview.BaseActivity;
 
 /**
  * Created  on 2018-02-25.
@@ -17,6 +17,16 @@ import com.seven.seven.common.base.BaseActivity;
 public class ConstantsLayout extends BaseActivity {
     @Override
     protected void initData() {
+
+    }
+
+    @Override
+    protected void setLisenter() {
+
+    }
+
+    @Override
+    protected void widgetClick(View v) {
 
     }
 

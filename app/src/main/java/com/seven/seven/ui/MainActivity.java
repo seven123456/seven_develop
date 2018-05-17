@@ -2,22 +2,18 @@ package com.seven.seven.ui;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.MotionEvent;
 import android.view.View;
 
 import com.seven.seven.R;
-import com.seven.seven.common.utils.AppManager;
-import com.seven.seven.common.base.BaseActivity;
+import com.seven.seven.common.base.codereview.BaseActivity;
 import com.seven.seven.home.HomeFragment;
 import com.seven.seven.ui.base.fragment.BFragment;
 import com.seven.seven.ui.base.fragment.CFragment;
 import com.seven.seven.ui.base.fragment.DFragment;
-import com.seven.seven.ui.base.fragment.EFragment;
 import com.seven.seven.ui.base.fragment.TabItemInfo;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +30,16 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+
+    }
+
+    @Override
+    protected void setLisenter() {
+
+    }
+
+    @Override
+    protected void widgetClick(View v) {
 
     }
 

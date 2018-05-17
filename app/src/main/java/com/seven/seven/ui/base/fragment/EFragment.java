@@ -1,13 +1,9 @@
 package com.seven.seven.ui.base.fragment;
 
-import android.content.Intent;
 import android.view.View;
-import android.widget.TextView;
 
 import com.seven.seven.R;
-import com.seven.seven.common.base.BaseFragment;
-import com.seven.seven.common.utils.ToastUtils;
-import com.seven.seven.ui.base.activity.ViewTestActivity;
+import com.seven.seven.common.base.codereview.BaseFragment;
 
 /**
  * Created  on 2018-02-05.

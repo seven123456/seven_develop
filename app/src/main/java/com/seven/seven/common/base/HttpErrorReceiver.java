@@ -9,6 +9,7 @@ import android.net.NetworkInfo;
 import android.widget.Toast;
 
 import com.seven.seven.common.event.NetWorkChangeEvent;
+import com.seven.seven.common.utils.Constans;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -25,9 +26,9 @@ public class HttpErrorReceiver extends BroadcastReceiver {
             //获取ConnectivityManager对象对应的NetworkInfo对象
             NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
             if (networkInfo != null && networkInfo.isAvailable()) {
-                EventBus.getDefault().post(new NetWorkChangeEvent(NetWorkChangeEvent.NET_WORK_AVAILABLE));
+                EventBus.getDefault().post(new NetWorkChangeEvent(Constans.NET_WORK_AVAILABLE));
             } else {
-                EventBus.getDefault().post(new NetWorkChangeEvent(NetWorkChangeEvent.NET_WORK_DISABLED));
+                EventBus.getDefault().post(new NetWorkChangeEvent(Constans.NET_WORK_DISABLED));
             }
         }
     }

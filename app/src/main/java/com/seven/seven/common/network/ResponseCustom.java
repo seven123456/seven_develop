@@ -10,9 +10,19 @@ import java.io.Serializable;
 
 public class ResponseCustom<T> implements Serializable {
 
-    private int errorCode;
+
+    private int errorCode ;
     private String errorMsg;
     private T data;
+
+    /**
+     * 是否成功(这里约定200)
+     *
+     * @return
+     */
+    public boolean isSuccess() {
+        return errorCode == 200 ? true : false;
+    }
 
     public int getErrorCode() {
         return errorCode;
@@ -21,6 +31,7 @@ public class ResponseCustom<T> implements Serializable {
     public void setErrorCode(int errorCode) {
         this.errorCode = errorCode;
     }
+
 
     public String getErrorMsg() {
         return errorMsg;

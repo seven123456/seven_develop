@@ -14,7 +14,7 @@ public class NetworkUrl {
 
     public static String getNetWorkName(){
         if (MyApplication.getIsDebug()){
-            return ANDROID_BAIDU_SERVICE;
+            return ANDROID_TEST_SERVICE;
         }else {
             return ANDROID_BAIDU_SERVICE;
         }

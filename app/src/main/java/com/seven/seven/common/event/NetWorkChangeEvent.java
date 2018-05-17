@@ -7,8 +7,6 @@ package com.seven.seven.common.event;
  */
 
 public class NetWorkChangeEvent extends BaseEvent {
-    public static final int NET_WORK_AVAILABLE = 0;//有网络
-    public static final int NET_WORK_DISABLED = 1;//没网络
 
     public NetWorkChangeEvent() {
     }

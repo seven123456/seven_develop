@@ -3,7 +3,7 @@ package com.seven.seven.ui.base.fragment;
 import android.view.View;
 
 import com.seven.seven.R;
-import com.seven.seven.common.base.BaseFragment;
+import com.seven.seven.common.base.codereview.BaseFragment;
 import com.seven.seven.common.view.MarqueeView;
 
 /**

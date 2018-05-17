@@ -8,5 +8,3 @@ import com.seven.seven.home.contract.HomeContract;
  * email:seven2016s@163.com
  */
 
-public class HomeModle  implements HomeContract.IHomeModle{
-}

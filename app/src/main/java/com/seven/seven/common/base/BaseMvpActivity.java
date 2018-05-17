@@ -1,8 +1,9 @@
 package com.seven.seven.common.base;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 
+import com.seven.seven.common.base.codereview.BaseActivity;
+import com.seven.seven.common.base.codereview.BasePresenter;
 import com.seven.seven.common.utils.AppManager;
 import com.seven.seven.common.utils.ToastUtils;
 
@@ -22,7 +23,6 @@ public abstract class BaseMvpActivity<P extends BasePresenter, M extends IBaseMo
 
     @Override
     protected void init(Bundle savedInstanceState) {
-        initPresenter();
         super.init(savedInstanceState);
     }
 
@@ -53,31 +53,7 @@ public abstract class BaseMvpActivity<P extends BasePresenter, M extends IBaseMo
         }
     }
 */
-    /*
-    * 携带数据跳转并且返回
-    * */
-    @Override
-    public void startNewActivityForResult(@NonNull Class<?> clz, Bundle bundle, int requestCode) {
-        startForResultActivity(clz, bundle, requestCode);
-    }
-
-    /*
-    * 携带数据跳转
-    * */
-    @Override
-    public void startNewActivity(@NonNull Class<?> clz, Bundle bundle) {
-        startActivity(clz, bundle);
-    }
-
-    /*
-    * 普通跳转页面
-    * */
-    @Override
-    public void startNewActivity(@NonNull Class<?> clz) {
-        startActivity(clz);
-    }
-
-    @Override
+  /*  @Override
     public void showToast(String msg) {
         ToastUtils.showToast(msg);
     }
@@ -85,5 +61,5 @@ public abstract class BaseMvpActivity<P extends BasePresenter, M extends IBaseMo
     @Override
     public void back() {
         AppManager.getAppManager().finishActivity(this);
-    }
+    }*/
 }

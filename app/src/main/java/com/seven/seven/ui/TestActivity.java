@@ -4,10 +4,11 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.view.View;
 import android.widget.TextView;
 
 import com.seven.seven.R;
-import com.seven.seven.common.base.BaseActivity;
+import com.seven.seven.common.base.codereview.BaseActivity;
 
 /**
  * Created  on 2018-02-07.
@@ -18,6 +19,16 @@ import com.seven.seven.common.base.BaseActivity;
 public class TestActivity extends BaseActivity {
     @Override
     protected void initData() {
+
+    }
+
+    @Override
+    protected void setLisenter() {
+
+    }
+
+    @Override
+    protected void widgetClick(View v) {
 
     }
 

@@ -2,15 +2,13 @@ package com.seven.seven.ui.base.activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.seven.seven.R;
 import com.seven.seven.common.utils.AppManager;
 import com.seven.seven.common.utils.StatusBarUtil;
 import com.seven.seven.common.view.CustomCOnstantsView;
-import com.seven.seven.common.base.BaseActivity;
+import com.seven.seven.common.base.codereview.BaseActivity;
 
 /**
  * Created  on 2018-03-13.
@@ -25,6 +23,16 @@ public class ViewTestActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+
+    }
+
+    @Override
+    protected void setLisenter() {
+
+    }
+
+    @Override
+    protected void widgetClick(View v) {
 
     }
 

@@ -4,10 +4,9 @@ import android.content.Intent;
 import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.seven.seven.R;
-import com.seven.seven.common.base.BaseFragment;
+import com.seven.seven.common.base.codereview.BaseFragment;
 import com.seven.seven.common.utils.ToastUtils;
 import com.seven.seven.ui.base.activity.ViewTestActivity;
 

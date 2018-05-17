@@ -63,6 +63,7 @@ public class RollNumberView extends View {
         //测量单个数字的高度和宽度
         mText = "9";
         mTextRect = new Rect();
+        //获取文字的显示范围
         mTextPaint.getTextBounds(mText, 0, mText.length(), mTextRect);
         //文字宽
         mTextWidth = mTextRect.width();
@@ -123,6 +124,7 @@ public class RollNumberView extends View {
         invalidate();
 
         if (mTextList.size() > 0) {
+            //矩形集合里第i文字的top值
             float endValue = mNumberRectfs.get(mNumberRectfs.size() - 1).top;
             ValueAnimator animator = ValueAnimator.ofFloat(0, endValue);
             animator.setDuration(duration);
@@ -130,6 +132,7 @@ public class RollNumberView extends View {
             animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
                 public void onAnimationUpdate(ValueAnimator animation) {
+  //拿到每一次执行后的矩形top值 比如第一个矩形top是1 第二个top是3 那么下一个矩形(第152行)的top值就等于当前矩形top+执行后的矩形top值
                     offsetValueY = -(float) animation.getAnimatedValue();
                     invalidate();
                 }

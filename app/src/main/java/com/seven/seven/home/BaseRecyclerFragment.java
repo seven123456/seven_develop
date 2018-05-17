@@ -1,7 +1,6 @@
 package com.seven.seven.home;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.seven.seven.R;
 import com.seven.seven.common.base.BaseMvpFragment;
-import com.seven.seven.common.base.BasePresenter;
+import com.seven.seven.common.base.codereview.BasePresenter;
 import com.seven.seven.common.base.IBaseModel;
 
 /**

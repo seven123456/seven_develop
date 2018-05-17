@@ -5,19 +5,16 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.seven.seven.R;
 import com.seven.seven.common.utils.AppManager;
-import com.seven.seven.common.base.BaseActivity;
-import com.seven.seven.common.utils.ToastUtils;
+import com.seven.seven.common.base.codereview.BaseActivity;
 
-import java.util.Observable;
 import java.util.concurrent.TimeUnit;
 
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
@@ -33,6 +30,16 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+
+    }
+
+    @Override
+    protected void setLisenter() {
+
+    }
+
+    @Override
+    protected void widgetClick(View v) {
 
     }
 
@@ -56,7 +63,7 @@ public class SplashActivity extends BaseActivity {
                                     @Override
                                     public void accept(Long aLong) throws Exception {
                                         if (time-aLong == 1) {
-                                            startActivity(MainActivity.class);
+                                            startActivity(new Intent(SplashActivity.this,MainActivity.class));
                                             finish();
                                         }
                                     }

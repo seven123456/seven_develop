@@ -3,6 +3,8 @@ package com.seven.seven.common.base;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
+import com.seven.seven.common.base.codereview.BaseView;
+
 /**
  * Created  on 2018-03-15.
  * author:seven
