@@ -14,9 +14,10 @@ public class Constans {
     public static final int NET_WORK_AVAILABLE = 0;//有网络
     public static final int NET_WORK_DISABLED = 1;//没网络
     /*
-    * home模块
+    * home模块 100~200
     * */
-    public static final int HOMEDATA = 1;
-    public static final int HOMEDATAFIAL = 2;//
+    public static final int HOMEDATA = 101;//获取首页数据成功
+    public static final int HOMEBANNER = 102;//获取首页banner
+    public static final int HOMEDATAFIAL = 100;//首页请求数据失败
 
 }

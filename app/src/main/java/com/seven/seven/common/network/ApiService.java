@@ -1,12 +1,14 @@
 package com.seven.seven.common.network;
 
 import com.seven.seven.common.Model.BannerInfos;
-import com.seven.seven.common.Model.Infos;
+import com.seven.seven.home.events.HomeBannerInfos;
+import com.seven.seven.home.model.HomeNewsInfos;
 
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
-import retrofit2.http.Query;
 
 /**
  * Created  on 2018-03-19.
@@ -17,8 +19,8 @@ import retrofit2.http.Query;
 public interface ApiService {
 
     @GET("/article/list/0/json")
-    Observable<ResponseCustom<Infos>> getInfos();
+    Observable<ResponseCustom<HomeNewsInfos>> getHomeNewsInfos();
 
     @GET("banner/json")
-    Observable<ResponseCustom<BannerInfos>> getBannerInfos();
+    Observable<ResponseCustom<List<HomeBannerInfos>>> getBannerInfos();
 }

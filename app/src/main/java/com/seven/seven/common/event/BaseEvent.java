@@ -6,9 +6,9 @@ package com.seven.seven.common.event;
  * email:seven2016s@163.com
  */
 
-public class BaseEvent {
+public class BaseEvent<T> {
     private int what;
-    private Object data;
+    private T data;
 
     public BaseEvent(){}
 
@@ -16,7 +16,7 @@ public class BaseEvent {
         this(what, null);
     }
 
-    public BaseEvent(int what, Object data) {
+    public BaseEvent(int what, T data) {
         this.what = what;
         this.data = data;
     }
@@ -33,7 +33,7 @@ public class BaseEvent {
         return data;
     }
 
-    public void setData(Object data) {
+    public void setData(T data) {
         this.data = data;
     }
 }

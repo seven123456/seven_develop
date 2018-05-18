@@ -6,4 +6,9 @@
     <color name="red">#FF0000</color>
     <color name="black">#000000</color>
     <color name="white"></color>
+    <color name="text_font">#333333</color>
+    <color name="text_font_gray">#999999</color>
+    <color name="text_font_white">#ffffff</color>
+    <color name="pink_red">#fcd0d0</color>
+    <color name="common_background">#f5f5f5</color>
 </resources>

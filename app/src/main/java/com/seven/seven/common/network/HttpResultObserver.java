@@ -35,21 +35,21 @@ public abstract class HttpResultObserver<T> extends HttpCommonObserver<T> {
     }
 
     @Override
-    protected void _onNext(T o) {
-        onSuccess(o);
+    protected void _onNext(T responseCustom) {
+        onSuccess(responseCustom);
     }
 
     @Override
-    protected void _onError(Throwable e) {
-        if (e instanceof SocketTimeoutException) {
+    protected void _onError(Throwable error) {
+        if (error instanceof SocketTimeoutException) {
 //            ToastUtils.error("网络连接超时,请检查网络");
-        } else if (e instanceof ConnectException) {
+        } else if (error instanceof ConnectException) {
 //            ToastUtils.error("网络连接异常,请检查网络");
-        } else if (e instanceof UnknownHostException) {
+        } else if (error instanceof UnknownHostException) {
 //            ToastUtils.error("服务器异常,请稍后再试");
-        } else if (e instanceof JsonParseException
-                || e instanceof JSONException
-                || e instanceof ParseException || e instanceof MalformedJsonException) {
+        } else if (error instanceof JsonParseException
+                || error instanceof JSONException
+                || error instanceof ParseException || error instanceof MalformedJsonException) {
 //            ToastUtils.error("数据解析错误");
            /* Intent intent = new Intent();
             intent.setAction(ConnectivityManager.CONNECTIVITY_ACTION);
@@ -59,7 +59,7 @@ public abstract class HttpResultObserver<T> extends HttpCommonObserver<T> {
             /*HttpErrorInfo httpErrorInfo = new HttpErrorInfo("服务器异常,请稍后再试");
             EventBus.getDefault().post(httpErrorInfo);*/
         }
-            onFail(e);
-        Log.e("网络处理异常", e.getMessage().toString());
+        onFail(error);
+        Log.e("网络处理异常", error.getMessage().toString());
     }
 }

@@ -8,7 +8,7 @@ import com.seven.seven.common.event.BaseEvent;
  * email:seven2016s@163.com
  */
 
-public class HomeEvents extends BaseEvent {
+public class HomeEvents<T> extends BaseEvent {
 
     public HomeEvents() {
     }
@@ -17,7 +17,7 @@ public class HomeEvents extends BaseEvent {
         super(what);
     }
 
-    public HomeEvents(int what, Object data) {
+    public HomeEvents(int what, T data) {
         super(what, data);
     }
 

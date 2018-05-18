@@ -1,7 +1,5 @@
 package com.seven.seven.home.presenter;
 
-import com.seven.seven.common.Model.BannerInfos;
-import com.seven.seven.common.Model.Infos;
 import com.seven.seven.common.base.codereview.BasePresenterImpl;
 import com.seven.seven.common.network.ApiRetrofit;
 import com.seven.seven.common.network.HttpObservable;
@@ -9,10 +7,14 @@ import com.seven.seven.common.network.HttpResultObserver;
 import com.seven.seven.common.network.ResponseCustom;
 import com.seven.seven.common.utils.Constans;
 import com.seven.seven.home.contract.HomeContract;
+import com.seven.seven.home.events.HomeBannerInfos;
 import com.seven.seven.home.events.HomeEvents;
+import com.seven.seven.home.model.HomeNewsInfos;
 import com.seven.seven.ui.MainActivity;
 
 import org.greenrobot.eventbus.EventBus;
+
+import java.util.List;
 
 import io.reactivex.disposables.Disposable;
 
@@ -30,24 +32,48 @@ public class HomePresenter extends BasePresenterImpl<HomeContract.View, MainActi
 
     @Override
     public void getHomeData() {
-        HttpObservable.getObservable(ApiRetrofit.getApiRetrofit().getApiServis().getInfos())
-                .subscribe(new HttpResultObserver<ResponseCustom<Infos>>() {
+        HttpObservable.getObservable(ApiRetrofit.getApiRetrofit().getApiServis().getHomeNewsInfos())
+                .subscribe(new HttpResultObserver<ResponseCustom<HomeNewsInfos>>() {
                     @Override
                     protected void onLoading(Disposable d) {
 
                     }
 
                     @Override
-                    protected void onSuccess(ResponseCustom<Infos> o) {
+                    protected void onSuccess(ResponseCustom<HomeNewsInfos> responseCustom) {
 //                        if (o.isSuccess()) {
-                            if (getView() != null) {
-                                EventBus.getDefault().post(new HomeEvents(Constans.HOMEDATA, o));
-                            }
+                        if (getView() != null) {
+                            EventBus.getDefault().post(new HomeEvents(Constans.HOMEDATA, responseCustom.getData()));
+                        }
 //                        }
                     }
+
                     @Override
-                    protected void onFail(Throwable e) {
-                        EventBus.getDefault().post(new HomeEvents(Constans.HOMEDATA,e));
+                    protected void onFail(Throwable error) {
+                        EventBus.getDefault().post(new HomeEvents(Constans.HOMEDATA, error.getMessage()));
+                    }
+                });
+    }
+
+    @Override
+    public void getHomeBanner() {
+        HttpObservable.getObservable(ApiRetrofit.getApiRetrofit().getApiServis().getBannerInfos())
+                .subscribe(new HttpResultObserver<ResponseCustom<List<HomeBannerInfos>>>() {
+                    @Override
+                    protected void onLoading(Disposable d) {
+
+                    }
+
+                    @Override
+                    protected void onSuccess(ResponseCustom<List<HomeBannerInfos>> responseCustom) {
+                        if (getView() != null) {
+                            EventBus.getDefault().post(new HomeEvents<>(Constans.HOMEBANNER, responseCustom.getData()));
+                        }
+                    }
+
+                    @Override
+                    protected void onFail(Throwable error) {
+                        EventBus.getDefault().post(new HomeEvents(Constans.HOMEDATA, error.getMessage()));
                     }
                 });
     }

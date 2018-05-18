@@ -3,10 +3,12 @@ package com.seven.seven.common.base.codereview;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.seven.seven.R;
 import com.seven.seven.common.utils.ToastUtils;
 
 /**
@@ -56,6 +58,7 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
     protected  void initView(){
 
     }
+
 
     protected abstract void initData();
 

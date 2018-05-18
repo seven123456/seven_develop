@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swf_layout"
         android:layout_width="match_parent"
@@ -11,35 +12,23 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler"
+            android:background="@color/common_background"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone" />
+            android:layout_height="match_parent" />
 
-        <TextView
-            android:id="@+id/text"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:scrollbars="vertical"
-            android:text="我是sfsfsafsafsafsafsaf" />
-
-        <com.seven.seven.common.view.NumberPlayTextView
-            android:id="@+id/play_view"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_below="@+id/text"
-            android:layout_centerInParent="true" />
-
-        <com.seven.seven.common.view.RollNumberTextView
-            android:id="@+id/roll_view"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_below="@+id/play_view" />
-
-        <include
-            android:id="@+id/error"
-            layout="@layout/error_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="invisible" />
     </android.support.v4.widget.SwipeRefreshLayout>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/red"
+        android:visibility="gone" />
+
+    <include
+        android:id="@+id/error"
+        layout="@layout/error_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
 </RelativeLayout>

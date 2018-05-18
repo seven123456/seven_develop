@@ -13,10 +13,11 @@ import com.seven.seven.common.base.codereview.BaseView;
 
 public interface HomeContract {
     interface View extends BaseView<Object> {
-        void showHomeData();
+//        void showHomeData();
     }
 
     interface Parenter {
         void  getHomeData();
+        void  getHomeBanner();
     }
 }
