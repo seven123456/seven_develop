@@ -9,6 +9,9 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -34,6 +37,7 @@ public class HomeNewsDetailActivity extends BaseActivity {
     private ImageView imageView;
     private HomeToWebViewInfo homeToWebViewInfo;
     private HomeNewsDetailActivity mActivity;
+    private WebView webView;
 
     @Override
     protected void initView(Bundle savedInstanceState) {
@@ -45,8 +49,17 @@ public class HomeNewsDetailActivity extends BaseActivity {
         appBarLayout = findViewById(R.id.abl_appbar_layout);
         collapsingToolbarLayout = findViewById(R.id.ctl_collapsing);
         imageView = findViewById(R.id.image_view);
-
-
+        webView = findViewById(R.id.wv_webview);
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webView.loadUrl(homeToWebViewInfo.h5Url);
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return true;
+            }
+        });
     }
 
     @Override
@@ -72,7 +85,8 @@ public class HomeNewsDetailActivity extends BaseActivity {
                         StatusBarUtil.setTranslate(mActivity, true);
                         Glide.with(HomeNewsDetailActivity.this).load(homeToWebViewInfo.imgUrl == null || homeToWebViewInfo.imgUrl.equals("") ? R.drawable.timg
                                 : homeToWebViewInfo.imgUrl).into(imageView);
-                        collapsingToolbarLayout.setTitle(homeToWebViewInfo.title);
+//                        collapsingToolbarLayout.setTitle(homeToWebViewInfo.title);
+                        collapsingToolbarLayout.setTitle(" ");
                         break;
                     case COLLAPSED://折叠
                         /*折叠后toolbar的颜色*/

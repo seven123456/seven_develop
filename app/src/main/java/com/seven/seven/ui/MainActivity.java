@@ -23,6 +23,7 @@ public class MainActivity extends BaseActivity {
     private TabLayout tabLayout;
     private MyPagerAdapter pagerAdapter;
     private List<TabItemInfo> tabItemInfos;
+
     @Override
     protected int getContentViewResId() {
         return R.layout.activity_main;
@@ -60,13 +61,13 @@ public class MainActivity extends BaseActivity {
     private void initViewPager() {
         tabItemInfos = new ArrayList<>();
         HomeFragment homeFragment = new HomeFragment();
-        tabItemInfos.add(new TabItemInfo(homeFragment, R.drawable.error, R.string.tab_main_name));
+        tabItemInfos.add(new TabItemInfo(homeFragment, R.drawable.home_button_selector, R.string.tab_main_name));
         BFragment bFragment = new BFragment();
         tabItemInfos.add(new TabItemInfo(bFragment, R.drawable.error, R.string.tab_classify_name));
         CFragment cFragment = new CFragment();
         tabItemInfos.add(new TabItemInfo(cFragment, R.drawable.error, R.string.tab_news_name));
         DFragment dFragment = new DFragment();
-        tabItemInfos.add(new TabItemInfo(dFragment, R.drawable.error, R.string.tab_mine_name));
+        tabItemInfos.add(new TabItemInfo(dFragment, R.drawable.my_button_selector, R.string.tab_mine_name));
 //        tabItemInfos.add(new EFragment());
         pagerAdapter = new MyPagerAdapter(getSupportFragmentManager(), tabItemInfos, mActivity);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);

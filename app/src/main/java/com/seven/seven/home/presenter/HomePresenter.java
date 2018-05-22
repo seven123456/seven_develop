@@ -14,8 +14,11 @@ import com.seven.seven.ui.MainActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
+import io.reactivex.Flowable;
 import io.reactivex.disposables.Disposable;
 
 /**
@@ -25,10 +28,11 @@ import io.reactivex.disposables.Disposable;
  */
 
 public class HomePresenter extends BasePresenterImpl<HomeContract.View, MainActivity> implements HomeContract.Parenter {
-
     public HomePresenter(HomeContract.View view, MainActivity activity) {
         super(view, activity);
     }
+
+    private int count = 0;
 
     @Override
     public void getHomeData() {
@@ -41,33 +45,43 @@ public class HomePresenter extends BasePresenterImpl<HomeContract.View, MainActi
 
                     @Override
                     protected void onSuccess(ResponseCustom<HomeNewsInfos> responseCustom) {
-//                        if (o.isSuccess()) {
                         if (getView() != null) {
                             EventBus.getDefault().post(new HomeEvents(Constans.HOMEDATA, responseCustom.getData()));
                         }
-//                        }
                     }
 
                     @Override
-                    protected void onFail(Throwable error) {
-                        EventBus.getDefault().post(new HomeEvents(Constans.HOMEDATAFIAL, error.getMessage()));
+                    protected void onFail(Throwable e) {
+
                     }
                 });
     }
 
     @Override
     public void getHomeBanner() {
-        HttpObservable.getObservable(ApiRetrofit.getApiRetrofit().getApiServis().getBannerInfos())
-                .subscribe(new HttpResultObserver<ResponseCustom<List<HomeBannerInfos>>>() {
+        io.reactivex.Observable observable = HttpObservable.getObservable(ApiRetrofit.getApiRetrofit().getApiServis().getHomeNewsInfos());
+        io.reactivex.Observable observable1 = HttpObservable.getObservable(ApiRetrofit.getApiRetrofit().getApiServis().getBannerInfos());
+        io.reactivex.Observable.concat(observable, observable1)
+//        HttpObservable.getObservable(ApiRetrofit.getApiRetrofit().getApiServis().getHomeNewsInfos())
+                .subscribe(new HttpResultObserver<ResponseCustom<Object>>() {
                     @Override
                     protected void onLoading(Disposable d) {
 
                     }
 
                     @Override
-                    protected void onSuccess(ResponseCustom<List<HomeBannerInfos>> responseCustom) {
+                    protected void onSuccess(ResponseCustom<Object> responseCustom) {
                         if (getView() != null) {
-                            EventBus.getDefault().post(new HomeEvents<>(Constans.HOMEBANNER, responseCustom.getData()));
+                            count++;
+                            if (responseCustom.getData() instanceof HomeNewsInfos) {
+                                EventBus.getDefault().post(new HomeEvents(Constans.HOMEDATA, responseCustom.getData()));
+                            } else if (responseCustom.getData() instanceof List) {
+                                EventBus.getDefault().post(new HomeEvents<>(Constans.HOMEBANNER, responseCustom.getData()));
+                            }
+                            if (count == 2) {
+                                count = 0;
+                                EventBus.getDefault().post(new HomeEvents<>(Constans.HOMEDASUCCESS, "103"));
+                            }
                         }
                     }
 

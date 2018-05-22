@@ -69,6 +69,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
         swipeRefreshLayout = rootView.findViewById(R.id.swf_layout);
         recyclerView = rootView.findViewById(R.id.recycler);
         errorLayoutView = rootView.findViewById(R.id.error);
+        errorLayoutView.setVisibility(View.VISIBLE);
         initRecyclerView();
     }
 
@@ -103,7 +104,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
         bannerViewAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                showSuccessToast("点击了" + position);
                 HomeBannerInfos homeBannerInfos = (HomeBannerInfos) adapter.getItem(position);
                 HomeToWebViewInfo homeToWebViewInfo = new HomeToWebViewInfo();
                 Intent intent = new Intent(getContext(), HomeNewsDetailActivity.class);
@@ -111,8 +111,10 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
                 homeToWebViewInfo.imgUrl = homeBannerInfos.getImagePath();
                 homeToWebViewInfo.h5Url = homeBannerInfos.getUrl();
                 intent.putExtra("newsInfo", homeToWebViewInfo);
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation
+                        ((Activity) getContext(), view.findViewById(R.id.iv_banner_image), getResources().getString(R.string.transition_news_img));
+                ActivityCompat.startActivity(getContext(), intent, options.toBundle());
 
-                startActivity(intent);
             }
         });
     }
@@ -122,15 +124,14 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                homePresenter.getHomeData();
                 homePresenter.getHomeBanner();
             }
         });
+        errorLayoutView.setOnClickListener(this);
     }
 
     @Override
     protected void initData() {
-        homePresenter.getHomeData();
         homePresenter.getHomeBanner();
     }
 
@@ -167,6 +168,10 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
                 case Constans.HOMEDATAFIAL:
                     showErrorToast((String) homeEvents.getData());
                     break;
+                case Constans.HOMEDASUCCESS:
+                    showSuccessToast("俩次请求数据成功");
+                    errorLayoutView.setVisibility(View.GONE);
+                    break;
             }
         }
         swipeRefreshLayout.setRefreshing(false);
@@ -175,8 +180,9 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
     @Override
     protected void widgetClick(View v) {
         switch (v.getId()) {
-            case R.id.text:
+            case R.id.error:
 //                startActivity(new Intent(getContext(), TestActivity3.class));
+                homePresenter.getHomeBanner();
                 break;
 
         }

@@ -19,5 +19,7 @@ public class Constans {
     public static final int HOMEDATA = 101;//获取首页数据成功
     public static final int HOMEBANNER = 102;//获取首页banner
     public static final int HOMEDATAFIAL = 100;//首页请求数据失败
+    public static final int HOMEDASUCCESS = 103;//banner,homedata请求数据成功，取消loading
+
 
 }

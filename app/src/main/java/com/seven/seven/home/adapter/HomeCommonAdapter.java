@@ -2,6 +2,7 @@ package com.seven.seven.home.adapter;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -28,11 +29,16 @@ public class HomeCommonAdapter extends BaseQuickAdapter<HomeNewsInfos.NewsInfos,
     }
 
     @Override
+    public int getItemCount() {
+        return super.getItemCount();
+    }
+
+    @Override
     protected void convert(BaseViewHolder helper, HomeNewsInfos.NewsInfos item) {
         if (item != null) {
             helper.setText(R.id.tv_title, item.getTitle())
-                    .setText(R.id.tv_author, "作者: "+item.getAuthor())
-                    .setText(R.id.tv_time, "发布时间: "+TimeUtils.longToString(item.getPublishTime(), "yyyy-MM-dd"))
+                    .setText(R.id.tv_author, "作者: " + item.getAuthor())
+                    .setText(R.id.tv_time, "发布时间: " + TimeUtils.longToString(item.getPublishTime(), "yyyy-MM-dd"))
                     .setText(R.id.tv_classify, item.getChapterName());
             if (item.getEnvelopePic() != null) {
                 Glide.with(mContext).load(item.getEnvelopePic())
