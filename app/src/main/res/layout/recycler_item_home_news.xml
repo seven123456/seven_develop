@@ -34,7 +34,9 @@
             android:layout_marginRight="5dp"
             android:layout_marginTop="19dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/news" />
+            android:src="@drawable/news"
+            android:transitionName="@string/transition_news_img"
+            />
 
         <TextView
             android:id="@+id/tv_author"

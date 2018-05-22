@@ -62,7 +62,7 @@ public class ViewTestActivity extends BaseActivity {
 
             @Override
             public void layoutExpanded() {
-                StatusBarUtil.setTranslates(ViewTestActivity.this,true);
+                StatusBarUtil.setTranslate(ViewTestActivity.this,true);
             }
         });
 

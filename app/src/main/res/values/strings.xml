@@ -9,5 +9,5 @@
     <string name="tab_classify_name">分类</string>
     <string name="tab_news_name">新闻</string>
     <string name="tab_mine_name">个人</string>
-
+    <string name="transition_news_img">transition_news_img</string>
 </resources>

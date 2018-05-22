@@ -1,11 +1,16 @@
 package com.seven.seven.home;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.seven.seven.R;
@@ -21,6 +26,7 @@ import com.seven.seven.home.contract.HomeContract;
 import com.seven.seven.home.events.HomeBannerInfos;
 import com.seven.seven.home.events.HomeEvents;
 import com.seven.seven.home.model.HomeNewsInfos;
+import com.seven.seven.home.model.HomeToWebViewInfo;
 import com.seven.seven.home.presenter.HomePresenter;
 import com.seven.seven.ui.MainActivity;
 
@@ -56,7 +62,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
     @Override
     protected void initView() {
         homePresenter = new HomePresenter(this, (MainActivity) getActivity());
-        StatusBarUtil.setTranslates(getActivity(), true);
+        StatusBarUtil.setTranslate(getActivity(), true);
         EventBus.getDefault().register(this);
         Toolbar appBarLayout = rootView.findViewById(R.id.appbar);
         appBarLayout.setTitle("首页新闻");
@@ -74,8 +80,20 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 HomeNewsInfos.NewsInfos newsInfos = (HomeNewsInfos.NewsInfos) adapter.getItem(position);
-
-                
+                HomeToWebViewInfo homeToWebViewInfo = new HomeToWebViewInfo();
+                homeToWebViewInfo.h5Url = newsInfos.getLink();
+                homeToWebViewInfo.imgUrl = newsInfos.getEnvelopePic();
+                homeToWebViewInfo.title = newsInfos.getTitle();
+                Intent intent = new Intent(getContext(), HomeNewsDetailActivity.class);
+                intent.putExtra("newsInfo", homeToWebViewInfo);
+                ImageView imageView = view.findViewById(R.id.iv_right);
+                /*
+                * item 里面的img设置一个属性，相对应页面的img里面也必须设置
+                * getResources().getString(R.string.transition_news_img)
+                * */
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation
+                        ((Activity) getContext(), view.findViewById(R.id.iv_right), getResources().getString(R.string.transition_news_img));
+                ActivityCompat.startActivity(getContext(), intent, options.toBundle());
             }
         });
         BannerLayout bannerLayout = rootView.findViewById(R.id.bl_banner);
@@ -86,6 +104,15 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 showSuccessToast("点击了" + position);
+                HomeBannerInfos homeBannerInfos = (HomeBannerInfos) adapter.getItem(position);
+                HomeToWebViewInfo homeToWebViewInfo = new HomeToWebViewInfo();
+                Intent intent = new Intent(getContext(), HomeNewsDetailActivity.class);
+                homeToWebViewInfo.title = homeBannerInfos.getTitle();
+                homeToWebViewInfo.imgUrl = homeBannerInfos.getImagePath();
+                homeToWebViewInfo.h5Url = homeBannerInfos.getUrl();
+                intent.putExtra("newsInfo", homeToWebViewInfo);
+
+                startActivity(intent);
             }
         });
     }
