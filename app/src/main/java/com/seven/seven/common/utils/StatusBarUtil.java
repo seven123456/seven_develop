@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager.LayoutParams;
 
+import com.seven.seven.R;
+
 import java.lang.reflect.Field;
 
 /**
@@ -131,6 +133,50 @@ public class StatusBarUtil {
                                             | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
                     window.addFlags(LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
                     window.setStatusBarColor(Color.BLACK);
+                } else if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
+                    window.clearFlags(LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                }
+            }
+        }
+    }
+    /**
+     * 设置沉浸状态栏，黑色底
+     *
+     * @param activity
+     */
+    public static void customTranslate(Activity activity, int color) {
+        if (activity != null) {
+            Window window = activity.getWindow();
+            if (window != null) {
+                if (VERSION.SDK_INT >= 21) {
+                    window.clearFlags(LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                    window.getDecorView()
+                            .setSystemUiVisibility(
+                                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                                            | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+                    window.addFlags(LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                    window.setStatusBarColor(color);
+                } else if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
+                    window.clearFlags(LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                }
+            }
+        }
+    }
+    /**
+     * 白底黑字！Android浅色状态栏黑色字体模式
+     * @param activity
+     * @param color
+     */
+    public static void customTranslate1(Activity activity, int color) {
+        if (activity != null) {
+            Window window = activity.getWindow();
+            if (window != null) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) { //6.0以上
+                    window.clearFlags(LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                    window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                    window.setStatusBarColor(color);
+                } else if (Build.VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {//5.0以上,变回灰色底
+                    customTranslate(activity, R.color.status_color);
                 } else if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
                     window.clearFlags(LayoutParams.FLAG_TRANSLUCENT_STATUS);
                 }

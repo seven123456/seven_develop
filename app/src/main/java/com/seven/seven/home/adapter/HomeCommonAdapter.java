@@ -31,13 +31,14 @@ public class HomeCommonAdapter extends BaseQuickAdapter<HomeNewsInfos.NewsInfos,
     protected void convert(BaseViewHolder helper, HomeNewsInfos.NewsInfos item) {
         if (item != null) {
             helper.setText(R.id.tv_title, item.getTitle())
-                    .setText(R.id.tv_author, item.getAuthor())
-                    .setText(R.id.tv_time, TimeUtils.longToString(item.getPublishTime(), "yyyy-MM-dd HH:mm:ss"))
+                    .setText(R.id.tv_author, "作者: "+item.getAuthor())
+                    .setText(R.id.tv_time, "发布时间: "+TimeUtils.longToString(item.getPublishTime(), "yyyy-MM-dd"))
                     .setText(R.id.tv_classify, item.getChapterName());
             if (item.getEnvelopePic() != null) {
                 Glide.with(mContext).load(item.getEnvelopePic())
                         .into((ImageView) helper.getView(R.id.iv_right));
             }
+            helper.addOnClickListener(R.id.cd_item);
         }
     }
 }

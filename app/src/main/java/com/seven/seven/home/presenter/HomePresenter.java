@@ -50,7 +50,7 @@ public class HomePresenter extends BasePresenterImpl<HomeContract.View, MainActi
 
                     @Override
                     protected void onFail(Throwable error) {
-                        EventBus.getDefault().post(new HomeEvents(Constans.HOMEDATA, error.getMessage()));
+                        EventBus.getDefault().post(new HomeEvents(Constans.HOMEDATAFIAL, error.getMessage()));
                     }
                 });
     }
@@ -73,7 +73,7 @@ public class HomePresenter extends BasePresenterImpl<HomeContract.View, MainActi
 
                     @Override
                     protected void onFail(Throwable error) {
-                        EventBus.getDefault().post(new HomeEvents(Constans.HOMEDATA, error.getMessage()));
+                        EventBus.getDefault().post(new HomeEvents(Constans.HOMEDATAFIAL, error.getMessage()));
                     }
                 });
     }

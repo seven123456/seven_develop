@@ -49,7 +49,9 @@ public class SplashActivity extends BaseActivity {
     protected void initView(Bundle savedInstanceState) {
 //        startActivity(new Intent(this, MainActivity.class));
         imageView = findViewById(R.id.text);
-        final Handler handler =new Handler(){
+        startActivity(new Intent(SplashActivity.this,MainActivity.class));
+        finish();
+        /*final Handler handler =new Handler(){
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
@@ -85,7 +87,7 @@ public class SplashActivity extends BaseActivity {
                 }
             }
         }).start();
-
+*/
 
     }
 
