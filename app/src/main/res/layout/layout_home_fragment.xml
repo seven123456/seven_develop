@@ -10,35 +10,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/common_background" />
 
-            <com.seven.seven.home.bannerview.BannerLayout
-                android:id="@+id/bl_banner"
-                android:layout_width="match_parent"
-                android:layout_height="140dp"
-                app:centerScale="1.3"
-                app:interval="3000"
-                app:itemSpace="20"
-                app:moveSpeed="1.8"
-                app:showIndicator="false" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/bl_banner"
-                android:background="@color/common_background" />
-        </RelativeLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/red"
-        android:visibility="gone" />
+        android:background="@color/transition" />
 
     <include
         android:id="@+id/error"

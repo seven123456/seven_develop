@@ -2,6 +2,8 @@ package com.seven.seven.home;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -9,8 +11,11 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.seven.seven.R;
@@ -53,6 +58,9 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
     private List<HomeBannerInfos> homeBannerInfos;
     private BannerViewAdapter bannerViewAdapter;
     private BannerLayout bannerLayout;
+    private View headView;
+    private Toolbar appBarLayout;
+    private LinearLayoutManager linearLayoutManager;
 
 
     @Override
@@ -65,8 +73,9 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
         homePresenter = new HomePresenter(this, (MainActivity) getActivity());
         StatusBarUtil.setTranslate(getActivity(), true);
         EventBus.getDefault().register(this);
-        Toolbar appBarLayout = rootView.findViewById(R.id.appbar);
-        appBarLayout.setTitle("首页新闻");
+        linearLayoutManager = new LinearLayoutManager(getContext());
+        appBarLayout = rootView.findViewById(R.id.appbar);
+//        appBarLayout.setTitle("首页新闻");
         swipeRefreshLayout = rootView.findViewById(R.id.swf_layout);
         recyclerView = rootView.findViewById(R.id.recycler);
         errorLayoutView = rootView.findViewById(R.id.error);
@@ -74,10 +83,51 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
         initRecyclerView();
     }
 
+    /*
+    * 初始化recycler并且初始化headview添加到recycler里面
+    * */
     private void initRecyclerView() {
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(linearLayoutManager);
         homeCommonAdapter = new HomeCommonAdapter(R.layout.recycler_item_home_news, newsInfosList, getContext());
+        initHeadView();
+        homeCommonAdapter.addHeaderView(headView);
         recyclerView.setAdapter(homeCommonAdapter);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            Drawable drawable = getContext().getResources().getDrawable(R.drawable.home_toolbar_bg);
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (newsInfosList != null) {
+                    int toolbarHeight = appBarLayout.getMeasuredHeight();
+                    int scollyHeight = recyclerView.computeVerticalScrollOffset();
+                    if (scollyHeight >= (toolbarHeight * 2)) {
+                        appBarLayout.setVisibility(View.VISIBLE);
+                        drawable.setAlpha(255);
+                        appBarLayout.setBackground(drawable);
+//                        StatusBarUtil.customTranslate(getActivity(), getContext().getResources().getColor(R.color.red));
+                    } else if (scollyHeight >= toolbarHeight) {
+                        appBarLayout.setVisibility(View.VISIBLE);
+                        drawable.setAlpha((int) (255 * ((scollyHeight - toolbarHeight) / (toolbarHeight * 1.5F))));
+                        appBarLayout.setBackground(drawable);
+                    } else {
+                        appBarLayout.setVisibility(View.GONE);
+                    }
+                    /*if (getScollyY() > 0) {
+                        appBarLayout.setVisibility(View.VISIBLE);
+                        if (getScollyY() > 30) {
+                            appBarLayout.setBackgroundColor(getContext().getResources().getColor(R.color.red));
+                        } else {
+                            appBarLayout.setBackgroundColor(getContext().getResources().getColor(R.color.colorAccent));
+                        }
+                    } else {
+                        appBarLayout.setVisibility(View.GONE);
+                    }*/
+                    Log.d("homefragment", "====" + recyclerView.computeVerticalScrollOffset() + "TOOL高度==" + appBarLayout.getMeasuredHeight());
+
+                }
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
         homeCommonAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
@@ -98,25 +148,11 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
                 ActivityCompat.startActivity(getContext(), intent, options.toBundle());
             }
         });
-        bannerLayout = rootView.findViewById(R.id.bl_banner);
-        bannerViewAdapter = new BannerViewAdapter(R.layout.recycler_item_banner, getContext());
-        bannerLayout.setAdapter(bannerViewAdapter);
-        bannerViewAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-            @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                HomeBannerInfos homeBannerInfos = (HomeBannerInfos) adapter.getItem(position);
-                HomeToWebViewInfo homeToWebViewInfo = new HomeToWebViewInfo();
-                Intent intent = new Intent(getContext(), HomeNewsDetailActivity.class);
-                homeToWebViewInfo.title = homeBannerInfos.getTitle();
-                homeToWebViewInfo.imgUrl = homeBannerInfos.getImagePath();
-                homeToWebViewInfo.h5Url = homeBannerInfos.getUrl();
-                intent.putExtra("newsInfo", homeToWebViewInfo);
-                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation
-                        ((Activity) getContext(), view.findViewById(R.id.iv_banner_image), getResources().getString(R.string.transition_news_img));
-                ActivityCompat.startActivity(getContext(), intent, options.toBundle());
 
-            }
-        });
+    }
+
+    private void setAlphaAnimation() {
+
     }
 
     @Override
@@ -158,11 +194,10 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
                     HomeNewsInfos homeNewsInfos = (HomeNewsInfos) homeEvents.getData();
                     newsInfosList = homeNewsInfos.getDatas();
                     homeCommonAdapter.setNewData(newsInfosList);
-                    showSuccessToast("成功了");
                     break;
                 case Constans.HOMEBANNER:
                     homeBannerInfos = (List<HomeBannerInfos>) homeEvents.getData();
-                    initRecyclerView(homeBannerInfos);
+                    initRecyclerHeadView(homeBannerInfos);
 //                    bannerViewAdapter.setNewData(homeBannerInfos);
 //                    showSuccessToast(homeBannerInfos.toString());
                     break;
@@ -178,8 +213,35 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
         swipeRefreshLayout.setRefreshing(false);
     }
 
-    private void initRecyclerView(List<HomeBannerInfos> homeBannerInfos) {
-        bannerViewAdapter = new BannerViewAdapter(R.layout.recycler_item_banner,homeBannerInfos, getContext());
+    private void initRecyclerHeadView(List<HomeBannerInfos> homeBannerInfos) {
+        bannerViewAdapter = new BannerViewAdapter(R.layout.recycler_item_banner, homeBannerInfos, getContext());
+        bannerLayout.setAdapter(bannerViewAdapter);
+        bannerViewAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                HomeBannerInfos homeBannerInfos = (HomeBannerInfos) adapter.getItem(position);
+                HomeToWebViewInfo homeToWebViewInfo = new HomeToWebViewInfo();
+                Intent intent = new Intent(getContext(), HomeNewsDetailActivity.class);
+                homeToWebViewInfo.title = homeBannerInfos.getTitle();
+                homeToWebViewInfo.imgUrl = homeBannerInfos.getImagePath();
+                homeToWebViewInfo.h5Url = homeBannerInfos.getUrl();
+                intent.putExtra("newsInfo", homeToWebViewInfo);
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation
+                        ((Activity) getContext(), view.findViewById(R.id.iv_banner_image), getResources().getString(R.string.transition_news_img));
+                ActivityCompat.startActivity(getContext(), intent, options.toBundle());
+            }
+        });
+    }
+
+    /*
+    * 初始化headview，并且初始化一个空list的banneradapter，加载数据成功以后再初始化banneradapter并且绑定bannerview
+    * */
+    private void initHeadView() {
+        if (headView == null) {
+            headView = View.inflate(getContext(), R.layout.recycler_head_view, null);
+        }
+        bannerLayout = headView.findViewById(R.id.bl_banner);
+        bannerViewAdapter = new BannerViewAdapter(R.layout.recycler_item_banner, getContext());
         bannerLayout.setAdapter(bannerViewAdapter);
     }
 
@@ -200,4 +262,10 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
         EventBus.getDefault().unregister(this);
     }
 
+    public int getScollyY() {
+        int position = linearLayoutManager.findFirstVisibleItemPosition() + 1;
+        View firstVisibleChildView = linearLayoutManager.findViewByPosition(position);
+        int firstHeight = firstVisibleChildView.getHeight();
+        return (position) * firstHeight - firstVisibleChildView.getTop();
+    }
 }

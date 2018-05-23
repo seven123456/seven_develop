@@ -12,4 +12,5 @@
     <color name="pink_red">#fcd0d0</color>
     <color name="common_background">#f5f5f5</color>
     <color name="status_color">#BBBBBB</color>
+    <color name="transition">#00000000</color>
 </resources>
