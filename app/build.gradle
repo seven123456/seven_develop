@@ -43,7 +43,6 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
     implementation 'com.github.bumptech.glide:glide:4.2.0'
-    compile 'com.youth.banner:banner:1.4.10'  //最新版本 https://github.com/youth5201314/banner
     //    implementation 'com.android.support:design:27.0.2'
 //    compile 'com.android.support:design:27.0.2'
 }

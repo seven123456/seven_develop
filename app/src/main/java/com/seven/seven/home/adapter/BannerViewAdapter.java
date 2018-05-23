@@ -26,6 +26,11 @@ public class BannerViewAdapter extends BaseQuickAdapter<HomeBannerInfos, BaseVie
         this.mContext = context;
     }
 
+    public BannerViewAdapter(int layoutResId, Context mContext) {
+        super(layoutResId);
+        this.mContext = mContext;
+    }
+
     @Override
     protected void convert(BaseViewHolder helper, HomeBannerInfos item) {
         if (item != null) {

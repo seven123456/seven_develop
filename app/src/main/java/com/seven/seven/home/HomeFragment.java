@@ -52,6 +52,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
     private HomeCommonAdapter homeCommonAdapter;
     private List<HomeBannerInfos> homeBannerInfos;
     private BannerViewAdapter bannerViewAdapter;
+    private BannerLayout bannerLayout;
 
 
     @Override
@@ -97,9 +98,8 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
                 ActivityCompat.startActivity(getContext(), intent, options.toBundle());
             }
         });
-        BannerLayout bannerLayout = rootView.findViewById(R.id.bl_banner);
-        bannerLayout.setAutoPlaying(true);
-        bannerViewAdapter = new BannerViewAdapter(R.layout.recycler_item_banner, homeBannerInfos, getContext());
+        bannerLayout = rootView.findViewById(R.id.bl_banner);
+        bannerViewAdapter = new BannerViewAdapter(R.layout.recycler_item_banner, getContext());
         bannerLayout.setAdapter(bannerViewAdapter);
         bannerViewAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
@@ -162,7 +162,8 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
                     break;
                 case Constans.HOMEBANNER:
                     homeBannerInfos = (List<HomeBannerInfos>) homeEvents.getData();
-                    bannerViewAdapter.setNewData(homeBannerInfos);
+                    initRecyclerView(homeBannerInfos);
+//                    bannerViewAdapter.setNewData(homeBannerInfos);
 //                    showSuccessToast(homeBannerInfos.toString());
                     break;
                 case Constans.HOMEDATAFIAL:
@@ -175,6 +176,11 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
             }
         }
         swipeRefreshLayout.setRefreshing(false);
+    }
+
+    private void initRecyclerView(List<HomeBannerInfos> homeBannerInfos) {
+        bannerViewAdapter = new BannerViewAdapter(R.layout.recycler_item_banner,homeBannerInfos, getContext());
+        bannerLayout.setAdapter(bannerViewAdapter);
     }
 
     @Override
