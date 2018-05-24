@@ -20,8 +20,8 @@ public class ApiRetrofit {
     private static volatile ApiRetrofit apiRetrofit;
     private static Converter.Factory gsonConverterFactory = GsonConverterFactory.create();
     private static CallAdapter.Factory adapterFactory = RxJava2CallAdapterFactory.create();
-    private static final int CONNECT_TIME_OUT = 5;
-    private static final int READ_TIME_OUT = 5;
+    private static final int CONNECT_TIME_OUT = 10;
+    private static final int READ_TIME_OUT = 10;
     private static String baseUrl = NetworkUrl.ANDROID_TEST_SERVICE;
     private static ApiService apiServise;
 

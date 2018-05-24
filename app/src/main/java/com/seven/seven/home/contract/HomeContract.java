@@ -17,7 +17,10 @@ public interface HomeContract {
     }
 
     interface Parenter {
-        void  getHomeData();
-        void  getHomeBanner();
+        void getHomeData();
+
+        void getHomeBanner();
+
+        void getMoreHomeData(int curpage);
     }
 }

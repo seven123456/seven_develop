@@ -15,7 +15,9 @@ import com.seven.seven.ui.MainActivity;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 
 import io.reactivex.Flowable;
@@ -81,6 +83,31 @@ public class HomePresenter extends BasePresenterImpl<HomeContract.View, MainActi
                             if (count == 2) {
                                 count = 0;
                                 EventBus.getDefault().post(new HomeEvents<>(Constans.HOMEDASUCCESS, "103"));
+                            }
+                        }
+                    }
+
+                    @Override
+                    protected void onFail(Throwable error) {
+                        EventBus.getDefault().post(new HomeEvents(Constans.HOMEDATAFIAL, error.getMessage()));
+                    }
+                });
+    }
+
+    @Override
+    public void getMoreHomeData(int pageNum) {
+        HttpObservable.getObservable(ApiRetrofit.getApiRetrofit().getApiServis().getMoreHomeNewsInfos(pageNum))
+                .subscribe(new HttpResultObserver<ResponseCustom<HomeNewsInfos>>() {
+                    @Override
+                    protected void onLoading(Disposable d) {
+
+                    }
+
+                    @Override
+                    protected void onSuccess(ResponseCustom<HomeNewsInfos> responseCustom) {
+                        if (getView() != null) {
+                            if (responseCustom.getData() != null) {
+                                EventBus.getDefault().post(new HomeEvents(Constans.HOMEDATA, responseCustom.getData()));
                             }
                         }
                     }

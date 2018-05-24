@@ -2,7 +2,6 @@ package com.seven.seven.home;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -11,13 +10,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.seven.seven.R;
@@ -49,7 +42,7 @@ import java.util.List;
  * email:seven2016s@163.com
  */
 
-public class HomeFragment extends BaseFragment implements HomeContract.View {
+public class HomeFragment extends BaseFragment implements HomeContract.View, BaseQuickAdapter.RequestLoadMoreListener {
 
     private ErrorLayoutView errorLayoutView;
     private RecyclerView recyclerView;
@@ -64,6 +57,9 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
     private Toolbar appBarLayout;
     private LinearLayoutManager linearLayoutManager;
     private boolean isFirst;
+    private static int CURPAGE = 0;
+    private static int PAGE_COUNT = 1;
+    private boolean isRefresh = false;
 
     @Override
     protected int getLayoutId() {
@@ -93,6 +89,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
         recyclerView.setLayoutManager(linearLayoutManager);
         homeCommonAdapter = new HomeCommonAdapter(R.layout.recycler_item_home_news, newsInfosList, getContext());
         initHeadView();
+        homeCommonAdapter.setOnLoadMoreListener(this, recyclerView);
         homeCommonAdapter.addHeaderView(headView);
         recyclerView.setAdapter(homeCommonAdapter);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -122,18 +119,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
                         * */
                         appBarLayout.setVisibility(View.GONE);
                     }
-                    /*if (getScollyY() > 0) {
-                        appBarLayout.setVisibility(View.VISIBLE);
-                        if (getScollyY() > 30) {
-                            appBarLayout.setBackgroundColor(getContext().getResources().getColor(R.color.red));
-                        } else {
-                            appBarLayout.setBackgroundColor(getContext().getResources().getColor(R.color.colorAccent));
-                        }
-                    } else {
-                        appBarLayout.setVisibility(View.GONE);
-                    }*/
-                    Log.d("homefragment", "====" + recyclerView.computeVerticalScrollOffset() + "TOOL高度==" + appBarLayout.getMeasuredHeight());
-
                 } else {
                     isFirst = true;
                 }
@@ -150,7 +135,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
                 homeToWebViewInfo.title = newsInfos.getTitle();
                 Intent intent = new Intent(getContext(), HomeNewsDetailActivity.class);
                 intent.putExtra("newsInfo", homeToWebViewInfo);
-                ImageView imageView = view.findViewById(R.id.iv_right);
                 /*
                 * item 里面的img设置一个属性，相对应页面的img里面也必须设置
                 * getResources().getString(R.string.transition_news_img)
@@ -173,14 +157,21 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
             @Override
             public void onRefresh() {
                 homePresenter.getHomeBanner();
-
+                homeCommonAdapter.setEnableLoadMore(false);
             }
         });
-        errorLayoutView.setOnClickListener(this);
+        errorLayoutView.setErrorOnclickListenter(new ErrorLayoutView.onErrorLayoutListenter() {
+            @Override
+            public void replayLoading() {
+                homePresenter.getHomeBanner();
+                isFirst = false;
+            }
+        });
     }
 
     @Override
     protected void initData() {
+        errorLayoutView.playAnimation();
         homePresenter.getHomeBanner();
     }
 
@@ -206,19 +197,37 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
                 case Constans.HOMEDATA:
                     HomeNewsInfos homeNewsInfos = (HomeNewsInfos) homeEvents.getData();
                     newsInfosList = homeNewsInfos.getDatas();
-                    homeCommonAdapter.setNewData(newsInfosList);
+                    if (!isRefresh) {
+                        homeCommonAdapter.setNewData(newsInfosList);
+                        isRefresh = true;
+                        homeCommonAdapter.setEnableLoadMore(true);
+                    } else {
+                        if (newsInfosList != null) {
+                            homeCommonAdapter.addData(newsInfosList);
+                        } else {
+                            homeCommonAdapter.loadMoreEnd(true);
+                        }
+                    }
+//                    CURPAGE = homeNewsInfos.getCurPage();
+                    PAGE_COUNT = homeNewsInfos.getPageCount();
+                    errorLayoutView.stopProgressbar();
+                    errorLayoutView.setVisibility(View.GONE);
                     break;
                 case Constans.HOMEBANNER:
                     homeBannerInfos = (List<HomeBannerInfos>) homeEvents.getData();
                     initRecyclerHeadView(homeBannerInfos);
 //                    bannerViewAdapter.setNewData(homeBannerInfos);
 //                    showSuccessToast(homeBannerInfos.toString());
+                    errorLayoutView.stopProgressbar();
+                    errorLayoutView.setVisibility(View.GONE);
                     break;
                 case Constans.HOMEDATAFIAL:
+//                    homeCommonAdapter.loadMoreEnd(true);
                     showErrorToast((String) homeEvents.getData());
+                    errorLayoutView.showErrorView();
                     break;
                 case Constans.HOMEDASUCCESS:
-                    showSuccessToast("俩次请求数据成功");
+                    errorLayoutView.showEmptyView();
                     errorLayoutView.setVisibility(View.GONE);
                     break;
             }
@@ -260,14 +269,12 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
 
     @Override
     protected void widgetClick(View v) {
-        switch (v.getId()) {
+        /*switch (v.getId()) {
             case R.id.error:
-//                startActivity(new Intent(getContext(), TestActivity3.class));
-                homePresenter.getHomeBanner();
-                isFirst = false;
+
                 break;
 
-        }
+        }*/
     }
 
     @Override
@@ -276,10 +283,29 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
         EventBus.getDefault().unregister(this);
     }
 
+    /*
+    * 获取recycler第一个可见item高度
+    * */
     public int getScollyY() {
         int position = linearLayoutManager.findFirstVisibleItemPosition() + 1;
         View firstVisibleChildView = linearLayoutManager.findViewByPosition(position);
         int firstHeight = firstVisibleChildView.getHeight();
         return (position) * firstHeight - firstVisibleChildView.getTop();
+    }
+
+    @Override
+    public void onLoadMoreRequested() {
+        recyclerView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (CURPAGE <= PAGE_COUNT) {
+                    CURPAGE++;
+                    homePresenter.getMoreHomeData(CURPAGE);
+                    homeCommonAdapter.loadMoreComplete();
+                } else {
+                    homeCommonAdapter.loadMoreEnd(true);
+                }
+            }
+        }, 1000);
     }
 }
