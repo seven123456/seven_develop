@@ -10,6 +10,7 @@ import android.view.View;
 import com.seven.seven.R;
 import com.seven.seven.common.network.RxLifeManager;
 import com.seven.seven.common.utils.AppManager;
+import com.seven.seven.common.utils.StatusBarUtil;
 import com.seven.seven.common.utils.ToastUtils;
 
 
@@ -29,11 +30,17 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//竖屏
         AppManager.getAppManager().addActivity(this);
         mActivity = this;
+        if (isNeedTranslateBar()) {
+            StatusBarUtil.setTranslate(mActivity, true);
+        }
         init(savedInstanceState);
         initData();
         setLisenter();
     }
 
+    protected boolean isNeedTranslateBar() {
+        return true;
+    }
 
     protected void init(Bundle savedInstanceState) {
         setContentView(getContentViewResId());

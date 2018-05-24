@@ -6,21 +6,22 @@ import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
 import com.seven.seven.R;
 import com.seven.seven.common.base.codereview.BaseActivity;
 import com.seven.seven.common.utils.AppBarStateChangeListener;
-import com.seven.seven.common.utils.AppManager;
 import com.seven.seven.common.utils.StatusBarUtil;
-import com.seven.seven.home.model.HomeNewsInfos;
 import com.seven.seven.home.model.HomeToWebViewInfo;
 
 /**
@@ -49,6 +50,8 @@ public class HomeNewsDetailActivity extends BaseActivity {
         appBarLayout = findViewById(R.id.abl_appbar_layout);
         collapsingToolbarLayout = findViewById(R.id.ctl_collapsing);
         imageView = findViewById(R.id.image_view);
+        FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) toolbar.getLayoutParams();
+        layoutParams.topMargin = StatusBarUtil.getStatusBarHeight(this);
         webView = findViewById(R.id.wv_webview);
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -82,7 +85,7 @@ public class HomeNewsDetailActivity extends BaseActivity {
             public void onStateChanged(AppBarLayout appBarLayout, State state) {
                 switch (state) {
                     case EXPANDED://展开
-                        StatusBarUtil.setTranslate(mActivity, true);
+//                        StatusBarUtil.setTranslate(mActivity, true);
                         Glide.with(HomeNewsDetailActivity.this).load(homeToWebViewInfo.imgUrl == null || homeToWebViewInfo.imgUrl.equals("") ? R.drawable.timg
                                 : homeToWebViewInfo.imgUrl).into(imageView);
 //                        collapsingToolbarLayout.setTitle(homeToWebViewInfo.title);
@@ -90,7 +93,7 @@ public class HomeNewsDetailActivity extends BaseActivity {
                         break;
                     case COLLAPSED://折叠
                         /*折叠后toolbar的颜色*/
-                        StatusBarUtil.setTranslateByColor(mActivity, getResources().getColor(R.color.red));
+//                        StatusBarUtil.setTranslateByColor(mActivity, getResources().getColor(R.color.red));
                         collapsingToolbarLayout.setContentScrimColor(getResources().getColor(R.color.red));
                         collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.white));
                         collapsingToolbarLayout.setTitle("热门博客");
@@ -103,6 +106,11 @@ public class HomeNewsDetailActivity extends BaseActivity {
     @Override
     protected void widgetClick(View v) {
 
+    }
+
+    @Override
+    protected boolean isNeedTranslateBar() {
+        return true;
     }
 
     @Override

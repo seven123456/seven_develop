@@ -91,6 +91,11 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
+    protected boolean isNeedTranslateBar() {
+        return true;
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         if (pagerAdapter != null) {

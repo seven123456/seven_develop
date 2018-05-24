@@ -15,14 +15,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/common_background" />
-
     </android.support.v4.widget.SwipeRefreshLayout>
+
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/transition" />
+        android:background="@color/transition"
+        android:visibility="gone" />
+
 
     <include
         android:id="@+id/error"

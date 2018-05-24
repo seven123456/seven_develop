@@ -1,10 +1,12 @@
 package com.seven.seven.common.utils;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
+import android.support.annotation.ColorInt;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager.LayoutParams;
@@ -130,6 +132,7 @@ public class StatusBarUtil {
 
     /**
      * 白底黑字！Android浅色状态栏黑色字体模式
+     *
      * @param activity
      * @param color
      */
@@ -151,16 +154,16 @@ public class StatusBarUtil {
     }
 
 
-    private static int sStatusBarHeight;
+    private static int sStatusBarHeight = -1;
 
-    /**
+/*    *//**
      * 获取状态栏高度
      *
      * @param resources
      * @return
-     */
-    private static int getStatusBarHeight(Resources resources) {
-        if (sStatusBarHeight <= 0 && resources != null) {
+     *//*
+    private static int getStatusBarHeight(Context context) {
+        if (sStatusBarHeight <= 0 && context != null) {
             Class<?> c = null;
             Object obj = null;
             Field field = null;
@@ -169,10 +172,37 @@ public class StatusBarUtil {
                 obj = c.newInstance();
                 field = c.getField("status_bar_height");
                 int x = Integer.parseInt(field.get(obj).toString());
-                sStatusBarHeight = resources.getDimensionPixelSize(x);
+                sStatusBarHeight = context.getResources().getDimensionPixelSize(x);
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+        return sStatusBarHeight;
+    }*/
+
+    /**
+     * 获取状态栏高度
+     *
+     * @param context
+     * @return
+     */
+    public static int getStatusBarHeight(Context context) {
+        if (sStatusBarHeight != -1) {
+            return sStatusBarHeight;
+        }
+
+        Class<?> c = null;
+        Object obj = null;
+        Field field = null;
+        int x = 0;
+        try {
+            c = Class.forName("com.android.internal.R$dimen");
+            obj = c.newInstance();
+            field = c.getField("status_bar_height");
+            x = Integer.parseInt(field.get(obj).toString());
+            sStatusBarHeight = context.getResources().getDimensionPixelSize(x);
+        } catch (Exception e1) {
+            e1.printStackTrace();
         }
         return sStatusBarHeight;
     }
@@ -180,10 +210,55 @@ public class StatusBarUtil {
     /**
      * 获取需要适配的状态栏高度，如果是KITKAT一下返回0
      *
-     * @param resources
+     * @param context
      * @return
      */
-    public static int getStatusBarHeightFit(Resources resources) {
-        return VERSION.SDK_INT >= VERSION_CODES.KITKAT ? getStatusBarHeight(resources) : 0;
+    public static int getStatusBarHeightFit(Context context) {
+        return VERSION.SDK_INT >= VERSION_CODES.KITKAT ? getStatusBarHeight(context) : 0;
+    }
+
+    /**
+     * 设置沉浸状态栏， 颜色自定 设置状态栏的alpha值
+     *
+     * @param activity
+     */
+    public static void setStatusBarColorAlpha(Activity activity, int color, int alpha) {
+        if (activity != null) {
+            Window window = activity.getWindow();
+            if (window != null) {
+                if (VERSION.SDK_INT >= 21) {
+                    window.clearFlags(LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                    window.getDecorView()
+                            .setSystemUiVisibility(
+                                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                                            | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+                    window.addFlags(LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                    window.setStatusBarColor(calculateStatusColor(color, alpha));
+                } else if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
+                    window.clearFlags(LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                }
+            }
+        }
+    }
+
+    /**
+     * 计算状态栏颜色
+     *
+     * @param color color值
+     * @param alpha alpha值
+     * @return 最终的状态栏颜色
+     */
+    private static int calculateStatusColor(@ColorInt int color, int alpha) {
+        if (alpha == 0) {
+            return color;
+        }
+        float a = 1 - alpha / 255f;
+        int red = color >> 16 & 0xff;
+        int green = color >> 8 & 0xff;
+        int blue = color & 0xff;
+        red = (int) (red * a + 0.5);
+        green = (int) (green * a + 0.5);
+        blue = (int) (blue * a + 0.5);
+        return 0xff << 24 | red << 16 | green << 8 | blue;
     }
 }

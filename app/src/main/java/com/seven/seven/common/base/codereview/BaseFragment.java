@@ -31,11 +31,14 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
         if (rootView == null) {
             rootView = inflater.inflate(getLayoutId(), container, false);
         }
+
         initView();
         setLisenter();
         initData();
         return rootView;
     }
+
+
 
 //    protected abstract void initView(View rootView, Bundle savedInstanceState);
 
@@ -55,7 +58,7 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
 
     protected abstract int getLayoutId();
 
-    protected  void initView(){
+    protected void initView() {
 
     }
 
