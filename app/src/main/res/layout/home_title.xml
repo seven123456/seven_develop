@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.seven.seven.common.view.HomeTitleView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lly_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/red"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="22dp"
+        android:background="@color/red" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/red">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="首页"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_16" />
+    </FrameLayout>
+</com.seven.seven.common.view.HomeTitleView>

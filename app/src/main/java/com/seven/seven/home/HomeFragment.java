@@ -14,8 +14,10 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.seven.seven.R;
@@ -61,7 +63,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
     private View headView;
     private Toolbar appBarLayout;
     private LinearLayoutManager linearLayoutManager;
-
+    private boolean isFirst;
 
     @Override
     protected int getLayoutId() {
@@ -71,10 +73,11 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
     @Override
     protected void initView() {
         homePresenter = new HomePresenter(this, (MainActivity) getActivity());
-        StatusBarUtil.setTranslate(getActivity(), true);
         EventBus.getDefault().register(this);
         linearLayoutManager = new LinearLayoutManager(getContext());
         appBarLayout = rootView.findViewById(R.id.appbar);
+        /*RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) appBarLayout.getLayoutParams();
+        layoutParams.topMargin = StatusBarUtil.getStatusBarHeight(getActivity());*/
 //        appBarLayout.setTitle("首页新闻");
         swipeRefreshLayout = rootView.findViewById(R.id.swf_layout);
         recyclerView = rootView.findViewById(R.id.recycler);
@@ -97,19 +100,26 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                if (newsInfosList != null) {
+                if (isFirst) {
                     int toolbarHeight = appBarLayout.getMeasuredHeight();
                     int scollyHeight = recyclerView.computeVerticalScrollOffset();
                     if (scollyHeight >= (toolbarHeight * 2)) {
+                        /*此时toolbar和状态栏完全显示红色*/
                         appBarLayout.setVisibility(View.VISIBLE);
                         drawable.setAlpha(255);
                         appBarLayout.setBackground(drawable);
-//                        StatusBarUtil.customTranslate(getActivity(), getContext().getResources().getColor(R.color.red));
                     } else if (scollyHeight >= toolbarHeight) {
+                        /*
+                        * 渐变过程怎么搞？
+                        * */
                         appBarLayout.setVisibility(View.VISIBLE);
                         drawable.setAlpha((int) (255 * ((scollyHeight - toolbarHeight) / (toolbarHeight * 1.5F))));
                         appBarLayout.setBackground(drawable);
+
                     } else {
+                        /*
+                        * 状态栏透明
+                        * */
                         appBarLayout.setVisibility(View.GONE);
                     }
                     /*if (getScollyY() > 0) {
@@ -124,6 +134,8 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
                     }*/
                     Log.d("homefragment", "====" + recyclerView.computeVerticalScrollOffset() + "TOOL高度==" + appBarLayout.getMeasuredHeight());
 
+                } else {
+                    isFirst = true;
                 }
                 super.onScrolled(recyclerView, dx, dy);
             }
@@ -161,6 +173,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
             @Override
             public void onRefresh() {
                 homePresenter.getHomeBanner();
+
             }
         });
         errorLayoutView.setOnClickListener(this);
@@ -251,6 +264,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
             case R.id.error:
 //                startActivity(new Intent(getContext(), TestActivity3.class));
                 homePresenter.getHomeBanner();
+                isFirst = false;
                 break;
 
         }
