@@ -2,6 +2,7 @@ package com.seven.seven.common.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -71,21 +72,29 @@ public class ErrorLayoutView extends RelativeLayout {
         doubleBounce.setBounds(0, 0, 100, 100);
         doubleBounce.setColor(android.graphics.Color.parseColor("#FF0000"));
         progressBar.setIndeterminateDrawable(doubleBounce);
+        Log.d("home", "paly");
     }
 
-    public void stopProgressbar() {
+    /*public void stopProgressbar() {
         progressBar.setVisibility(GONE);
-    }
+    }*/
 
     public void showErrorView() {
-        loadingLayout.setVisibility(GONE);
+        setVisibility(VISIBLE);
         errorLayout.setVisibility(VISIBLE);
-        progressBar.setVisibility(GONE);
+        loadingLayout.setVisibility(INVISIBLE);
+        progressBar.setVisibility(INVISIBLE);
+        Log.d("home", "showErrorView");
     }
 
-    public void showEmptyView() {
+    /*public void showEmptyView() {
         loadingLayout.setVisibility(GONE);
         errorLayout.setVisibility(GONE);
         progressBar.setVisibility(GONE);
+    }*/
+    public void hide() {
+        progressBar.setVisibility(GONE);
+        setVisibility(GONE);
+        Log.d("home", "hide");
     }
 }

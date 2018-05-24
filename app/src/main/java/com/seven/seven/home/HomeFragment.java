@@ -10,6 +10,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -79,6 +80,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Bas
         recyclerView = rootView.findViewById(R.id.recycler);
         errorLayoutView = rootView.findViewById(R.id.error);
         errorLayoutView.setVisibility(View.VISIBLE);
+        errorLayoutView.playAnimation();
         initRecyclerView();
     }
 
@@ -163,6 +165,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Bas
         errorLayoutView.setErrorOnclickListenter(new ErrorLayoutView.onErrorLayoutListenter() {
             @Override
             public void replayLoading() {
+                errorLayoutView.playAnimation();
                 homePresenter.getHomeBanner();
                 isFirst = false;
             }
@@ -171,7 +174,8 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Bas
 
     @Override
     protected void initData() {
-        errorLayoutView.playAnimation();
+        Log.d("home","initdata");
+//        errorLayoutView.playAnimation();
         homePresenter.getHomeBanner();
     }
 
@@ -210,25 +214,20 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Bas
                     }
 //                    CURPAGE = homeNewsInfos.getCurPage();
                     PAGE_COUNT = homeNewsInfos.getPageCount();
-                    errorLayoutView.stopProgressbar();
-                    errorLayoutView.setVisibility(View.GONE);
+                    errorLayoutView.hide();
                     break;
                 case Constans.HOMEBANNER:
                     homeBannerInfos = (List<HomeBannerInfos>) homeEvents.getData();
                     initRecyclerHeadView(homeBannerInfos);
 //                    bannerViewAdapter.setNewData(homeBannerInfos);
-//                    showSuccessToast(homeBannerInfos.toString());
-                    errorLayoutView.stopProgressbar();
-                    errorLayoutView.setVisibility(View.GONE);
+                    errorLayoutView.hide();
                     break;
                 case Constans.HOMEDATAFIAL:
-//                    homeCommonAdapter.loadMoreEnd(true);
                     showErrorToast((String) homeEvents.getData());
                     errorLayoutView.showErrorView();
                     break;
                 case Constans.HOMEDASUCCESS:
-                    errorLayoutView.showEmptyView();
-                    errorLayoutView.setVisibility(View.GONE);
+                    errorLayoutView.hide();
                     break;
             }
         }

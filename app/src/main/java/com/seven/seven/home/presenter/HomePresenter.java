@@ -74,15 +74,19 @@ public class HomePresenter extends BasePresenterImpl<HomeContract.View, MainActi
                     @Override
                     protected void onSuccess(ResponseCustom<Object> responseCustom) {
                         if (getView() != null) {
-                            count++;
-                            if (responseCustom.getData() instanceof HomeNewsInfos) {
-                                EventBus.getDefault().post(new HomeEvents(Constans.HOMEDATA, responseCustom.getData()));
-                            } else if (responseCustom.getData() instanceof List) {
-                                EventBus.getDefault().post(new HomeEvents<>(Constans.HOMEBANNER, responseCustom.getData()));
-                            }
-                            if (count == 2) {
-                                count = 0;
-                                EventBus.getDefault().post(new HomeEvents<>(Constans.HOMEDASUCCESS, "103"));
+                            if (responseCustom.getErrorCode() >= 0) {
+                                count++;
+                                if (responseCustom.getData() instanceof HomeNewsInfos) {
+                                    EventBus.getDefault().post(new HomeEvents(Constans.HOMEDATA, responseCustom.getData()));
+                                } else if (responseCustom.getData() instanceof List) {
+                                    EventBus.getDefault().post(new HomeEvents<>(Constans.HOMEBANNER, responseCustom.getData()));
+                                }
+                                if (count == 2) {
+                                    count = 0;
+                                    EventBus.getDefault().post(new HomeEvents<>(Constans.HOMEDASUCCESS, "103"));
+                                }
+                            } else {
+                                EventBus.getDefault().post(new HomeEvents(Constans.HOMEDATAFIAL, responseCustom.getErrorMsg()));
                             }
                         }
                     }
