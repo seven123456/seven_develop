@@ -1,6 +1,9 @@
 package com.seven.seven.home.presenter;
 
+import android.util.Log;
+
 import com.seven.seven.common.base.codereview.BasePresenterImpl;
+import com.seven.seven.common.base.codereview.BaseRetryWhen;
 import com.seven.seven.common.network.ApiRetrofit;
 import com.seven.seven.common.network.HttpObservable;
 import com.seven.seven.common.network.HttpResultObserver;
@@ -14,14 +17,18 @@ import com.seven.seven.ui.MainActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
+import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Flowable;
+import io.reactivex.ObservableSource;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
 
 /**
  * Created  on 2018-03-31.
@@ -59,12 +66,19 @@ public class HomePresenter extends BasePresenterImpl<HomeContract.View, MainActi
                 });
     }
 
+    // 设置变量
+    // 可重试次数
+    private int maxConnectCount = 10;
+    // 当前已重试次数
+    private int currentRetryCount = 0;
+    // 重试等待时间
+    private int waitRetryTime = 0;
+
     @Override
     public void getHomeBanner() {
         io.reactivex.Observable observable = HttpObservable.getObservable(ApiRetrofit.getApiRetrofit().getApiServis().getHomeNewsInfos());
         io.reactivex.Observable observable1 = HttpObservable.getObservable(ApiRetrofit.getApiRetrofit().getApiServis().getBannerInfos());
         io.reactivex.Observable.concat(observable, observable1)
-//        HttpObservable.getObservable(ApiRetrofit.getApiRetrofit().getApiServis().getHomeNewsInfos())
                 .subscribe(new HttpResultObserver<ResponseCustom<Object>>() {
                     @Override
                     protected void onLoading(Disposable d) {

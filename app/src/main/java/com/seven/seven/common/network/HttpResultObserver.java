@@ -1,10 +1,12 @@
 package com.seven.seven.common.network;
 
+import android.accounts.NetworkErrorException;
 import android.util.Log;
 
 import com.google.gson.JsonParseException;
 import com.google.gson.stream.MalformedJsonException;
 import com.seven.seven.common.base.HttpErrorReceiver;
+import com.seven.seven.common.utils.ToastUtils;
 
 import org.json.JSONException;
 
@@ -42,15 +44,15 @@ public abstract class HttpResultObserver<T> extends HttpCommonObserver<T> {
     @Override
     protected void _onError(Throwable error) {
         if (error instanceof SocketTimeoutException) {
-//            ToastUtils.error("网络连接超时,请检查网络");
+            ToastUtils.error("网络连接超时,请检查网络");
         } else if (error instanceof ConnectException) {
-//            ToastUtils.error("网络连接异常,请检查网络");
+            ToastUtils.error("网络连接异常,请检查网络");
         } else if (error instanceof UnknownHostException) {
-//            ToastUtils.error("服务器异常,请稍后再试");
+            ToastUtils.error("服务器异常,请稍后再试");
         } else if (error instanceof JsonParseException
                 || error instanceof JSONException
                 || error instanceof ParseException || error instanceof MalformedJsonException) {
-//            ToastUtils.error("数据解析错误");
+            ToastUtils.error("数据解析错误");
            /* Intent intent = new Intent();
             intent.setAction(ConnectivityManager.CONNECTIVITY_ACTION);
             intent.putExtra("msg", "错误消息");
@@ -58,6 +60,8 @@ public abstract class HttpResultObserver<T> extends HttpCommonObserver<T> {
             sendBroadcast(intent);*/
             /*HttpErrorInfo httpErrorInfo = new HttpErrorInfo("服务器异常,请稍后再试");
             EventBus.getDefault().post(httpErrorInfo);*/
+        } else if (error instanceof NetworkErrorException) {
+            ToastUtils.error("NetworkErrorException错误");
         }
         onFail(error);
         Log.e("网络处理异常", error.getMessage().toString());

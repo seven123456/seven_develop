@@ -174,7 +174,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Bas
 
     @Override
     protected void initData() {
-        Log.d("home","initdata");
+        Log.d("home", "initdata");
 //        errorLayoutView.playAnimation();
         homePresenter.getHomeBanner();
     }
@@ -230,6 +230,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Bas
                     errorLayoutView.hide();
                     break;
             }
+            Log.d("重新请求", "1111");
         }
         swipeRefreshLayout.setRefreshing(false);
     }
