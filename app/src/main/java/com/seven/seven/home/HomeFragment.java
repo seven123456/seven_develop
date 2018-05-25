@@ -58,8 +58,8 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Bas
     private Toolbar appBarLayout;
     private LinearLayoutManager linearLayoutManager;
     private boolean isFirst;
-    private static int CURPAGE = 0;
-    private static int PAGE_COUNT = 1;
+    private static int CURPAGE = 1;
+    private static int PAGE_COUNT = 0;
     private boolean isRefresh = false;
 
     @Override
@@ -201,6 +201,9 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Bas
                 case Constans.HOMEDATA:
                     HomeNewsInfos homeNewsInfos = (HomeNewsInfos) homeEvents.getData();
                     newsInfosList = homeNewsInfos.getDatas();
+                    if (newsInfosList != null) {
+                        errorLayoutView.hide();
+                    }
                     if (!isRefresh) {
                         homeCommonAdapter.setNewData(newsInfosList);
                         isRefresh = true;
@@ -214,13 +217,15 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Bas
                     }
 //                    CURPAGE = homeNewsInfos.getCurPage();
                     PAGE_COUNT = homeNewsInfos.getPageCount();
-                    errorLayoutView.hide();
                     break;
                 case Constans.HOMEBANNER:
                     homeBannerInfos = (List<HomeBannerInfos>) homeEvents.getData();
                     initRecyclerHeadView(homeBannerInfos);
+                    if (homeBannerInfos != null) {
+                        errorLayoutView.hide();
+                    }
+
 //                    bannerViewAdapter.setNewData(homeBannerInfos);
-                    errorLayoutView.hide();
                     break;
                 case Constans.HOMEDATAFIAL:
                     showErrorToast((String) homeEvents.getData());
@@ -230,7 +235,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Bas
                     errorLayoutView.hide();
                     break;
             }
-            Log.d("重新请求", "1111");
         }
         swipeRefreshLayout.setRefreshing(false);
     }

@@ -82,8 +82,8 @@ public class ErrorLayoutView extends RelativeLayout {
     public void showErrorView() {
         setVisibility(VISIBLE);
         errorLayout.setVisibility(VISIBLE);
-        loadingLayout.setVisibility(INVISIBLE);
-        progressBar.setVisibility(INVISIBLE);
+        loadingLayout.setVisibility(GONE);
+        progressBar.setVisibility(GONE);
         Log.d("home", "showErrorView");
     }
 

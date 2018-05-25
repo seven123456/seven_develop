@@ -7,6 +7,7 @@ import com.seven.seven.common.base.codereview.BaseRetryWhen;
 import com.seven.seven.common.network.ApiRetrofit;
 import com.seven.seven.common.network.HttpObservable;
 import com.seven.seven.common.network.HttpResultObserver;
+import com.seven.seven.common.network.HttpResultObserver2;
 import com.seven.seven.common.network.ResponseCustom;
 import com.seven.seven.common.utils.Constans;
 import com.seven.seven.home.contract.HomeContract;
@@ -28,6 +29,7 @@ import java.util.concurrent.TimeUnit;
 import io.reactivex.Flowable;
 import io.reactivex.ObservableSource;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 
 /**
@@ -78,38 +80,37 @@ public class HomePresenter extends BasePresenterImpl<HomeContract.View, MainActi
     public void getHomeBanner() {
         io.reactivex.Observable observable = HttpObservable.getObservable(ApiRetrofit.getApiRetrofit().getApiServis().getHomeNewsInfos());
         io.reactivex.Observable observable1 = HttpObservable.getObservable(ApiRetrofit.getApiRetrofit().getApiServis().getBannerInfos());
-        io.reactivex.Observable.concat(observable, observable1)
-                .subscribe(new HttpResultObserver<ResponseCustom<Object>>() {
-                    @Override
-                    protected void onLoading(Disposable d) {
+        io.reactivex.Observable.mergeDelayError(observable, observable1).retryWhen(new BaseRetryWhen(3,3000)).subscribe(new HttpResultObserver<ResponseCustom<Object>>() {
+            @Override
+            protected void onLoading(Disposable d) {
 
-                    }
+            }
 
-                    @Override
-                    protected void onSuccess(ResponseCustom<Object> responseCustom) {
-                        if (getView() != null) {
-                            if (responseCustom.getErrorCode() >= 0) {
-                                count++;
-                                if (responseCustom.getData() instanceof HomeNewsInfos) {
-                                    EventBus.getDefault().post(new HomeEvents(Constans.HOMEDATA, responseCustom.getData()));
-                                } else if (responseCustom.getData() instanceof List) {
-                                    EventBus.getDefault().post(new HomeEvents<>(Constans.HOMEBANNER, responseCustom.getData()));
-                                }
-                                if (count == 2) {
-                                    count = 0;
-                                    EventBus.getDefault().post(new HomeEvents<>(Constans.HOMEDASUCCESS, "103"));
-                                }
-                            } else {
-                                EventBus.getDefault().post(new HomeEvents(Constans.HOMEDATAFIAL, responseCustom.getErrorMsg()));
-                            }
-                        }
+            @Override
+            protected void onSuccess(ResponseCustom<Object> responseCustom) {
+                if (getView() != null) {
+                    if (responseCustom.getData() != null) {
+                        count++;
                     }
+                    if (responseCustom.getData() instanceof HomeNewsInfos) {
+                        EventBus.getDefault().post(new HomeEvents(Constans.HOMEDATA, responseCustom.getData()));
+                    } else if (responseCustom.getData() instanceof List) {
+                        EventBus.getDefault().post(new HomeEvents(Constans.HOMEBANNER, responseCustom.getData()));
+                    }
+                    if (count == 2) {
+                        count = 0;
+                        EventBus.getDefault().post(new HomeEvents(Constans.HOMEDASUCCESS, "成功"));
+                    } /*else {
+                        EventBus.getDefault().post(new HomeEvents(Constans.HOMEDATAFIAL, "只有一次"));
+                    }*/
+                }
+            }
 
-                    @Override
-                    protected void onFail(Throwable error) {
-                        EventBus.getDefault().post(new HomeEvents(Constans.HOMEDATAFIAL, error.getMessage()));
-                    }
-                });
+            @Override
+            protected void onFail(Throwable error) {
+                EventBus.getDefault().post(new HomeEvents(Constans.HOMEDATAFIAL, error.getMessage()));
+            }
+        });
     }
 
     @Override

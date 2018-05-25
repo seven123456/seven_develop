@@ -15,6 +15,7 @@ public class ServerResultFunction implements io.reactivex.functions.Function<Res
     @Override
     public Object apply(ResponseCustom responseCustom) {
         LogUtils.jsonE("服务器返回结果===>" + GsonTools.createGsonString(responseCustom));
+
         return responseCustom;
     }
 }
