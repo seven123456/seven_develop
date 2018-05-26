@@ -1,5 +1,8 @@
 package com.seven.seven.common.base.codereview;
 
+import com.seven.seven.common.network.ApiRetrofit;
+import com.seven.seven.common.network.ApiService;
+
 import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
 
@@ -10,6 +13,7 @@ import java.lang.ref.WeakReference;
  */
 
 public class BasePresenterImpl<V extends BaseView, T extends BaseActivity> implements BasePresenter<V, T> {
+    public final ApiService apiRetrofit;
     private Reference<V> viewReference;
     private Reference<T> activityReference;
     private V mView;
@@ -18,6 +22,7 @@ public class BasePresenterImpl<V extends BaseView, T extends BaseActivity> imple
     public BasePresenterImpl(V view, T activity) {
         attachActivity(activity);
         attachView(view);
+        apiRetrofit = ApiRetrofit.getApiRetrofit().getApiServis();
     }
 
     @Override

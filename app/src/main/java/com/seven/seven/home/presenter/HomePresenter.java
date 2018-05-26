@@ -78,9 +78,9 @@ public class HomePresenter extends BasePresenterImpl<HomeContract.View, MainActi
 
     @Override
     public void getHomeBanner() {
-        io.reactivex.Observable observable = HttpObservable.getObservable(ApiRetrofit.getApiRetrofit().getApiServis().getHomeNewsInfos());
-        io.reactivex.Observable observable1 = HttpObservable.getObservable(ApiRetrofit.getApiRetrofit().getApiServis().getBannerInfos());
-        io.reactivex.Observable.mergeDelayError(observable, observable1).retryWhen(new BaseRetryWhen(3,3000)).subscribe(new HttpResultObserver<ResponseCustom<Object>>() {
+        io.reactivex.Observable observable = HttpObservable.getObservable(apiRetrofit.getHomeNewsInfos());
+        io.reactivex.Observable observable1 = HttpObservable.getObservable(apiRetrofit.getBannerInfos());
+        io.reactivex.Observable.mergeDelayError(observable, observable1).retryWhen(new BaseRetryWhen(3, 3000)).subscribe(new HttpResultObserver<ResponseCustom<Object>>() {
             @Override
             protected void onLoading(Disposable d) {
 
