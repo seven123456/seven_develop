@@ -1,6 +1,8 @@
 package com.seven.seven.ui;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -11,12 +13,16 @@ import android.widget.ImageView;
 import com.seven.seven.R;
 import com.seven.seven.common.utils.AppManager;
 import com.seven.seven.common.base.codereview.BaseActivity;
+import com.seven.seven.login.LoginActivity;
+import com.seven.seven.login.LoginContract;
 
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+
+import static com.seven.seven.common.utils.Constans.COOKIE_PREF;
 
 /**
  * Created  on 2018-02-02.
@@ -49,46 +55,12 @@ public class SplashActivity extends BaseActivity {
     protected void initView(Bundle savedInstanceState) {
 //        startActivity(new Intent(this, MainActivity.class));
         imageView = findViewById(R.id.text);
-        startActivity(new Intent(SplashActivity.this,MainActivity.class));
+        if (MyApplication.getContext().getSharedPreferences(COOKIE_PREF, Context.MODE_PRIVATE) != null) {
+            startActivity(new Intent(SplashActivity.this, MainActivity.class));
+        } else {
+            startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+        }
         finish();
-        /*final Handler handler =new Handler(){
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-                switch (msg.what){
-                    case 1:
-                        imageView.setImageResource(R.drawable.timgs);
-                        io.reactivex.Observable.interval(1, TimeUnit.SECONDS).take(3)//角标从0开始
-                                .subscribeOn(Schedulers.io())
-                                .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe(new Consumer<Long>() {
-                                    @Override
-                                    public void accept(Long aLong) throws Exception {
-                                        if (time-aLong == 1) {
-                                            startActivity(new Intent(SplashActivity.this,MainActivity.class));
-                                            finish();
-                                        }
-                                    }
-                                });
-                        break;
-                }
-            }
-        };
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(3000);
-                    Message message =new Message();
-                    message.what=1;
-                    handler.sendMessage(message);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-*/
-
     }
 
    /* @Override

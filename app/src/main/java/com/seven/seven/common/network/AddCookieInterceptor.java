@@ -22,12 +22,12 @@ import static com.seven.seven.common.utils.Constans.COOKIE_PREF;
  */
 
 public class AddCookieInterceptor implements Interceptor {
-  /*  private Context mContext;
+    /*  private Context mContext;
 
-    public AddCookieInterceptor(Context context) {
-        this.mContext = context;
-    }
-*/
+      public AddCookieInterceptor(Context context) {
+          this.mContext = context;
+      }
+  */
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();

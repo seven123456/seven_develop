@@ -16,7 +16,7 @@ public interface HomeContract {
 //        void showHomeData();
     }
 
-    interface Parenter {
+    interface Presenter {
         void getHomeData();
 
         void getHomeBanner();

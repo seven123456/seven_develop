@@ -3,7 +3,6 @@ package com.seven.seven.home;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -18,13 +17,12 @@ import com.seven.seven.R;
 import com.seven.seven.common.base.codereview.BaseFragment;
 import com.seven.seven.common.event.NetWorkChangeEvent;
 import com.seven.seven.common.utils.Constans;
-import com.seven.seven.common.utils.StatusBarUtil;
 import com.seven.seven.common.view.ErrorLayoutView;
 import com.seven.seven.home.adapter.BannerViewAdapter;
 import com.seven.seven.home.adapter.HomeCommonAdapter;
 import com.seven.seven.home.bannerview.BannerLayout;
 import com.seven.seven.home.contract.HomeContract;
-import com.seven.seven.home.events.HomeBannerInfos;
+import com.seven.seven.home.model.HomeBannerInfos;
 import com.seven.seven.home.events.HomeEvents;
 import com.seven.seven.home.model.HomeNewsInfos;
 import com.seven.seven.home.model.HomeToWebViewInfo;
@@ -167,7 +165,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Bas
             public void replayLoading() {
                 errorLayoutView.playAnimation();
                 homePresenter.getHomeBanner();
-                isFirst = false;
+//                isFirst = false;
             }
         });
     }
@@ -227,11 +225,12 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Bas
 
 //                    bannerViewAdapter.setNewData(homeBannerInfos);
                     break;
-                case Constans.HOMEDATAFIAL:
+                case Constans.HOMEERROR:
                     showErrorToast((String) homeEvents.getData());
                     errorLayoutView.showErrorView();
                     break;
                 case Constans.HOMEDASUCCESS:
+                    showSuccessToast("俩次成功");
                     errorLayoutView.hide();
                     break;
             }

@@ -24,7 +24,7 @@ import io.reactivex.disposables.Disposable;
  * email:seven2016s@163.com
  */
 
-public class HomePresenter extends BasePresenterImpl<HomeContract.View, MainActivity> implements HomeContract.Parenter {
+public class HomePresenter extends BasePresenterImpl<HomeContract.View, MainActivity> implements HomeContract.Presenter {
     public HomePresenter(HomeContract.View view, MainActivity activity) {
         super(view, activity);
     }
@@ -87,14 +87,14 @@ public class HomePresenter extends BasePresenterImpl<HomeContract.View, MainActi
                         count = 0;
                         EventBus.getDefault().post(new HomeEvents(Constans.HOMEDASUCCESS, "成功"));
                     } /*else {
-                        EventBus.getDefault().post(new HomeEvents(Constans.HOMEDATAFIAL, "只有一次"));
+                        EventBus.getDefault().post(new HomeEvents(Constans.HOMEERROR, "只有一次"));
                     }*/
                 }
             }
 
             @Override
             protected void onFail(Throwable error) {
-                EventBus.getDefault().post(new HomeEvents(Constans.HOMEDATAFIAL, error.getMessage()));
+                EventBus.getDefault().post(new HomeEvents(Constans.HOMEERROR, error.getMessage()));
             }
         });
     }
@@ -119,7 +119,7 @@ public class HomePresenter extends BasePresenterImpl<HomeContract.View, MainActi
 
                     @Override
                     protected void onFail(Throwable error) {
-                        EventBus.getDefault().post(new HomeEvents(Constans.HOMEDATAFIAL, error.getMessage()));
+                        EventBus.getDefault().post(new HomeEvents(Constans.HOMEERROR, error.getMessage()));
                     }
                 });
     }

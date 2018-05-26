@@ -11,7 +11,7 @@ import java.io.Serializable;
 public class ResponseCustom<T> implements Serializable {
 
 
-    private int errorCode ;
+    private int errorCode;
     private String errorMsg;
     private T data;
 
@@ -21,7 +21,7 @@ public class ResponseCustom<T> implements Serializable {
      * @return
      */
     public boolean isSuccess() {
-        return errorCode == 200 ? true : false;
+        return errorCode > 0 ? true : false;
     }
 
     public int getErrorCode() {

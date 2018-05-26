@@ -3,6 +3,7 @@ package com.seven.seven.common.network;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.seven.seven.ui.MyApplication;
 
@@ -33,6 +34,7 @@ public class SaveCookieInterceptor implements Interceptor {
             List<String> cookies = response.headers("set-cookie");
             String cookie = encodeCookie(cookies);
             saveCookie(request.url().toString(), request.url().host(), cookie);
+            Log.d("SaveCookieInterceptor",cookie.toString());
         }
         return response;
     }

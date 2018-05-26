@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_toLeftOf="@+id/et_account"
+        android:text="账号"
+
+        android:textColor="@color/red"
+        android:textSize="@dimen/sp_16" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_account"
+        android:layout_marginLeft="16dp"
+        android:layout_toLeftOf="@+id/et_password"
+        android:text="密码"
+        android:textColor="@color/red"
+        android:textSize="@dimen/sp_16" />
+
+    <EditText
+        android:id="@+id/et_account"
+        android:layout_width="220dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:id="@+id/et_password"
+        android:layout_width="220dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/et_account"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/bt_register"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/et_password"
+        android:text="注册" />
+
+    <Button
+        android:id="@+id/bt_login"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/bt_register"
+        android:text="登录" />
+</RelativeLayout>

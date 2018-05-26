@@ -1,4 +1,4 @@
-package com.seven.seven.home.events;
+package com.seven.seven.home.model;
 
 import com.seven.seven.common.Model.BannerInfos;
 

@@ -1,18 +1,18 @@
 package com.seven.seven.common.network;
 
-import com.seven.seven.common.Model.BannerInfos;
-import com.seven.seven.home.events.HomeBannerInfos;
+import com.seven.seven.home.model.HomeBannerInfos;
 import com.seven.seven.home.model.HomeNewsInfos;
+import com.seven.seven.login.RegisterInfo;
 
 
 import java.util.List;
-import java.util.Map;
 
 import io.reactivex.Observable;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
-import retrofit2.http.QueryMap;
 
 /**
  * Created  on 2018-03-19.
@@ -34,4 +34,16 @@ public interface ApiService {
     Observable<ResponseCustom<HomeNewsInfos>> getMoreHomeNewsInfos(
             @Path("page") int page
     );
+
+    @FormUrlEncoded
+    @POST("/user/register")
+    Observable<ResponseCustom<RegisterInfo>> register(@Field("username") String username,
+                                                      @Field("password") String password,
+                                                      @Field("repassword") String repassword
+    );
+
+    @FormUrlEncoded
+    @POST("/user/login")
+    Observable<ResponseCustom<RegisterInfo>> login(@Field("username") String username,
+                                             @Field("password") String password);
 }

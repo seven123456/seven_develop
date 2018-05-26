@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.seven.seven.R;
-import com.seven.seven.home.events.HomeBannerInfos;
+import com.seven.seven.home.model.HomeBannerInfos;
 
 import java.util.List;
 
