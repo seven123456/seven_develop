@@ -1,10 +1,13 @@
 package com.seven.seven.home.presenter;
 
+import android.util.Log;
+
 import com.seven.seven.common.base.codereview.BasePresenterImpl;
 import com.seven.seven.common.base.codereview.BaseRetryWhen;
 import com.seven.seven.common.network.ApiRetrofit;
 import com.seven.seven.common.network.HttpObservable;
 import com.seven.seven.common.network.HttpResultObserver;
+import com.seven.seven.common.network.HttpResultSubscriber;
 import com.seven.seven.common.network.ResponseCustom;
 import com.seven.seven.common.utils.Constans;
 import com.seven.seven.home.contract.HomeContract;
@@ -13,10 +16,16 @@ import com.seven.seven.home.model.HomeNewsInfos;
 import com.seven.seven.ui.MainActivity;
 
 import org.greenrobot.eventbus.EventBus;
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
 
 import java.util.List;
 
+import io.reactivex.Flowable;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created  on 2018-03-31.
@@ -33,7 +42,7 @@ public class HomePresenter extends BasePresenterImpl<HomeContract.View, MainActi
 
     @Override
     public void getHomeData() {
-        HttpObservable.getObservable(ApiRetrofit.getApiRetrofit().getApiServis().getHomeNewsInfos())
+        /*HttpObservable.getObservable(ApiRetrofit.getApiRetrofit().getApiServis().getHomeNewsInfos())
                 .subscribe(new HttpResultObserver<ResponseCustom<HomeNewsInfos>>() {
                     @Override
                     protected void onLoading(Disposable d) {
@@ -51,14 +60,15 @@ public class HomePresenter extends BasePresenterImpl<HomeContract.View, MainActi
                     protected void onFail(Throwable e) {
 
                     }
-                });
+                });*/
     }
 
     @Override
     public void getHomeBanner() {
-        io.reactivex.Observable observable = HttpObservable.getObservable(apiRetrofit.getHomeNewsInfos());
+        /*io.reactivex.Observable observable = HttpObservable.getObservable(apiRetrofit.getHomeNewsInfos());
         io.reactivex.Observable observable1 = HttpObservable.getObservable(apiRetrofit.getBannerInfos());
-        io.reactivex.Observable.mergeDelayError(observable, observable1).retryWhen(new BaseRetryWhen(3, 3000)).subscribe(new HttpResultObserver<ResponseCustom<Object>>() {
+        io.reactivex.Observable.mergeDelayError(observable, observable1).retryWhen(new BaseRetryWhen(3, 3000))
+        .subscribe(new HttpResultObserver<ResponseCustom<Object>>() {
             @Override
             protected void onLoading(Disposable d) {
 
@@ -78,9 +88,9 @@ public class HomePresenter extends BasePresenterImpl<HomeContract.View, MainActi
                     if (count == 2) {
                         count = 0;
                         EventBus.getDefault().post(new HomeEvents(Constans.HOMEDASUCCESS, "成功"));
-                    } /*else {
+                    } *//*else {
                         EventBus.getDefault().post(new HomeEvents(Constans.HOMEERROR, "只有一次"));
-                    }*/
+                    }*//*
                 }
             }
 
@@ -88,7 +98,42 @@ public class HomePresenter extends BasePresenterImpl<HomeContract.View, MainActi
             protected void onFail(Throwable error) {
                 EventBus.getDefault().post(new HomeEvents(Constans.HOMEERROR, error.getMessage()));
             }
-        });
+        });*/
+        Flowable flowable1 = apiRetrofit.getHomeNewsInfos();
+        Flowable flowable2 = apiRetrofit.getBannerInfos();
+        Flowable.concat(flowable1, flowable2).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new HttpResultSubscriber<ResponseCustom<Object>>() {
+                    @Override
+                    protected void onLoading(Disposable d) {
+                        if (getView() != null) {
+                        }
+                    }
+
+                    @Override
+                    protected void onSuccess(ResponseCustom<Object> responseCustom) {
+                        if (getView() != null) {
+                            if (responseCustom.getData() != null) {
+                                count++;
+                            }
+                            if (responseCustom.getData() instanceof HomeNewsInfos) {
+                                EventBus.getDefault().post(new HomeEvents(Constans.HOMEDATA, responseCustom.getData()));
+                            } else if (responseCustom.getData() instanceof List) {
+                                EventBus.getDefault().post(new HomeEvents(Constans.HOMEBANNER, responseCustom.getData()));
+                            }
+                            if (count == 2) {
+                                count = 0;
+                                EventBus.getDefault().post(new HomeEvents(Constans.HOMEDASUCCESS, "成功"));
+                            }
+                        }
+                    }
+
+                    @Override
+                    protected void onFail(Throwable e) {
+                        if (getView() != null) {
+                        }
+                    }
+                });
     }
 
     @Override

@@ -7,6 +7,7 @@ import com.seven.seven.login.RegisterInfo;
 
 import java.util.List;
 
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -23,11 +24,11 @@ import retrofit2.http.Path;
 public interface ApiService {
     /*获取首页文章*/
     @GET("/article/list/0/json")
-    Observable<ResponseCustom<HomeNewsInfos>> getHomeNewsInfos();
+    Flowable<ResponseCustom<HomeNewsInfos>> getHomeNewsInfos();
 
     /*获取首页banner*/
     @GET("banner/json")
-    Observable<ResponseCustom<List<HomeBannerInfos>>> getBannerInfos();
+    Flowable<ResponseCustom<List<HomeBannerInfos>>> getBannerInfos();
 
     /*获取首页文章,分页  @Path 替换url中的参数*/
     @GET("/article/list/{page}/json")
