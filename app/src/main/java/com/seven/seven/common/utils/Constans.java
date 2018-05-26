@@ -21,5 +21,6 @@ public class Constans {
     public static final int HOMEDATAFIAL = 100;//首页请求数据失败
     public static final int HOMEDASUCCESS = 103;//banner,homedata请求数据成功，取消loading
 
+    public static final String COOKIE_PREF = "cookie_pref";//cookie保存
 
 }

@@ -1,36 +1,22 @@
 package com.seven.seven.home.presenter;
 
-import android.util.Log;
-
 import com.seven.seven.common.base.codereview.BasePresenterImpl;
 import com.seven.seven.common.base.codereview.BaseRetryWhen;
 import com.seven.seven.common.network.ApiRetrofit;
 import com.seven.seven.common.network.HttpObservable;
 import com.seven.seven.common.network.HttpResultObserver;
-import com.seven.seven.common.network.HttpResultObserver2;
 import com.seven.seven.common.network.ResponseCustom;
 import com.seven.seven.common.utils.Constans;
 import com.seven.seven.home.contract.HomeContract;
-import com.seven.seven.home.events.HomeBannerInfos;
 import com.seven.seven.home.events.HomeEvents;
 import com.seven.seven.home.model.HomeNewsInfos;
 import com.seven.seven.ui.MainActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Observable;
-import java.util.concurrent.TimeUnit;
 
-import io.reactivex.Flowable;
-import io.reactivex.ObservableSource;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 
 /**
  * Created  on 2018-03-31.

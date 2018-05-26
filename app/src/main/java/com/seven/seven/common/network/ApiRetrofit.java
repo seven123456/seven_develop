@@ -24,9 +24,11 @@ public class ApiRetrofit {
     private static final int READ_TIME_OUT = 10;
     private static String baseUrl = NetworkUrl.ANDROID_TEST_SERVICE;
     private static ApiService apiServise;
-    public  ApiService getApiServis() {
+
+    public ApiService getApiServis() {
         return apiServise;
     }
+
     public static ApiRetrofit getApiRetrofit() {
         if (apiRetrofit == null) {
             synchronized (ApiRetrofit.class) {
@@ -37,12 +39,15 @@ public class ApiRetrofit {
         }
         return apiRetrofit;
     }
+
     private ApiRetrofit() {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(CONNECT_TIME_OUT, TimeUnit.SECONDS)/*读写链接超时*/
                 .readTimeout(READ_TIME_OUT, TimeUnit.SECONDS)
                 .writeTimeout(READ_TIME_OUT, TimeUnit.SECONDS)
                 .addInterceptor(httpLoggingInterceptor)//打印log日志
+                .addInterceptor(new AddCookieInterceptor())
+                .addInterceptor(new SaveCookieInterceptor())
                 .retryOnConnectionFailure(true)//失败重连
                 .build();
 

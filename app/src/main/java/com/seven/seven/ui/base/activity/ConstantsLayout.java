@@ -35,7 +35,7 @@ public class ConstantsLayout extends BaseActivity {
 //        StatusBarUtil.setTranslate(this, true);
         initToolBar();
         ImageView imageView = findViewById(R.id.image_view);
-        imageView.setImageResource(R.drawable.p8);
+        imageView.setImageResource(R.drawable.error);
       /*  WebView webView =findViewById(R.id.webs);
         //声明WebSettings子类
          WebSettings webSettings = webView.getSettings();
