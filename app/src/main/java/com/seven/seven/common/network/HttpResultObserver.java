@@ -64,6 +64,6 @@ public abstract class HttpResultObserver<T> extends HttpCommonObserver<T> {
             ToastUtils.error("NetworkErrorException错误");
         }
         onFail(error);
-        Log.e("网络处理异常", error.getMessage().toString());
+        Log.e("网络处理异常", error.getMessage());
     }
 }

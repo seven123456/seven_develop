@@ -59,7 +59,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
                 finish();
                 break;
             case Constans.USERERROR:
-                showErrorToast(loginEvent.getData().toString());
+                showErrorToast((String) loginEvent.getData());
                 break;
         }
     }

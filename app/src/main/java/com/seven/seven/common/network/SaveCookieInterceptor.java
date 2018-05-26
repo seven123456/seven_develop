@@ -45,15 +45,16 @@ public class SaveCookieInterceptor implements Interceptor {
     private void saveCookie(String url, String host, String cookie) {
         SharedPreferences sp = MyApplication.getContext().getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
-       /* if (TextUtils.isEmpty(url)) {
+        if (TextUtils.isEmpty(url)) {
             throw new NullPointerException("url is null.");
         } else {
-            editor.putString(url, cookie);
+//            editor.putString(url, cookie);
+            editor.putString(Constans.COOKIE_PREF, cookie);
         }
         if (!TextUtils.isEmpty(host)) {
-            editor.putString(host, cookie);
-        }*/
+//            editor.putString(host, cookie);
         editor.putString(Constans.COOKIE_PREF, cookie);
+        }
         editor.apply();
     }
 
