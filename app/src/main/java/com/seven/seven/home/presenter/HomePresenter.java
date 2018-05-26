@@ -54,14 +54,6 @@ public class HomePresenter extends BasePresenterImpl<HomeContract.View, MainActi
                 });
     }
 
-    // 设置变量
-    // 可重试次数
-    private int maxConnectCount = 10;
-    // 当前已重试次数
-    private int currentRetryCount = 0;
-    // 重试等待时间
-    private int waitRetryTime = 0;
-
     @Override
     public void getHomeBanner() {
         io.reactivex.Observable observable = HttpObservable.getObservable(apiRetrofit.getHomeNewsInfos());

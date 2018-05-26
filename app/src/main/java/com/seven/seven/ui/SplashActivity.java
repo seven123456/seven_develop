@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import com.seven.seven.R;
 import com.seven.seven.common.utils.AppManager;
 import com.seven.seven.common.base.codereview.BaseActivity;
+import com.seven.seven.common.utils.Constans;
+import com.seven.seven.common.utils.PreferencesUtils;
 import com.seven.seven.login.LoginActivity;
 import com.seven.seven.login.LoginContract;
 
@@ -55,7 +57,7 @@ public class SplashActivity extends BaseActivity {
     protected void initView(Bundle savedInstanceState) {
 //        startActivity(new Intent(this, MainActivity.class));
         imageView = findViewById(R.id.text);
-        if (MyApplication.getContext().getSharedPreferences(COOKIE_PREF, Context.MODE_PRIVATE) != null) {
+        if (PreferencesUtils.getString(this, Constans.COOKIE_PREF) != null) {
             startActivity(new Intent(SplashActivity.this, MainActivity.class));
         } else {
             startActivity(new Intent(SplashActivity.this, LoginActivity.class));
@@ -84,12 +86,12 @@ public class SplashActivity extends BaseActivity {
         super.onDestroy();
         AppManager.getAppManager().getAllActivity();
     }
-
+/*
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == event.KEYCODE_BACK) {
             AppManager.getAppManager().removedAlllActivity(this);
         }
         return false;
-    }
+    }*/
 }

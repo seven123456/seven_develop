@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.seven.seven.common.utils.Constans;
 import com.seven.seven.ui.MyApplication;
 
 import java.io.IOException;
@@ -26,6 +27,8 @@ import static com.seven.seven.common.utils.Constans.COOKIE_PREF;
  */
 
 public class SaveCookieInterceptor implements Interceptor {
+    public static String PREFERENCE_NAME = "Config";
+
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
@@ -34,24 +37,24 @@ public class SaveCookieInterceptor implements Interceptor {
             List<String> cookies = response.headers("set-cookie");
             String cookie = encodeCookie(cookies);
             saveCookie(request.url().toString(), request.url().host(), cookie);
-            Log.d("SaveCookieInterceptor",cookie.toString());
+            Log.d("SaveCookieInterceptor", cookie.toString());
         }
         return response;
     }
 
     private void saveCookie(String url, String host, String cookie) {
-        SharedPreferences sp = MyApplication.getContext().getSharedPreferences(COOKIE_PREF, Context.MODE_PRIVATE);
+        SharedPreferences sp = MyApplication.getContext().getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
-        if (TextUtils.isEmpty(url)) {
+       /* if (TextUtils.isEmpty(url)) {
             throw new NullPointerException("url is null.");
         } else {
             editor.putString(url, cookie);
         }
         if (!TextUtils.isEmpty(host)) {
             editor.putString(host, cookie);
-        }
+        }*/
+        editor.putString(Constans.COOKIE_PREF, cookie);
         editor.apply();
-
     }
 
     private String encodeCookie(List<String> cookies) {

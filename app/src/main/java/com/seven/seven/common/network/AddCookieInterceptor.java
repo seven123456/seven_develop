@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
+import com.seven.seven.common.utils.Constans;
 import com.seven.seven.common.utils.PreferencesUtils;
 import com.seven.seven.ui.MyApplication;
 
@@ -22,6 +23,8 @@ import static com.seven.seven.common.utils.Constans.COOKIE_PREF;
  */
 
 public class AddCookieInterceptor implements Interceptor {
+    public static String PREFERENCE_NAME = "Config";
+
     /*  private Context mContext;
 
       public AddCookieInterceptor(Context context) {
@@ -40,14 +43,13 @@ public class AddCookieInterceptor implements Interceptor {
     }
 
     private String getCookie(String url, String host) {
-        SharedPreferences sp = MyApplication.getContext().getSharedPreferences(COOKIE_PREF, Context.MODE_PRIVATE);
-        if (!TextUtils.isEmpty(url) && sp.contains(url) && !TextUtils.isEmpty(sp.getString(url, ""))) {
+        SharedPreferences sp = MyApplication.getContext().getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
+        /*if (!TextUtils.isEmpty(url) && sp.contains(url) && !TextUtils.isEmpty(sp.getString(url, ""))) {
             return sp.getString(url, "");
         }
         if (!TextUtils.isEmpty(host) && sp.contains(host) && !TextUtils.isEmpty(sp.getString(host, ""))) {
             return sp.getString(host, "");
-        }
-
-        return null;
+        }*/
+        return sp.getString(Constans.COOKIE_PREF, null);
     }
 }
