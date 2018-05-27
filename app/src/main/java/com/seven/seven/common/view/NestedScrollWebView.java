@@ -9,6 +9,8 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.webkit.WebView;
 
+import com.seven.seven.common.view.webview.SevenWebView;
+
 /**
  * Created by Horrarndoo on 2017/9/27.
  * <p>
@@ -16,7 +18,7 @@ import android.webkit.WebView;
  * <p>
  * 避免AppBarLayout+NestSrollView+WebView嵌套导致的WebView高度判断异常导致WebView跳转后高度异常的问题;
  */
-public class NestedScrollWebView extends WebView implements NestedScrollingChild {
+public class NestedScrollWebView extends SevenWebView implements NestedScrollingChild {
 
     public static final String TAG = NestedScrollWebView.class.getSimpleName();
 

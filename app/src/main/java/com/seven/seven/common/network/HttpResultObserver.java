@@ -29,7 +29,7 @@ public abstract class HttpResultObserver<T> extends HttpCommonObserver<T> {
 
     protected abstract void onSuccess(T o);
 
-    protected abstract void onFail(Throwable e);
+    protected abstract void onFail(ApiException e);
 
     @Override
     protected void onStart(Disposable d) {
@@ -42,28 +42,8 @@ public abstract class HttpResultObserver<T> extends HttpCommonObserver<T> {
     }
 
     @Override
-    protected void _onError(Throwable error) {
-        if (error instanceof SocketTimeoutException) {
-            ToastUtils.error("网络连接超时,请检查网络");
-        } else if (error instanceof ConnectException) {
-            ToastUtils.error("网络连接异常,请检查网络");
-        } else if (error instanceof UnknownHostException) {
-            ToastUtils.error("服务器异常,请稍后再试");
-        } else if (error instanceof JsonParseException
-                || error instanceof JSONException
-                || error instanceof ParseException || error instanceof MalformedJsonException) {
-            ToastUtils.error("数据解析错误");
-           /* Intent intent = new Intent();
-            intent.setAction(ConnectivityManager.CONNECTIVITY_ACTION);
-            intent.putExtra("msg", "错误消息");
-            //发送广播
-            sendBroadcast(intent);*/
-            /*HttpErrorInfo httpErrorInfo = new HttpErrorInfo("服务器异常,请稍后再试");
-            EventBus.getDefault().post(httpErrorInfo);*/
-        } else if (error instanceof NetworkErrorException) {
-            ToastUtils.error("NetworkErrorException错误");
-        }
+    protected void _onError(ApiException error) {
         onFail(error);
-        Log.e("网络处理异常", error.getMessage());
+//        Log.e("网络处理异常", error.getMessage());
     }
 }

@@ -41,19 +41,15 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
 
-            <WebView
+
+            <com.seven.seven.common.view.webview.SevenWebView
                 android:id="@+id/wv_webview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-            </WebView>
+            </com.seven.seven.common.view.webview.SevenWebView>
 
-        </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
     <!--<WebView
         android:id="@+id/webs"

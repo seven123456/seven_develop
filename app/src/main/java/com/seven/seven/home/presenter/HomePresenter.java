@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.seven.seven.common.base.codereview.BasePresenterImpl;
 import com.seven.seven.common.base.codereview.BaseRetryWhen;
+import com.seven.seven.common.network.ApiException;
 import com.seven.seven.common.network.ApiRetrofit;
 import com.seven.seven.common.network.HttpObservable;
 import com.seven.seven.common.network.HttpResultObserver;
@@ -57,7 +58,7 @@ public class HomePresenter extends BasePresenterImpl<HomeContract.View, MainActi
                     }
 
                     @Override
-                    protected void onFail(Throwable e) {
+                    protected void onFail(ApiException e) {
 
                     }
                 });*/
@@ -95,14 +96,16 @@ public class HomePresenter extends BasePresenterImpl<HomeContract.View, MainActi
             }
 
             @Override
-            protected void onFail(Throwable error) {
-                EventBus.getDefault().post(new HomeEvents(Constans.HOMEERROR, error.getMessage()));
+            protected void onFail(ApiException error) {
+                EventBus.getDefault().post(new HomeEvents(Constans.HOMEERROR, error.getMsg()));
             }
         });*/
         Flowable flowable1 = apiRetrofit.getHomeNewsInfos();
         Flowable flowable2 = apiRetrofit.getBannerInfos();
-        Flowable.concat(flowable1, flowable2).subscribeOn(Schedulers.io())
+        Flowable.concat(flowable1, flowable2)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+//                .retryWhen(new BaseRetryWhen(3, 3000))
                 .subscribeWith(new HttpResultSubscriber<ResponseCustom<Object>>() {
                     @Override
                     protected void onLoading(Disposable d) {
@@ -128,10 +131,10 @@ public class HomePresenter extends BasePresenterImpl<HomeContract.View, MainActi
                         }
                     }
 
+
                     @Override
-                    protected void onFail(Throwable e) {
-                        if (getView() != null) {
-                        }
+                    protected void onFail(ApiException e) {
+                        EventBus.getDefault().post(new HomeEvents(Constans.HOMEERROR, e.getMsg()));
                     }
                 });
     }
@@ -155,8 +158,8 @@ public class HomePresenter extends BasePresenterImpl<HomeContract.View, MainActi
                     }
 
                     @Override
-                    protected void onFail(Throwable error) {
-                        EventBus.getDefault().post(new HomeEvents(Constans.HOMEERROR, error.getMessage()));
+                    protected void onFail(ApiException error) {
+                        EventBus.getDefault().post(new HomeEvents(Constans.HOMEERROR, error.getMsg()));
                     }
                 });
     }

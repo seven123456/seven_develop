@@ -22,6 +22,8 @@ import com.seven.seven.R;
 import com.seven.seven.common.base.codereview.BaseActivity;
 import com.seven.seven.common.utils.AppBarStateChangeListener;
 import com.seven.seven.common.utils.StatusBarUtil;
+import com.seven.seven.common.view.webview.H5Control;
+import com.seven.seven.common.view.webview.SevenWebView;
 import com.seven.seven.home.model.HomeToWebViewInfo;
 
 /**
@@ -30,7 +32,7 @@ import com.seven.seven.home.model.HomeToWebViewInfo;
  * email:seven2016s@163.com
  */
 
-public class HomeNewsDetailActivity extends BaseActivity {
+public class HomeNewsDetailActivity extends BaseActivity implements H5Control {
 
     private Toolbar toolbar;
     private AppBarLayout appBarLayout;
@@ -38,7 +40,7 @@ public class HomeNewsDetailActivity extends BaseActivity {
     private ImageView imageView;
     private HomeToWebViewInfo homeToWebViewInfo;
     private HomeNewsDetailActivity mActivity;
-    private WebView webView;
+    private SevenWebView webView;
 
     @Override
     protected void initView(Bundle savedInstanceState) {
@@ -53,14 +55,11 @@ public class HomeNewsDetailActivity extends BaseActivity {
         FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) toolbar.getLayoutParams();
         layoutParams.topMargin = StatusBarUtil.getStatusBarHeight(this);
         webView = findViewById(R.id.wv_webview);
-        WebSettings webSettings = webView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-        webView.loadUrl(homeToWebViewInfo.h5Url);
-        webView.setWebViewClient(new WebViewClient() {
+        webView.getH5JsInterface().registerListener(this);
+        webView.post(new Runnable() {
             @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
-                return true;
+            public void run() {
+                webView.loadUrl(homeToWebViewInfo.h5Url);
             }
         });
     }
@@ -116,5 +115,16 @@ public class HomeNewsDetailActivity extends BaseActivity {
     @Override
     protected int getContentViewResId() {
         return R.layout.activity_home_news_detail;
+    }
+
+    @Override
+    public void H5ControlAndroidEvent(String url, Bundle bundle) {
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        webView.getH5JsInterface().unRegisterListener();
+        super.onDestroy();
     }
 }

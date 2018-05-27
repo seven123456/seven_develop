@@ -1,10 +1,14 @@
 package com.seven.seven.common.network;
 
 
+import android.util.Log;
+
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
 import io.reactivex.disposables.Disposable;
+
+import static com.seven.seven.common.network.HttpCommonObserver.UN_KNOWN_ERROR;
 
 /**
  * Created  on 2018-03-20.
@@ -17,7 +21,7 @@ public abstract class HttpResultSubscriber<T> implements Subscriber<T> {
 
     protected abstract void onSuccess(T o);
 
-    protected abstract void onFail(Throwable e);
+    protected abstract void onFail(ApiException e);
 
 
     @Override
@@ -26,8 +30,13 @@ public abstract class HttpResultSubscriber<T> implements Subscriber<T> {
     }
 
     @Override
-    public void onError(Throwable t) {
-        onFail(t);
+    public void onError(Throwable e) {
+        if (e instanceof ApiException) {
+            onFail((ApiException) e);
+            Log.e("onerror", "错误编码===" + ((ApiException) e).getCode() + "错误信息===" + ((ApiException) e).getMsg());
+        } else {
+            this.onFail(new ApiException(e, UN_KNOWN_ERROR));
+        }
     }
 
     @Override

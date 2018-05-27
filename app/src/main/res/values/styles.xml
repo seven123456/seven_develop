@@ -98,4 +98,10 @@
         <attr name="centerScale" format="float" />
         <attr name="moveSpeed" format="float" />
     </declare-styleable>
+    <declare-styleable name="UserInfoItemView">
+        <attr name="iconLeft" format="integer"></attr>
+        <attr name="iconRight" format="integer"></attr>
+        <attr name="itemText" format="string|reference"></attr>
+        <attr name="numText" format="string|reference"></attr>
+    </declare-styleable>
 </resources>

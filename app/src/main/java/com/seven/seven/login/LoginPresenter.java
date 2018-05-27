@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.seven.seven.common.base.codereview.BasePresenterImpl;
 import com.seven.seven.common.base.codereview.BaseRetryWhen;
+import com.seven.seven.common.network.ApiException;
 import com.seven.seven.common.network.HttpObservable;
 import com.seven.seven.common.network.HttpResultObserver;
 import com.seven.seven.common.network.ResponseCustom;
@@ -50,8 +51,8 @@ public class LoginPresenter extends BasePresenterImpl<LoginContract.View, LoginA
                     }
 
                     @Override
-                    protected void onFail(Throwable e) {
-                        EventBus.getDefault().post(new LoginEvent(Constans.USERERROR, e.getMessage()));
+                    protected void onFail(ApiException e) {
+                        EventBus.getDefault().post(new LoginEvent(Constans.USERERROR, e.getMsg()));
                     }
                 });
     }
@@ -77,8 +78,8 @@ public class LoginPresenter extends BasePresenterImpl<LoginContract.View, LoginA
                     }
 
                     @Override
-                    protected void onFail(Throwable e) {
-                        EventBus.getDefault().post(new LoginEvent(Constans.USERERROR, e.getMessage()));
+                    protected void onFail(ApiException e) {
+                        EventBus.getDefault().post(new LoginEvent(Constans.USERERROR, e.getMsg()));
                     }
                 });*/
         HttpObservable.getObservable(apiRetrofit.register(username, password, repassword))
@@ -103,8 +104,8 @@ public class LoginPresenter extends BasePresenterImpl<LoginContract.View, LoginA
                     }
 
                     @Override
-                    protected void onFail(Throwable e) {
-                        EventBus.getDefault().post(new LoginEvent(Constans.USERERROR, e.getMessage()));
+                    protected void onFail(ApiException e) {
+                        EventBus.getDefault().post(new LoginEvent(Constans.USERERROR, e.getMsg()));
                     }
                 });
     }

@@ -37,7 +37,7 @@ public abstract class HttpCommonObserver<T> implements Observer<T> {
     protected abstract void _onNext(T t);
 
     //    protected abstract void _onError(ApiException e);
-    protected abstract void _onError(Throwable e);
+    protected abstract void _onError(ApiException e);
 
     /*
     * t==response
@@ -52,12 +52,13 @@ public abstract class HttpCommonObserver<T> implements Observer<T> {
 
     @Override
     public void onError(Throwable e) {
-        /*if (e instanceof ApiException) {
+        if (e instanceof ApiException) {
             _onError((ApiException) e);
+            Log.e("onerror", "错误编码===" + ((ApiException) e).getCode() + "错误信息===" + ((ApiException) e).getMsg());
         } else {
-            this._onError(new ApiException(e,UN_KNOWN_ERROR));
-        }*/
-        this._onError(e);
+            this._onError(new ApiException(e, UN_KNOWN_ERROR));
+        }
+//        this._onError(e);
     }
 
 

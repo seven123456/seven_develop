@@ -11,7 +11,7 @@ import com.seven.seven.common.base.codereview.BaseActivity;
 import com.seven.seven.home.HomeFragment;
 import com.seven.seven.ui.base.fragment.BFragment;
 import com.seven.seven.ui.base.fragment.CFragment;
-import com.seven.seven.ui.base.fragment.DFragment;
+import com.seven.seven.user.UserInfoFragment;
 import com.seven.seven.ui.base.fragment.TabItemInfo;
 
 import java.util.ArrayList;
@@ -66,8 +66,8 @@ public class MainActivity extends BaseActivity {
         tabItemInfos.add(new TabItemInfo(bFragment, R.drawable.error, R.string.tab_classify_name));
         CFragment cFragment = new CFragment();
         tabItemInfos.add(new TabItemInfo(cFragment, R.drawable.error, R.string.tab_news_name));
-        DFragment dFragment = new DFragment();
-        tabItemInfos.add(new TabItemInfo(dFragment, R.drawable.my_button_selector, R.string.tab_mine_name));
+        UserInfoFragment userInfoFragment = new UserInfoFragment();
+        tabItemInfos.add(new TabItemInfo(userInfoFragment, R.drawable.my_button_selector, R.string.tab_mine_name));
 //        tabItemInfos.add(new EFragment());
         pagerAdapter = new MyPagerAdapter(getSupportFragmentManager(), tabItemInfos, mActivity);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
