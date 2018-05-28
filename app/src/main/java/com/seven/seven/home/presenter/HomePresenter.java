@@ -159,7 +159,7 @@ public class HomePresenter extends BasePresenterImpl<HomeContract.View, MainActi
 
                     @Override
                     protected void onFail(ApiException error) {
-                        EventBus.getDefault().post(new HomeEvents(Constans.HOMEERROR, error.getMsg()));
+                        EventBus.getDefault().post(new HomeEvents(Constans.HOMEERROR, error.getMsg() == null ? "失败" : error.getMsg()));
                     }
                 });
     }

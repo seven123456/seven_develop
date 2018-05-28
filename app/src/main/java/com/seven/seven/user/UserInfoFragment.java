@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.seven.seven.R;
 import com.seven.seven.common.base.codereview.BaseFragment;
 import com.seven.seven.common.utils.Constans;
+import com.seven.seven.common.utils.GlideUtils;
 import com.seven.seven.common.utils.PreferencesUtils;
 import com.seven.seven.user.view.UserInfoItemView;
 

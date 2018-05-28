@@ -194,7 +194,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Bas
 
     @Subscribe(threadMode = ThreadMode.MAIN, priority = 0, sticky = true)
     public void disposeHomeFragmentData(HomeEvents homeEvents) {
-        if (homeEvents.getData() != null) {
+//        if (homeEvents.getData() != null) {
             switch (homeEvents.getWhat()) {
                 case Constans.HOMEDATA:
                     HomeNewsInfos homeNewsInfos = (HomeNewsInfos) homeEvents.getData();
@@ -228,13 +228,14 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Bas
                 case Constans.HOMEERROR:
                     showErrorToast((String) homeEvents.getData());
                     errorLayoutView.showErrorView();
+                    homeCommonAdapter.loadMoreEnd(true);
                     break;
                 case Constans.HOMEDASUCCESS:
                     showSuccessToast("俩次成功");
                     errorLayoutView.hide();
                     break;
             }
-        }
+//        }
         swipeRefreshLayout.setRefreshing(false);
     }
 

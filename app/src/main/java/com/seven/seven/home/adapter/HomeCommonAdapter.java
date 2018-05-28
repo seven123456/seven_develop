@@ -6,9 +6,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.seven.seven.R;
+import com.seven.seven.common.utils.GlideUtils;
 import com.seven.seven.common.utils.TimeUtils;
 import com.seven.seven.home.model.HomeNewsInfos;
 
@@ -41,8 +43,10 @@ public class HomeCommonAdapter extends BaseQuickAdapter<HomeNewsInfos.NewsInfos,
                     .setText(R.id.tv_time, "发布时间: " + TimeUtils.longToString(item.getPublishTime(), "yyyy-MM-dd"))
                     .setText(R.id.tv_classify, item.getChapterName());
             if (item.getEnvelopePic() != null) {
-                Glide.with(mContext).load(item.getEnvelopePic())
-                        .into((ImageView) helper.getView(R.id.iv_right));
+               /* Glide.with(mContext).load(item.getEnvelopePic() == null || item.getEnvelopePic().equals("") ? R.drawable.error_logo : item.getEnvelopePic())
+                        .apply(requestOptions.placeholder(R.drawable.error_logo).error(R.drawable.error_logo)).into((ImageView) helper.getView(R.id.iv_right));*/
+                GlideUtils.loadImageViewLoading((ImageView) helper.getView(R.id.iv_right)
+                        ,item.getEnvelopePic() == null || item.getEnvelopePic().equals("") ? R.drawable.error_logo : item.getEnvelopePic(),R.drawable.error_logo,R.drawable.error_logo);
             }
             helper.addOnClickListener(R.id.cd_item);
         }

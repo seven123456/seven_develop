@@ -1,5 +1,6 @@
 package com.seven.seven.home;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import com.bumptech.glide.Glide;
 import com.seven.seven.R;
 import com.seven.seven.common.base.codereview.BaseActivity;
 import com.seven.seven.common.utils.AppBarStateChangeListener;
+import com.seven.seven.common.utils.GlideUtils;
 import com.seven.seven.common.utils.StatusBarUtil;
 import com.seven.seven.common.view.webview.H5Control;
 import com.seven.seven.common.view.webview.SevenWebView;
@@ -42,6 +44,7 @@ public class HomeNewsDetailActivity extends BaseActivity implements H5Control {
     private HomeNewsDetailActivity mActivity;
     private SevenWebView webView;
 
+    @SuppressLint("WrongViewCast")
     @Override
     protected void initView(Bundle savedInstanceState) {
         mActivity = HomeNewsDetailActivity.this;
@@ -85,9 +88,11 @@ public class HomeNewsDetailActivity extends BaseActivity implements H5Control {
                 switch (state) {
                     case EXPANDED://展开
 //                        StatusBarUtil.setTranslate(mActivity, true);
-                        Glide.with(HomeNewsDetailActivity.this).load(homeToWebViewInfo.imgUrl == null || homeToWebViewInfo.imgUrl.equals("") ? R.drawable.timg
-                                : homeToWebViewInfo.imgUrl).into(imageView);
+                        /*Glide.with(HomeNewsDetailActivity.this).load(homeToWebViewInfo.imgUrl == null || homeToWebViewInfo.imgUrl.equals("") ? R.drawable.seven_logo
+                                : homeToWebViewInfo.imgUrl).into(imageView);*/
 //                        collapsingToolbarLayout.setTitle(homeToWebViewInfo.title);
+                        GlideUtils.loadImageViewLoading(imageView, homeToWebViewInfo.imgUrl == null || homeToWebViewInfo.imgUrl.equals("") ? R.drawable.seven_logo
+                                : homeToWebViewInfo.imgUrl, R.drawable.error_logo, R.drawable.error_logo);
                         collapsingToolbarLayout.setTitle(" ");
                         break;
                     case COLLAPSED://折叠

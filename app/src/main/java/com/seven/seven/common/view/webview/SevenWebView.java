@@ -56,7 +56,7 @@ public class SevenWebView extends WebView {
     private void initUi() {
         progressBar = new ProgressBar(getContext(), null, android.R.attr.progressBarStyleHorizontal);
         progressBar.setMax(100);
-        progressBar.setProgressDrawable(getResources().getDrawable(R.drawable.webview_top_progress));
+        progressBar.setProgressDrawable(getResources().getDrawable(R.drawable.web_progress_bar_bg));
         progressBar.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DensityUtil.dip2px(getContext(), 2)));
         addView(progressBar);
 
@@ -162,10 +162,10 @@ public class SevenWebView extends WebView {
     private WebChromeClient webChromeClient = new WebChromeClient() {
         @Override
         public void onProgressChanged(WebView view, int newProgress) {
-            progressBar.setProgress(newProgress);
             if (progressBar != null && isStart && newProgress < 100) {
                 progressBar.setVisibility(VISIBLE);
-            } else if (progressBar != null) {
+                progressBar.setProgress(newProgress);
+            } else if (progressBar != null && newProgress == 100) {
                 progressBar.setVisibility(GONE);
             }
             super.onProgressChanged(view, newProgress);
