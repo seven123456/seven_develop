@@ -10,21 +10,17 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
-import com.bumptech.glide.Glide;
 import com.seven.seven.R;
 import com.seven.seven.common.base.codereview.BaseActivity;
 import com.seven.seven.common.utils.AppBarStateChangeListener;
 import com.seven.seven.common.utils.AppManager;
 import com.seven.seven.common.utils.GlideUtils;
 import com.seven.seven.common.utils.StatusBarUtil;
+import com.seven.seven.common.view.NestedScrollWebView;
 import com.seven.seven.common.view.webview.H5Control;
 import com.seven.seven.common.view.webview.SevenWebView;
 import com.seven.seven.home.model.HomeToWebViewInfo;
@@ -58,7 +54,17 @@ public class HomeNewsDetailActivity extends BaseActivity implements H5Control {
         imageView = findViewById(R.id.image_view);
         FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) toolbar.getLayoutParams();
         layoutParams.topMargin = StatusBarUtil.getStatusBarHeight(this);
-        webView = findViewById(R.id.wv_webview);
+        initWebview();
+    }
+
+    private void initWebview() {
+//        webView = findViewById(R.id.lly_webview_scroll);
+        LinearLayout mLayout = findViewById(R.id.lly_webview_root);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT);
+        webView = new SevenWebView(getApplicationContext());
+        webView.setLayoutParams(layoutParams);
+        mLayout.addView(webView);
         webView.getH5JsInterface().registerListener(this);
         webView.post(new Runnable() {
             @Override
@@ -132,7 +138,11 @@ public class HomeNewsDetailActivity extends BaseActivity implements H5Control {
     protected void onDestroy() {
         webView.getH5JsInterface().unRegisterListener();
         AppManager.getAppManager().finishActivity(this);
-        webView.destroy();
+        if (webView != null) {
+            ((ViewGroup) webView.getParent()).removeView(webView);
+            webView.destroy();
+            webView = null;
+        }
         super.onDestroy();
     }
 }

@@ -74,6 +74,7 @@ public class SevenWebView extends WebView {
         setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+                requestDisallowInterceptTouchEvent(true);
                 return false;
             }
         });
