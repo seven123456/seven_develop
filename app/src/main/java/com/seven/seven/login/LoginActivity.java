@@ -9,6 +9,7 @@ import android.widget.EditText;
 import com.seven.seven.R;
 import com.seven.seven.common.base.codereview.BaseActivity;
 import com.seven.seven.common.utils.Constans;
+import com.seven.seven.common.utils.PreferencesUtils;
 import com.seven.seven.home.events.HomeEvents;
 import com.seven.seven.ui.MainActivity;
 import com.seven.seven.ui.SplashActivity;
@@ -55,6 +56,10 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
                 break;
             case Constans.LOGIN:
                 showSuccessToast("登录成功");
+                if (loginEvent.getData() != null) {
+                    registerInfo = (RegisterInfo) loginEvent.getData();
+                }
+                PreferencesUtils.putString(LoginActivity.this, Constans.USERNAME, registerInfo.getUsername());
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 finish();
                 break;
@@ -74,8 +79,15 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     protected void widgetClick(View v) {
         switch (v.getId()) {
             case R.id.bt_login:
-                if (registerInfo != null) {
+               /* if (registerInfo != null) {
                     loginPresenter.login(registerInfo.getUsername(), registerInfo.getPassword());
+                }*/
+                String userNames = accountEt.getText().toString();
+                String passwords = passwordEt.getText().toString();
+                if (!userNames.isEmpty() && !passwords.isEmpty()) {
+                    loginPresenter.login(userNames, passwords);
+                } else {
+                    showErrorToast("账号或密码不能为空");
                 }
                 break;
             case R.id.bt_register:

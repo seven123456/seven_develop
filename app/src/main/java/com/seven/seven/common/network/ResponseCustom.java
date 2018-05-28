@@ -21,7 +21,7 @@ public class ResponseCustom<T> implements Serializable {
      * @return
      */
     public boolean isSuccess() {
-        return errorCode > 0 ? true : false;
+        return errorCode >= 0 ? true : false;
     }
 
     public int getErrorCode() {

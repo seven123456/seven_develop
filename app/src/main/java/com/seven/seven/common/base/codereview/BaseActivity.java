@@ -22,7 +22,7 @@ import com.seven.seven.common.utils.ToastUtils;
 
 public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private BaseActivity mActivity;
+    public BaseActivity mActivity;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

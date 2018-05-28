@@ -10,35 +10,44 @@ public class ApiException extends Exception {
     /**
      * 错误码
      */
-    private int code;
+    private int errorCode;
     /**
      * 错误信息
      */
-    private String msg;
+    private String errorMsg;
 
+    public Object getData() {
+        return data;
+    }
+
+    public void setData(Object data) {
+        this.data = data;
+    }
+
+    private Object data;
     public ApiException(Throwable throwable, int code) {
         super(throwable);
-        this.code = code;
+        this.errorCode = code;
     }
 
     public ApiException(int code, String msg) {
-        this.code = code;
-        this.msg = msg;
+        this.errorCode = code;
+        this.errorMsg = msg;
     }
 
     public int getCode() {
-        return code;
+        return errorCode;
     }
 
     public void setCode(int code) {
-        this.code = code;
+        this.errorCode = code;
     }
 
     public String getMsg() {
-        return msg;
+        return errorMsg;
     }
 
     public void setMsg(String msg) {
-        this.msg = msg;
+        this.errorMsg = msg;
     }
 }

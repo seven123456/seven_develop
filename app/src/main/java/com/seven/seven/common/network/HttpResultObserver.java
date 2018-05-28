@@ -13,6 +13,7 @@ import org.json.JSONException;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
+import java.net.UnknownServiceException;
 import java.text.ParseException;
 
 import io.reactivex.disposables.Disposable;
@@ -43,6 +44,10 @@ public abstract class HttpResultObserver<T> extends HttpCommonObserver<T> {
 
     @Override
     protected void _onError(ApiException error) {
+        if (error.getCode() == -1) {
+            ToastUtils.error(error.getMessage());
+        }
+
         onFail(error);
 //        Log.e("网络处理异常", error.getMessage());
     }

@@ -5,10 +5,15 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.seven.seven.R;
 import com.seven.seven.common.base.codereview.BaseFragment;
+import com.seven.seven.common.utils.Constans;
+import com.seven.seven.common.utils.PreferencesUtils;
 import com.seven.seven.user.view.UserInfoItemView;
+
+import org.w3c.dom.Text;
 
 /**
  * Created  on 2018-02-05.
@@ -20,6 +25,7 @@ public class UserInfoFragment extends BaseFragment {
 
     private ImageView userView, headImgView;
     private UserInfoItemView shareApp, clean, author, collection, setting;
+    private TextView userName;
 
     @Override
     protected void initView() {
@@ -33,11 +39,14 @@ public class UserInfoFragment extends BaseFragment {
         collection = rootView.findViewById(R.id.ui_collection);
         author = rootView.findViewById(R.id.ui_author);
         setting = rootView.findViewById(R.id.ui_setting);
+        userName = rootView.findViewById(R.id.tv_user_name);
     }
 
     @Override
     protected void initData() {
-
+        if (PreferencesUtils.getString(getContext(), Constans.USERNAME) != null) {
+            userName.setText(PreferencesUtils.getString(getContext(), Constans.USERNAME));
+        }
     }
 
     @Override

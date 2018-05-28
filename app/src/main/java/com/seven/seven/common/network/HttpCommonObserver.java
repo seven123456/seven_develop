@@ -2,6 +2,8 @@ package com.seven.seven.common.network;
 
 import android.util.Log;
 
+import java.net.UnknownServiceException;
+
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
@@ -52,7 +54,7 @@ public abstract class HttpCommonObserver<T> implements Observer<T> {
 
     @Override
     public void onError(Throwable e) {
-        if (e instanceof ApiException) {
+        if (e instanceof ApiException || e instanceof UnknownServiceException) {
             _onError((ApiException) e);
             Log.e("onerror", "错误编码===" + ((ApiException) e).getCode() + "错误信息===" + ((ApiException) e).getMsg());
         } else {

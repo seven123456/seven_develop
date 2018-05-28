@@ -42,11 +42,11 @@ public class LoginPresenter extends BasePresenterImpl<LoginContract.View, LoginA
                     @Override
                     protected void onSuccess(ResponseCustom<RegisterInfo> o) {
                         if (getView() != null) {
-//                            if (o.isSuccess()) {
+                            if (o.isSuccess()) {
                             EventBus.getDefault().post(new LoginEvent(Constans.LOGIN, o.getData()));
-//                            } else {
-//                                EventBus.getDefault().post(new LoginEvent(Constans.USERERROR, o.getErrorMsg()));
-//                            }
+                            } else {
+                                EventBus.getDefault().post(new LoginEvent(Constans.USERERROR, o.getErrorMsg()));
+                            }
                         }
                     }
 
@@ -100,7 +100,11 @@ public class LoginPresenter extends BasePresenterImpl<LoginContract.View, LoginA
 
                     @Override
                     protected void onSuccess(ResponseCustom<RegisterInfo> o) {
-                        EventBus.getDefault().post(new LoginEvent(Constans.LOGIN, o.getData()));
+                        if (o.isSuccess()) {
+                            EventBus.getDefault().post(new LoginEvent(Constans.LOGIN, o.getData()));
+                        }else {
+                            EventBus.getDefault().post(new LoginEvent(Constans.USERERROR, o.getErrorMsg()));
+                        }
                     }
 
                     @Override
