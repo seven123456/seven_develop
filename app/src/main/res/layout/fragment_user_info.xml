@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <com.seven.seven.user.view.HeadImgView
+    <ImageView
         android:id="@+id/img_head_view"
         android:layout_width="match_parent"
         android:layout_height="200dp"
