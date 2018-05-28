@@ -39,7 +39,7 @@ public class HomeNewsDetailActivity extends BaseActivity implements H5Control {
     private ImageView imageView;
     private HomeToWebViewInfo homeToWebViewInfo;
     private HomeNewsDetailActivity mActivity;
-    private SevenWebView webView;
+    private NestedScrollWebView webView;
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -58,13 +58,13 @@ public class HomeNewsDetailActivity extends BaseActivity implements H5Control {
     }
 
     private void initWebview() {
-//        webView = findViewById(R.id.lly_webview_scroll);
-        LinearLayout mLayout = findViewById(R.id.lly_webview_root);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+        webView = findViewById(R.id.lly_webview_root);
+//        LinearLayout mLayout = findViewById(R.id.lly_webview_root);
+        /*LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
         webView = new SevenWebView(getApplicationContext());
         webView.setLayoutParams(layoutParams);
-        mLayout.addView(webView);
+        mLayout.addView(webView);*/
         webView.getH5JsInterface().registerListener(this);
         webView.post(new Runnable() {
             @Override
@@ -139,7 +139,7 @@ public class HomeNewsDetailActivity extends BaseActivity implements H5Control {
         webView.getH5JsInterface().unRegisterListener();
         AppManager.getAppManager().finishActivity(this);
         if (webView != null) {
-            ((ViewGroup) webView.getParent()).removeView(webView);
+//            ((ViewGroup) webView.getParent()).removeView(webView);
             webView.destroy();
             webView = null;
         }

@@ -35,19 +35,24 @@
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>
-
-    <android.support.v4.widget.NestedScrollView
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:descendantFocusability="blocksDescendants"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    <com.seven.seven.common.view.NestedScrollWebView
+        android:id="@+id/lly_webview_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout
+        <!--<LinearLayout
             android:id="@+id/lly_webview_root"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-        </LinearLayout>
+        </LinearLayout>-->
 
 
         <!--<com.seven.seven.common.view.webview.SevenWebView
@@ -55,7 +60,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>-->
 
-    </android.support.v4.widget.NestedScrollView>
+    </com.seven.seven.common.view.NestedScrollWebView>
+    </FrameLayout>
     <!--<WebView
         android:id="@+id/webs"
         android:layout_width="match_parent"
