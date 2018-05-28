@@ -14,4 +14,5 @@
     <color name="status_color">#BBBBBB</color>
     <color name="transition">#00000000</color>
     <color name="colorPrimary_title">#03a9f4</color>
+    <color name="order_tab_text">#414141</color>
 </resources>

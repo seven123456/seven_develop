@@ -1,5 +1,6 @@
 package com.seven.seven.home;
 
+import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Build;
@@ -20,7 +21,9 @@ import com.seven.seven.common.utils.AppBarStateChangeListener;
 import com.seven.seven.common.utils.AppManager;
 import com.seven.seven.common.utils.GlideUtils;
 import com.seven.seven.common.utils.StatusBarUtil;
+import com.seven.seven.common.utils.ToastUtils;
 import com.seven.seven.common.view.NestedScrollWebView;
+import com.seven.seven.common.view.dialog.ShareMenuPop;
 import com.seven.seven.common.view.webview.H5Control;
 import com.seven.seven.common.view.webview.SevenWebView;
 import com.seven.seven.home.model.HomeToWebViewInfo;
@@ -36,7 +39,7 @@ public class HomeNewsDetailActivity extends BaseActivity implements H5Control {
     private Toolbar toolbar;
     private AppBarLayout appBarLayout;
     private CollapsingToolbarLayout collapsingToolbarLayout;
-    private ImageView imageView;
+    private ImageView imageView, ivFollow, ivMenu;
     private HomeToWebViewInfo homeToWebViewInfo;
     private HomeNewsDetailActivity mActivity;
     private NestedScrollWebView webView;
@@ -52,6 +55,8 @@ public class HomeNewsDetailActivity extends BaseActivity implements H5Control {
         appBarLayout = findViewById(R.id.abl_appbar_layout);
         collapsingToolbarLayout = findViewById(R.id.ctl_collapsing);
         imageView = findViewById(R.id.image_view);
+        ivFollow = findViewById(R.id.iv_follow);
+        ivMenu = findViewById(R.id.iv_menu);
         FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) toolbar.getLayoutParams();
         layoutParams.topMargin = StatusBarUtil.getStatusBarHeight(this);
         initWebview();
@@ -101,6 +106,8 @@ public class HomeNewsDetailActivity extends BaseActivity implements H5Control {
                         GlideUtils.loadImageViewLoading(imageView, homeToWebViewInfo.imgUrl == null || homeToWebViewInfo.imgUrl.equals("") ? R.drawable.seven_logo
                                 : homeToWebViewInfo.imgUrl, R.drawable.error_logo, R.drawable.error_logo);
                         collapsingToolbarLayout.setTitle(" ");
+                        ivFollow.setVisibility(View.GONE);
+                        ivMenu.setVisibility(View.GONE);
                         break;
                     case COLLAPSED://折叠
                         /*折叠后toolbar的颜色*/
@@ -108,15 +115,44 @@ public class HomeNewsDetailActivity extends BaseActivity implements H5Control {
                         collapsingToolbarLayout.setContentScrimColor(getResources().getColor(R.color.red));
                         collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.white));
                         collapsingToolbarLayout.setTitle("热门博客");
+                        ivFollow.setVisibility(View.VISIBLE);
+                        ivMenu.setVisibility(View.VISIBLE);
+                        ObjectAnimator rotationAnimator = ObjectAnimator
+                                .ofFloat(ivFollow, "rotation", -20, 20, -20, 20, -20, 20, 0).setDuration(600);
+                        rotationAnimator.setStartDelay(200);
+                        rotationAnimator.setDuration(1000);
+                        rotationAnimator.start();
                         break;
                 }
             }
         });
+        ivFollow.setOnClickListener(this);
+        ivMenu.setOnClickListener(this);
     }
 
     @Override
     protected void widgetClick(View v) {
+        switch (v.getId()) {
+            case R.id.iv_follow:
+                ivFollow.setImageResource(R.drawable.heart_follow);
+                showSuccessToast("收藏成功");
+                break;
+            case R.id.iv_menu:
+                ShareMenuPop shareMenuPop = new ShareMenuPop(this);
+                shareMenuPop.showAsDropDown(toolbar,toolbar.getWidth(),0);
+                shareMenuPop.setPopListenter(new ShareMenuPop.sharePopListenter() {
+                    @Override
+                    public void wxItemShare() {
+                        showSuccessToast("微信分享成功");
+                    }
 
+                    @Override
+                    public void pyqItemShare() {
+                        showSuccessToast("朋友圈分享成功");
+                    }
+                });
+                break;
+        }
     }
 
     @Override

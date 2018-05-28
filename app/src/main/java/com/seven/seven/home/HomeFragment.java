@@ -11,12 +11,14 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.seven.seven.R;
 import com.seven.seven.common.base.codereview.BaseFragment;
 import com.seven.seven.common.event.NetWorkChangeEvent;
 import com.seven.seven.common.utils.Constans;
+import com.seven.seven.common.utils.StatusBarUtil;
 import com.seven.seven.common.view.ErrorLayoutView;
 import com.seven.seven.home.adapter.BannerViewAdapter;
 import com.seven.seven.home.adapter.HomeCommonAdapter;
@@ -71,9 +73,9 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Bas
         EventBus.getDefault().register(this);
         linearLayoutManager = new LinearLayoutManager(getContext());
         appBarLayout = rootView.findViewById(R.id.appbar);
-        /*RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) appBarLayout.getLayoutParams();
-        layoutParams.topMargin = StatusBarUtil.getStatusBarHeight(getActivity());*/
-//        appBarLayout.setTitle("首页新闻");
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) appBarLayout.getLayoutParams();
+        layoutParams.height = layoutParams.height + StatusBarUtil.getStatusBarHeight(getActivity());
+        appBarLayout.setTitle("首页新闻");
         swipeRefreshLayout = rootView.findViewById(R.id.swf_layout);
         recyclerView = rootView.findViewById(R.id.recycler);
         errorLayoutView = rootView.findViewById(R.id.error);
