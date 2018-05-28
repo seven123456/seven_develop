@@ -22,6 +22,7 @@ import com.bumptech.glide.Glide;
 import com.seven.seven.R;
 import com.seven.seven.common.base.codereview.BaseActivity;
 import com.seven.seven.common.utils.AppBarStateChangeListener;
+import com.seven.seven.common.utils.AppManager;
 import com.seven.seven.common.utils.GlideUtils;
 import com.seven.seven.common.utils.StatusBarUtil;
 import com.seven.seven.common.view.webview.H5Control;
@@ -130,6 +131,8 @@ public class HomeNewsDetailActivity extends BaseActivity implements H5Control {
     @Override
     protected void onDestroy() {
         webView.getH5JsInterface().unRegisterListener();
+        AppManager.getAppManager().finishActivity(this);
+        webView.destroy();
         super.onDestroy();
     }
 }

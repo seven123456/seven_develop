@@ -195,46 +195,48 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Bas
     @Subscribe(threadMode = ThreadMode.MAIN, priority = 0, sticky = true)
     public void disposeHomeFragmentData(HomeEvents homeEvents) {
 //        if (homeEvents.getData() != null) {
-            switch (homeEvents.getWhat()) {
-                case Constans.HOMEDATA:
-                    HomeNewsInfos homeNewsInfos = (HomeNewsInfos) homeEvents.getData();
-                    newsInfosList = homeNewsInfos.getDatas();
+        switch (homeEvents.getWhat()) {
+            case Constans.HOMEDATA:
+                HomeNewsInfos homeNewsInfos = (HomeNewsInfos) homeEvents.getData();
+                newsInfosList = homeNewsInfos.getDatas();
+                if (newsInfosList != null) {
+                    errorLayoutView.hide();
+                }
+                if (!isRefresh) {
+                    homeCommonAdapter.setNewData(newsInfosList);
+                    isRefresh = true;
+                    homeCommonAdapter.setEnableLoadMore(true);
+                } else {
                     if (newsInfosList != null) {
-                        errorLayoutView.hide();
-                    }
-                    if (!isRefresh) {
-                        homeCommonAdapter.setNewData(newsInfosList);
-                        isRefresh = true;
-                        homeCommonAdapter.setEnableLoadMore(true);
+                        homeCommonAdapter.addData(newsInfosList);
                     } else {
-                        if (newsInfosList != null) {
-                            homeCommonAdapter.addData(newsInfosList);
-                        } else {
-                            homeCommonAdapter.loadMoreEnd(true);
-                        }
+                        homeCommonAdapter.loadMoreEnd(true);
                     }
+                }
 //                    CURPAGE = homeNewsInfos.getCurPage();
-                    PAGE_COUNT = homeNewsInfos.getPageCount();
-                    break;
-                case Constans.HOMEBANNER:
-                    homeBannerInfos = (List<HomeBannerInfos>) homeEvents.getData();
-                    initRecyclerHeadView(homeBannerInfos);
-                    if (homeBannerInfos != null) {
-                        errorLayoutView.hide();
-                    }
+                PAGE_COUNT = homeNewsInfos.getPageCount();
+                break;
+            case Constans.HOMEBANNER:
+                homeBannerInfos = (List<HomeBannerInfos>) homeEvents.getData();
+                initRecyclerHeadView(homeBannerInfos);
+                if (homeBannerInfos != null) {
+                    errorLayoutView.hide();
+                }
 
 //                    bannerViewAdapter.setNewData(homeBannerInfos);
-                    break;
-                case Constans.HOMEERROR:
-                    showErrorToast((String) homeEvents.getData());
-                    errorLayoutView.showErrorView();
+                break;
+            case Constans.HOMEERROR:
+                showErrorToast((String) homeEvents.getData());
+                errorLayoutView.showErrorView();
+                /*if (homeCommonAdapter.isLoadMoreEnable()) {
                     homeCommonAdapter.loadMoreEnd(true);
-                    break;
-                case Constans.HOMEDASUCCESS:
-                    showSuccessToast("俩次成功");
-                    errorLayoutView.hide();
-                    break;
-            }
+                }*/
+                break;
+            case Constans.HOMEDASUCCESS:
+                showSuccessToast("俩次成功");
+                errorLayoutView.hide();
+                break;
+        }
 //        }
         swipeRefreshLayout.setRefreshing(false);
     }

@@ -21,6 +21,7 @@ import android.widget.ProgressBar;
 import com.seven.seven.R;
 import com.seven.seven.common.network.NetworkUrl;
 import com.seven.seven.common.utils.DensityUtil;
+import com.seven.seven.ui.MyApplication;
 
 /**
  * Created by seven
@@ -66,7 +67,7 @@ public class SevenWebView extends WebView {
     private void initWebViewSetting() {
         setWebViewClient(webViewClient);
         setWebChromeClient(webChromeClient);
-        h5JSInterface = new H5JSInterface(getContext());
+        h5JSInterface = new H5JSInterface(MyApplication.getContext());
         addJavascriptInterface(h5JSInterface, "随便命名用于告诉h5是和谁交互");
         /*下面一顿copy就好了*/
         setClickable(true);
