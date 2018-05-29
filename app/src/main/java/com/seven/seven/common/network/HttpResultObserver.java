@@ -24,7 +24,7 @@ import io.reactivex.disposables.Disposable;
  * email:seven2016s@163.com
  */
 
-public abstract class HttpResultObserver<T> extends HttpCommonObserver<T> {
+public abstract class HttpResultObserver<T extends ResponseCustom> extends HttpCommonObserver<T> {
 
     protected abstract void onLoading(Disposable d);
 
@@ -39,15 +39,15 @@ public abstract class HttpResultObserver<T> extends HttpCommonObserver<T> {
 
     @Override
     protected void _onNext(T responseCustom) {
-        onSuccess(responseCustom);
+        if (responseCustom.getErrorCode() < 0) {
+            onFail(new ApiException(responseCustom.getErrorCode(), responseCustom.getErrorMsg()));
+        } else {
+            onSuccess(responseCustom);
+        }
     }
 
     @Override
     protected void _onError(ApiException error) {
-        if (error.getCode() == -1) {
-            ToastUtils.error(error.getMessage());
-        }
-
         onFail(error);
 //        Log.e("网络处理异常", error.getMessage());
     }

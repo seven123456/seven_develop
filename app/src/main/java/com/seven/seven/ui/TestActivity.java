@@ -34,13 +34,13 @@ public class TestActivity extends BaseActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        RecyclerView recyclerView = findViewById(R.id.rv_like);
+       /* RecyclerView recyclerView = findViewById(R.id.rv_like);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 //        recyclerView.setAdapter();
         TextView textVie = findViewById(R.id.xixi);
         String text = this.getResources().getString(R.string.xixi);
-      /*   tv_like.text = Html.fromHtml(text)*/
-        textVie.setText(Html.fromHtml(text));
+      *//*   tv_like.text = Html.fromHtml(text)*//*
+        textVie.setText(Html.fromHtml(text));*/
 
     }
 

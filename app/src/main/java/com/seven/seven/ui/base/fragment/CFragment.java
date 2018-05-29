@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import com.seven.seven.R;
 import com.seven.seven.common.base.codereview.BaseFragment;
 import com.seven.seven.common.utils.ToastUtils;
+import com.seven.seven.ui.TestActivity;
 import com.seven.seven.ui.base.activity.ViewTestActivity;
 
 /**
@@ -40,12 +41,12 @@ public class CFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 ToastUtils.success("请稍后");
-                new Handler().postDelayed(new Runnable() {
+                        startActivity(new Intent(getActivity(), ViewTestActivity.class));
+              /*  new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        startActivity(new Intent(getActivity(), ViewTestActivity.class));
                     }
-                }, 2000);
+                }, 2000);*/
             }
         });
 

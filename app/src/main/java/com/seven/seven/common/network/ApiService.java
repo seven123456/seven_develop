@@ -3,6 +3,7 @@ package com.seven.seven.common.network;
 import com.seven.seven.home.model.HomeBannerInfos;
 import com.seven.seven.home.model.HomeNewsInfos;
 import com.seven.seven.login.RegisterInfo;
+import com.seven.seven.user.model.CollectListInfos;
 
 
 import java.util.List;
@@ -46,5 +47,19 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("/user/login")
     Observable<ResponseCustom<RegisterInfo>> login(@Field("username") String username,
-                                             @Field("password") String password);
+                                                   @Field("password") String password);
+
+    /*
+    * 根据ID收藏站内文章
+    * */
+    @POST("/lg/collect/{id}/json")
+    Observable<ResponseCustom<Object>> collectBlog(
+            @Path("id") int id
+    );
+
+    /*获取收藏文章,分页  @Path 替换url中的参数*/
+    @GET("/lg/collect/list/{page}/json")
+    Observable<ResponseCustom<CollectListInfos>> getCoolectList(
+            @Path("page") int page
+    );
 }

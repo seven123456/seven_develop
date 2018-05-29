@@ -19,6 +19,7 @@ import com.seven.seven.R;
 import com.seven.seven.common.base.codereview.BaseActivity;
 import com.seven.seven.common.utils.AppBarStateChangeListener;
 import com.seven.seven.common.utils.AppManager;
+import com.seven.seven.common.utils.Constans;
 import com.seven.seven.common.utils.GlideUtils;
 import com.seven.seven.common.utils.StatusBarUtil;
 import com.seven.seven.common.utils.ToastUtils;
@@ -26,7 +27,14 @@ import com.seven.seven.common.view.NestedScrollWebView;
 import com.seven.seven.common.view.dialog.ShareMenuPop;
 import com.seven.seven.common.view.webview.H5Control;
 import com.seven.seven.common.view.webview.SevenWebView;
+import com.seven.seven.home.contract.BaseWebviewContract;
+import com.seven.seven.home.events.BaseWebViewEvents;
 import com.seven.seven.home.model.HomeToWebViewInfo;
+import com.seven.seven.home.presenter.BaseWebviewPresenter;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * Created  on 2018-05-22.
@@ -34,7 +42,7 @@ import com.seven.seven.home.model.HomeToWebViewInfo;
  * email:seven2016s@163.com
  */
 
-public class HomeNewsDetailActivity extends BaseActivity implements H5Control {
+public class HomeNewsDetailActivity extends BaseActivity implements H5Control, BaseWebviewContract.View {
 
     private Toolbar toolbar;
     private AppBarLayout appBarLayout;
@@ -43,11 +51,14 @@ public class HomeNewsDetailActivity extends BaseActivity implements H5Control {
     private HomeToWebViewInfo homeToWebViewInfo;
     private HomeNewsDetailActivity mActivity;
     private NestedScrollWebView webView;
+    private BaseWebviewPresenter baseWebviewPresenter;
 
     @SuppressLint("WrongViewCast")
     @Override
     protected void initView(Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
         mActivity = HomeNewsDetailActivity.this;
+        baseWebviewPresenter = new BaseWebviewPresenter(this, this);
         homeToWebViewInfo = (HomeToWebViewInfo) getIntent().getSerializableExtra("newsInfo");
         toolbar = findViewById(R.id.toolbar);
         this.setSupportActionBar(toolbar);
@@ -62,6 +73,9 @@ public class HomeNewsDetailActivity extends BaseActivity implements H5Control {
         initWebview();
     }
 
+    /*
+    * 动态添加webview，解决oom
+    * */
     private void initWebview() {
         webView = findViewById(R.id.lly_webview_root);
 //        LinearLayout mLayout = findViewById(R.id.lly_webview_root);
@@ -115,13 +129,19 @@ public class HomeNewsDetailActivity extends BaseActivity implements H5Control {
                         collapsingToolbarLayout.setContentScrimColor(getResources().getColor(R.color.red));
                         collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.white));
                         collapsingToolbarLayout.setTitle("热门博客");
-                        ivFollow.setVisibility(View.VISIBLE);
-                        ivMenu.setVisibility(View.VISIBLE);
-                        ObjectAnimator rotationAnimator = ObjectAnimator
-                                .ofFloat(ivFollow, "rotation", -20, 20, -20, 20, -20, 20, 0).setDuration(600);
-                        rotationAnimator.setStartDelay(200);
-                        rotationAnimator.setDuration(1000);
-                        rotationAnimator.start();
+                        if (homeToWebViewInfo != null) {
+                            if (homeToWebViewInfo.collect == true) {
+                                ivFollow.setVisibility(View.GONE);
+                            } else {
+                                ivFollow.setVisibility(View.VISIBLE);
+                            }
+                            ivMenu.setVisibility(View.VISIBLE);
+                            ObjectAnimator rotationAnimator = ObjectAnimator
+                                    .ofFloat(ivFollow, "rotation", -20, 20, -20, 20, -20, 20, 0).setDuration(600);
+                            rotationAnimator.setStartDelay(200);
+                            rotationAnimator.setDuration(1000);
+                            rotationAnimator.start();
+                        }
                         break;
                 }
             }
@@ -134,12 +154,11 @@ public class HomeNewsDetailActivity extends BaseActivity implements H5Control {
     protected void widgetClick(View v) {
         switch (v.getId()) {
             case R.id.iv_follow:
-                ivFollow.setImageResource(R.drawable.heart_follow);
-                showSuccessToast("收藏成功");
+                baseWebviewPresenter.collectBlog(homeToWebViewInfo.id);
                 break;
             case R.id.iv_menu:
                 ShareMenuPop shareMenuPop = new ShareMenuPop(this);
-                shareMenuPop.showAsDropDown(toolbar,toolbar.getWidth(),0);
+                shareMenuPop.showAsDropDown(toolbar, toolbar.getWidth(), 0);
                 shareMenuPop.setPopListenter(new ShareMenuPop.sharePopListenter() {
                     @Override
                     public void wxItemShare() {
@@ -170,10 +189,24 @@ public class HomeNewsDetailActivity extends BaseActivity implements H5Control {
 
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void disposeBaseWebViewEvents(BaseWebViewEvents baseWebViewEvents) {
+        switch (baseWebViewEvents.getWhat()) {
+            case Constans.COLLECT:
+                ivFollow.setImageResource(R.drawable.heart_follow);
+                showSuccessToast("收藏成功");
+                break;
+            case Constans.COLLECTERROR:
+                showErrorToast(baseWebViewEvents.getData().toString());
+                break;
+        }
+    }
+
     @Override
     protected void onDestroy() {
         webView.getH5JsInterface().unRegisterListener();
         AppManager.getAppManager().finishActivity(this);
+        EventBus.getDefault().unregister(this);
         if (webView != null) {
 //            ((ViewGroup) webView.getParent()).removeView(webView);
             webView.destroy();

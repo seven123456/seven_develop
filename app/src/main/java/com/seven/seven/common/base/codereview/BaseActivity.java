@@ -84,6 +84,8 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.white));
+        toolbar.setBackground(mActivity.getResources().getDrawable(R.drawable.home_toolbar_bg));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

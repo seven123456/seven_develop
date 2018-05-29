@@ -12,4 +12,6 @@ public class HomeToWebViewInfo implements Serializable {
     public String h5Url;
     public String imgUrl;
     public String title;
+    public int id;
+    public boolean collect;
 }

@@ -1,5 +1,6 @@
 package com.seven.seven.user;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -67,6 +68,7 @@ public class UserInfoFragment extends BaseFragment {
             case R.id.ui_clean:
                 break;
             case R.id.ui_collection:
+                startActivity(new Intent(getContext(),CollectListActivity.class));
                 break;
             case R.id.ui_author:
                 break;

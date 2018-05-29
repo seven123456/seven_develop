@@ -30,4 +30,15 @@ public class Constans {
     public static final int USERERROR = 12;//用户相关错误
     public static final String USERNAME = "user_name";//用户相关错误
 
+    /*
+    * webview模块 20-40
+    * */
+    public static final int COLLECT = 20;//收藏文章成功
+    public static final int COLLECTERROR = 22;//收藏文章失败
+
+    /*
+    * 个人模块 40-60
+    * */
+    public static final int COLLECTLIST = 41;//获取收藏列表成功
+    public static final int COLLECTLISTERROR = 42;//获取收藏列表失败
 }

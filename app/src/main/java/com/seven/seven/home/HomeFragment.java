@@ -135,6 +135,8 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Bas
                 homeToWebViewInfo.h5Url = newsInfos.getLink();
                 homeToWebViewInfo.imgUrl = newsInfos.getEnvelopePic();
                 homeToWebViewInfo.title = newsInfos.getTitle();
+                homeToWebViewInfo.id = newsInfos.getId();
+                homeToWebViewInfo.collect = newsInfos.isCollect();
                 Intent intent = new Intent(getContext(), HomeNewsDetailActivity.class);
                 intent.putExtra("newsInfo", homeToWebViewInfo);
                 /*
@@ -167,15 +169,12 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Bas
             public void replayLoading() {
                 errorLayoutView.playAnimation();
                 homePresenter.getHomeBanner();
-//                isFirst = false;
             }
         });
     }
 
     @Override
     protected void initData() {
-        Log.d("home", "initdata");
-//        errorLayoutView.playAnimation();
         homePresenter.getHomeBanner();
     }
 
@@ -184,9 +183,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Bas
         switch (netWorkChangeEvent.getWhat()) {
             case Constans.NET_WORK_AVAILABLE://有网
                 errorLayoutView.setVisibility(View.GONE);
-               /* if (mPresenter != null) {
-                    mPresenter.loadTestList();
-                }*/
                 break;
             case Constans.NET_WORK_DISABLED://没网
                 errorLayoutView.setVisibility(View.VISIBLE);

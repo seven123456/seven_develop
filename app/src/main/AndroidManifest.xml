@@ -33,7 +33,8 @@
         <activity android:name=".ui.base.activity.ConstantsLayout" />
         <activity android:name=".ui.base.activity.ViewTestActivity" />
         <activity android:name=".home.HomeNewsDetailActivity" />
-        <activity android:name=".login.LoginActivity"/>
+        <activity android:name=".login.LoginActivity" />
+        <activity android:name=".user.CollectListActivity" />
     </application>
 
 </manifest>
