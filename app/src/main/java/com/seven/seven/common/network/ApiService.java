@@ -62,4 +62,10 @@ public interface ApiService {
     Observable<ResponseCustom<CollectListInfos>> getCoolectList(
             @Path("page") int page
     );
+
+    /*删除收藏文章*/
+    @GET("/lg/uncollect/{page}/json")
+    Observable<ResponseCustom<Object>> deleteCoolect(
+            @Path("page") int page
+    );
 }

@@ -38,6 +38,6 @@
         android:layout_toLeftOf="@+id/img_right"
         android:gravity="center"
         android:textColor="@color/red"
-        android:textSize="12sp"
+        android:textSize="16sp"
         android:visibility="gone" />
 </RelativeLayout>

@@ -1,4 +1,4 @@
-package com.seven.seven.user.events;
+package com.seven.seven.user.userevent;
 
 import com.seven.seven.common.event.BaseEvent;
 

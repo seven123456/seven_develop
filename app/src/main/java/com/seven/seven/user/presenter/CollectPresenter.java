@@ -6,15 +6,13 @@ import com.seven.seven.common.network.HttpObservable;
 import com.seven.seven.common.network.HttpResultObserver;
 import com.seven.seven.common.network.ResponseCustom;
 import com.seven.seven.common.utils.Constans;
-import com.seven.seven.ui.MainActivity;
 import com.seven.seven.user.CollectListActivity;
 import com.seven.seven.user.contract.CollectContract;
-import com.seven.seven.user.events.CollectEvent;
+import com.seven.seven.user.userevent.CollectEvent;
 import com.seven.seven.user.model.CollectListInfos;
 
 import org.greenrobot.eventbus.EventBus;
 
-import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 /**
@@ -45,6 +43,28 @@ public class CollectPresenter extends BasePresenterImpl<CollectContract.View, Co
                     @Override
                     protected void onFail(ApiException e) {
                         EventBus.getDefault().post(new CollectEvent(Constans.COLLECTLISTERROR, e.getMsg()));
+                    }
+
+                });
+    }
+
+    @Override
+    public void deleteCollect(int page) {
+        HttpObservable.getObservable(apiRetrofit.deleteCoolect(page))
+                .subscribe(new HttpResultObserver<ResponseCustom<Object>>() {
+                    @Override
+                    protected void onLoading(Disposable d) {
+
+                    }
+
+                    @Override
+                    protected void onSuccess(ResponseCustom<Object> o) {
+                        EventBus.getDefault().post(new CollectEvent(Constans.DELETECOLLECT, o.getData()));
+                    }
+
+                    @Override
+                    protected void onFail(ApiException e) {
+                        EventBus.getDefault().post(new CollectEvent(Constans.DELETECOLLECTERROR, e.getMsg()));
                     }
 
                 });

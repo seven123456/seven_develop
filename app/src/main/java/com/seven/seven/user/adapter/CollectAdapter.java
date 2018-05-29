@@ -2,6 +2,7 @@ package com.seven.seven.user.adapter;
 
 import android.support.annotation.Nullable;
 
+import com.chad.library.adapter.base.BaseItemDraggableAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.seven.seven.R;
@@ -17,10 +18,7 @@ import java.util.List;
  * email:seven2016s@163.com
  */
 
-public class CollectAdapter extends BaseQuickAdapter<CollectInfo, BaseViewHolder> {
-    public CollectAdapter(int layoutResId) {
-        super(layoutResId);
-    }
+public class CollectAdapter extends BaseItemDraggableAdapter<CollectInfo, BaseViewHolder> {
 
     public CollectAdapter(int layoutResId, @Nullable List<CollectInfo> data) {
         super(layoutResId, data);
@@ -33,7 +31,7 @@ public class CollectAdapter extends BaseQuickAdapter<CollectInfo, BaseViewHolder
                     .setText(R.id.tv_author, "作者:" + item.getAuthor())
                     .setText(R.id.tv_title, item.getTitle())
                     .addOnClickListener(R.id.cv_collect);
-            ;
+
 
         }
     }

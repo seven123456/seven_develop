@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.support.annotation.ColorInt;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager.LayoutParams;
 
@@ -156,29 +158,6 @@ public class StatusBarUtil {
 
     private static int sStatusBarHeight = -1;
 
-/*    *//**
-     * 获取状态栏高度
-     *
-     * @param resources
-     * @return
-     *//*
-    private static int getStatusBarHeight(Context context) {
-        if (sStatusBarHeight <= 0 && context != null) {
-            Class<?> c = null;
-            Object obj = null;
-            Field field = null;
-            try {
-                c = Class.forName("com.android.internal.R$dimen");
-                obj = c.newInstance();
-                field = c.getField("status_bar_height");
-                int x = Integer.parseInt(field.get(obj).toString());
-                sStatusBarHeight = context.getResources().getDimensionPixelSize(x);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return sStatusBarHeight;
-    }*/
 
     /**
      * 获取状态栏高度
@@ -205,6 +184,17 @@ public class StatusBarUtil {
             e1.printStackTrace();
         }
         return sStatusBarHeight;
+    }
+
+    public static void setFadeStatusBarHeight(Context context, View view) {
+        if (Build.VERSION.SDK_INT >= 19) {
+            ViewGroup.LayoutParams params = view.getLayoutParams();
+            int statusBarHeight = getStatusBarHeight(context);
+            if (params != null) {
+                params.height = statusBarHeight;
+                view.setLayoutParams(params);
+            }
+        }
     }
 
     /**

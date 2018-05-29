@@ -92,6 +92,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Bas
         homeCommonAdapter = new HomeCommonAdapter(R.layout.recycler_item_home_news, newsInfosList, getContext());
         initHeadView();
         homeCommonAdapter.setOnLoadMoreListener(this, recyclerView);
+        homeCommonAdapter.disableLoadMoreIfNotFullPage();
         homeCommonAdapter.addHeaderView(headView);
         recyclerView.setAdapter(homeCommonAdapter);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {

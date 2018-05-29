@@ -8,10 +8,11 @@ import com.seven.seven.common.base.codereview.BaseView;
  * email:seven2016s@163.com
  */
 
-public interface CollectContract {
-    interface View extends BaseView<Object>{}
-    interface Presenter{
-        void getCollectList(int page);
-        void deleteCollect(int page);
+public interface UserInfoContract {
+    interface View extends BaseView<Object> {
+    }
+
+    interface Presenter {
+        void getCollectSize(int page);
     }
 }

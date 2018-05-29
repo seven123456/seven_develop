@@ -29,7 +29,8 @@ public class Constans {
     public static final int LOGIN = 11;//登录成功
     public static final int USERERROR = 12;//用户相关错误
     public static final String USERNAME = "user_name";//用户相关错误
-
+    public static final int COLLECTSIZE = 41;//获取收藏size
+    public static final int COLLECTSIZEERROR = 42;//获取收藏size失败
     /*
     * webview模块 20-40
     * */
@@ -41,4 +42,6 @@ public class Constans {
     * */
     public static final int COLLECTLIST = 41;//获取收藏列表成功
     public static final int COLLECTLISTERROR = 42;//获取收藏列表失败
+    public static final int DELETECOLLECT = 43;//获取收藏列表失败
+    public static final int DELETECOLLECTERROR = 44;//获取收藏列表失败
 }
