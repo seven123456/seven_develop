@@ -16,6 +16,7 @@ import com.chad.library.adapter.base.listener.OnItemSwipeListener;
 import com.seven.seven.R;
 import com.seven.seven.common.base.codereview.BaseActivity;
 import com.seven.seven.common.utils.Constans;
+import com.seven.seven.common.utils.PreferencesUtils;
 import com.seven.seven.common.utils.StatusBarUtil;
 import com.seven.seven.home.HomeNewsDetailActivity;
 import com.seven.seven.home.model.HomeToWebViewInfo;
@@ -116,7 +117,7 @@ public class CollectListActivity extends BaseActivity implements CollectContract
             public void onItemSwipeStart(RecyclerView.ViewHolder viewHolder, int pos) {
                 Log.d("onItemSwipeStart", "执行了");
                 CollectInfo collectInfo = collectAdapter.getItem(pos);
-                showSuccessToast("继续向左滑动即可删除第" + (pos + 1) + "个位置的item"+collectInfo.toString());
+                showSuccessToast("继续向左滑动即可删除第" + (pos + 1) + "个位置的item" + collectInfo.toString());
             }
 
             @Override
@@ -156,6 +157,9 @@ public class CollectListActivity extends BaseActivity implements CollectContract
 
     @Override
     protected void initData() {
+/*
+        PreferencesUtils.putString(this, Constans.COOKIE_PREF, null);
+*/
         PAGE = 0;
         collectPresenter.getCollectList(PAGE);
     }

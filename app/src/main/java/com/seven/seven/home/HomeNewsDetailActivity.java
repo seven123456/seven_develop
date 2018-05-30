@@ -98,7 +98,6 @@ public class HomeNewsDetailActivity extends BaseActivity implements H5Control, B
 
     @Override
     protected void initData() {
-        PreferencesUtils.putString(this, Constans.COOKIE_PREF, null);
 
     }
 
