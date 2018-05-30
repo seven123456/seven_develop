@@ -2,6 +2,7 @@ package com.seven.seven.home;
 
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import com.seven.seven.common.utils.AppBarStateChangeListener;
 import com.seven.seven.common.utils.AppManager;
 import com.seven.seven.common.utils.Constans;
 import com.seven.seven.common.utils.GlideUtils;
+import com.seven.seven.common.utils.PreferencesUtils;
 import com.seven.seven.common.utils.StatusBarUtil;
 import com.seven.seven.common.utils.ToastUtils;
 import com.seven.seven.common.view.NestedScrollWebView;
@@ -31,6 +33,7 @@ import com.seven.seven.home.contract.BaseWebviewContract;
 import com.seven.seven.home.events.BaseWebViewEvents;
 import com.seven.seven.home.model.HomeToWebViewInfo;
 import com.seven.seven.home.presenter.BaseWebviewPresenter;
+import com.seven.seven.login.LoginActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -95,6 +98,7 @@ public class HomeNewsDetailActivity extends BaseActivity implements H5Control, B
 
     @Override
     protected void initData() {
+        PreferencesUtils.putString(this, Constans.COOKIE_PREF, null);
 
     }
 
@@ -199,6 +203,9 @@ public class HomeNewsDetailActivity extends BaseActivity implements H5Control, B
             case Constans.COLLECTERROR:
                 showErrorToast(baseWebViewEvents.getData().toString());
                 break;
+         /*   case Constans.RELOGIN:
+                startActivity(new Intent(this, LoginActivity.class));
+                break;*/
         }
     }
 

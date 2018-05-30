@@ -1,20 +1,9 @@
 package com.seven.seven.common.network;
 
-import android.accounts.NetworkErrorException;
-import android.util.Log;
+import com.seven.seven.common.event.ReloginEvent;
+import com.seven.seven.common.utils.Constans;
 
-import com.google.gson.JsonParseException;
-import com.google.gson.stream.MalformedJsonException;
-import com.seven.seven.common.base.HttpErrorReceiver;
-import com.seven.seven.common.utils.ToastUtils;
-
-import org.json.JSONException;
-
-import java.net.ConnectException;
-import java.net.SocketTimeoutException;
-import java.net.UnknownHostException;
-import java.net.UnknownServiceException;
-import java.text.ParseException;
+import org.greenrobot.eventbus.EventBus;
 
 import io.reactivex.disposables.Disposable;
 
@@ -40,7 +29,11 @@ public abstract class HttpResultObserver<T extends ResponseCustom> extends HttpC
     @Override
     protected void _onNext(T responseCustom) {
         if (responseCustom.getErrorCode() < 0) {
-            onFail(new ApiException(responseCustom.getErrorCode(), responseCustom.getErrorMsg()));
+            if (responseCustom.getErrorMsg().equals("请登录!")) {
+                EventBus.getDefault().post(new ReloginEvent(Constans.RELOGIN));
+            } else {
+                onFail(new ApiException(responseCustom.getErrorCode(), responseCustom.getErrorMsg()));
+            }
         } else {
             onSuccess(responseCustom);
         }

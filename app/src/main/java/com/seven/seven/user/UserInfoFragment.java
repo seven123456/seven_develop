@@ -11,6 +11,7 @@ import com.seven.seven.R;
 import com.seven.seven.common.base.codereview.BaseFragment;
 import com.seven.seven.common.utils.Constans;
 import com.seven.seven.common.utils.PreferencesUtils;
+import com.seven.seven.login.LoginActivity;
 import com.seven.seven.ui.MainActivity;
 import com.seven.seven.user.contract.UserInfoContract;
 import com.seven.seven.user.model.CollectListInfos;
@@ -104,6 +105,8 @@ public class UserInfoFragment extends BaseFragment implements UserInfoContract.V
                 break;
             case Constans.COLLECTSIZEERROR:
                 showErrorToast(userInfoEvent.getData().toString());
+            case Constans.RELOGIN:
+                startActivity(new Intent(getContext(), LoginActivity.class));
                 break;
         }
     }

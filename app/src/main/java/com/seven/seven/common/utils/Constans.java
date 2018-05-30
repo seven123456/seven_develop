@@ -27,6 +27,7 @@ public class Constans {
     * */
     public static final int REGISTER = 10;//注册成功
     public static final int LOGIN = 11;//登录成功
+    public static final int RELOGIN = 13;//重新登录
     public static final int USERERROR = 12;//用户相关错误
     public static final String USERNAME = "user_name";//用户相关错误
     public static final int COLLECTSIZE = 41;//获取收藏size

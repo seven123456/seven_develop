@@ -22,5 +22,6 @@ public interface HomeContract {
         void getHomeBanner();
 
         void getMoreHomeData(int curpage);
+
     }
 }

@@ -129,11 +129,6 @@ public class CollectListActivity extends BaseActivity implements CollectContract
             public void onItemSwiped(RecyclerView.ViewHolder viewHolder, int pos) {
                 Log.d("onItemSwiped", "执行了");
                 showSuccessToast("删除了第" + (pos + 1) + "个位置的item");
-               /* if (enableDelete) {
-                } else {
-                    viewHolder.setIsRecyclable(false);
-                }*/
-//                collectPresenter.deleteCollect(viewHolder.getAdapterPosition());
             }
 
             @Override
