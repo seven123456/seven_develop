@@ -64,7 +64,7 @@ public interface ApiService {
     );
 
     /*删除收藏文章*/
-    @GET("/lg/uncollect/{page}/json")
+    @POST("/lg/uncollect/{page}/json")
     Observable<ResponseCustom<Object>> deleteCoolect(
             @Path("page") int page
     );

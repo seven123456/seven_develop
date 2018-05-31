@@ -49,6 +49,8 @@ public class CollectListActivity extends BaseActivity implements CollectContract
     private static int PAGE = 0;
     private List<CollectInfo> collectInfoList = new ArrayList<>();
     private boolean enableDelete = true;
+    private CollectInfo collectInfo;
+    private int position;
 
     @Override
     protected void initView(Bundle savedInstanceState) {
@@ -95,7 +97,10 @@ public class CollectListActivity extends BaseActivity implements CollectContract
                 break;
             case Constans.DELETECOLLECTERROR:
                 showErrorToast("删除失败");
-
+                if (collectInfo != null) {
+                    collectAdapter.addData(position, collectInfo);
+                    collectAdapter.notifyDataSetChanged();
+                }
                 enableDelete = false;
                 break;
         }
@@ -116,8 +121,6 @@ public class CollectListActivity extends BaseActivity implements CollectContract
             @Override
             public void onItemSwipeStart(RecyclerView.ViewHolder viewHolder, int pos) {
                 Log.d("onItemSwipeStart", "执行了");
-                CollectInfo collectInfo = collectAdapter.getItem(pos);
-                showSuccessToast("继续向左滑动即可删除第" + (pos + 1) + "个位置的item" + collectInfo.toString());
             }
 
             @Override
@@ -129,7 +132,11 @@ public class CollectListActivity extends BaseActivity implements CollectContract
             @Override
             public void onItemSwiped(RecyclerView.ViewHolder viewHolder, int pos) {
                 Log.d("onItemSwiped", "执行了");
-                showSuccessToast("删除了第" + (pos + 1) + "个位置的item");
+                collectInfo = collectAdapter.getItem(pos);
+                position = pos;
+                if (collectInfo != null) {
+                    collectPresenter.deleteCollect(collectInfo.getId());
+                }
             }
 
             @Override
