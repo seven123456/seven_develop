@@ -41,7 +41,7 @@ public class ViewTestActivity extends BaseActivity {
 //        initStatusBar();
         space = findViewById(R.id.main_action_bar_space);
         customCOnstantsView = findViewById(R.id.custom_view);
-        customCOnstantsView.setImageView(R.drawable.is_shuai);
+        customCOnstantsView.setImageView(R.drawable.error);
         customCOnstantsView.setToolbarTitle("帅帅帅帅帅");
         customCOnstantsView.setToolbarTitleColor(Color.BLACK);
 //        StatusBarUtil.setTranslates(ViewTestActivity.this,true);

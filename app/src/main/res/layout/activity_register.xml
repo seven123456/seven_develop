@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="200dp"
+        android:text="Seven"
+        android:textColor="@color/colorPrimary_title"
+        android:textSize="32sp" />
+
+    <EditText
+        android:id="@+id/et_user"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_below="@+id/tv_title"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@color/white"
+        android:gravity="left|center"
+        android:hint="请输入不低于6位数的账号"
+        android:maxLength="15"
+        android:maxLines="1"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/et_password"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_below="@+id/et_user"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@color/white"
+        android:gravity="left|center"
+        android:hint="请输入您的密码"
+        android:layout_marginBottom="16dp"
+        android:maxLength="15"
+        android:maxLines="1"
+        android:password="true"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/bt_login"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/et_password"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="注册"
+        android:textColor="@color/text_font"
+        android:textSize="23sp" />
+</RelativeLayout>

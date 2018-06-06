@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -35,6 +36,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -61,6 +63,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Bas
     private static int CURPAGE = 1;
     private static int PAGE_COUNT = 0;
     private boolean isRefresh = false;
+    private BaseHomeTitleBar homeTitleBar;
 
     @Override
     protected int getLayoutId() {
@@ -72,10 +75,11 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Bas
         homePresenter = new HomePresenter(this, (MainActivity) getActivity());
         EventBus.getDefault().register(this);
         linearLayoutManager = new LinearLayoutManager(getContext());
-        appBarLayout = rootView.findViewById(R.id.appbar);
-        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) appBarLayout.getLayoutParams();
-        layoutParams.height = layoutParams.height + StatusBarUtil.getStatusBarHeight(getActivity());
-        appBarLayout.setTitle("首页新闻");
+//        appBarLayout = rootView.findViewById(R.id.appbar);
+//        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) appBarLayout.getLayoutParams();
+//        layoutParams.height = layoutParams.height + StatusBarUtil.getStatusBarHeight(getActivity());
+//        appBarLayout.setTitle("首页新闻");
+        homeTitleBar = rootView.findViewById(R.id.in_home_title);
         swipeRefreshLayout = rootView.findViewById(R.id.swf_layout);
         recyclerView = rootView.findViewById(R.id.recycler);
         errorLayoutView = rootView.findViewById(R.id.error);
@@ -96,35 +100,38 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Bas
         homeCommonAdapter.addHeaderView(headView);
         recyclerView.setAdapter(homeCommonAdapter);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            Drawable drawable = getContext().getResources().getDrawable(R.drawable.home_toolbar_bg);
+//            Drawable drawable = getContext().getResources().getDrawable(R.drawable.home_toolbar_bg);
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                if (isFirst) {
-                    int toolbarHeight = appBarLayout.getMeasuredHeight();
-                    int scollyHeight = recyclerView.computeVerticalScrollOffset();
-                    if (scollyHeight >= (toolbarHeight * 2)) {
+//                if (isFirst) {
+//                int toolbarHeight = appBarLayout.getMeasuredHeight();
+                int toolbarHeight = getResources().getDimensionPixelSize(R.dimen.main_title_bar_height);
+                int scollyHeight = recyclerView.computeVerticalScrollOffset();
+                if (scollyHeight >= (toolbarHeight * 2)) {
                         /*此时toolbar和状态栏完全显示红色*/
-                        appBarLayout.setVisibility(View.VISIBLE);
-                        drawable.setAlpha(255);
-                        appBarLayout.setBackground(drawable);
-                    } else if (scollyHeight >= toolbarHeight) {
+//                    appBarLayout.setVisibility(View.VISIBLE);
+//                    drawable.setAlpha(255);
+//                    appBarLayout.setBackground(drawable);
+                    homeTitleBar.setBgAlpha(1);
+                } else if (scollyHeight >= toolbarHeight) {
                         /*
-                        * 渐变过程怎么搞？
+                        * 渐变过程
                         * */
-                        appBarLayout.setVisibility(View.VISIBLE);
-                        drawable.setAlpha((int) (255 * ((scollyHeight - toolbarHeight) / (toolbarHeight * 1.5F))));
-                        appBarLayout.setBackground(drawable);
-
-                    } else {
+//                    appBarLayout.setVisibility(View.VISIBLE);
+//                    drawable.setAlpha((int) (255 * ((scollyHeight - toolbarHeight) / (toolbarHeight * 1.5F))));
+//                    appBarLayout.setBackground(drawable);
+                    homeTitleBar.setBgAlpha((scollyHeight - toolbarHeight) / (toolbarHeight * 2F));
+                } else {
                         /*
                         * 状态栏透明
                         * */
-                        appBarLayout.setVisibility(View.GONE);
-                    }
-                } else {
-                    isFirst = true;
+//                    appBarLayout.setVisibility(View.GONE);
+                    homeTitleBar.setBgAlpha(0);
                 }
+//                } else {
+//                    isFirst = true;
+//                }
                 super.onScrolled(recyclerView, dx, dy);
             }
         });
@@ -193,7 +200,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Bas
 
     @Subscribe(threadMode = ThreadMode.MAIN, priority = 0, sticky = true)
     public void disposeHomeFragmentData(HomeEvents homeEvents) {
-//        if (homeEvents.getData() != null) {
         switch (homeEvents.getWhat()) {
             case Constans.HOMEDATA:
                 HomeNewsInfos homeNewsInfos = (HomeNewsInfos) homeEvents.getData();
@@ -212,7 +218,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Bas
                         homeCommonAdapter.loadMoreEnd(true);
                     }
                 }
-//                    CURPAGE = homeNewsInfos.getCurPage();
                 PAGE_COUNT = homeNewsInfos.getPageCount();
                 break;
             case Constans.HOMEBANNER:
@@ -222,17 +227,12 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Bas
                     errorLayoutView.hide();
                 }
 
-//                    bannerViewAdapter.setNewData(homeBannerInfos);
                 break;
             case Constans.HOMEERROR:
                 showErrorToast((String) homeEvents.getData());
                 errorLayoutView.showErrorView();
-                /*if (homeCommonAdapter.isLoadMoreEnable()) {
-                    homeCommonAdapter.loadMoreEnd(true);
-                }*/
                 break;
             case Constans.HOMEDASUCCESS:
-                showSuccessToast("俩次成功");
                 errorLayoutView.hide();
                 break;
         }

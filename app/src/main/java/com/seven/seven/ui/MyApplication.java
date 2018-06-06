@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
+import com.mob.MobSDK;
 import com.seven.seven.common.network.ApiRetrofit;
 import com.seven.seven.common.utils.RxTool;
 
@@ -23,6 +24,10 @@ public class MyApplication extends Application {
         return isDebug;
     }
 
+    public static boolean setIsDebug() {
+        return false;
+    }
+
     public MyApplication() {
 
     }
@@ -34,6 +39,7 @@ public class MyApplication extends Application {
         Log.i("aaaa", "onCreate: ");
         RxTool.init(this);
         ApiRetrofit.getApiRetrofit();
+        MobSDK.init(this, "262adcdbafad0", "c7ee79a0a5971f6fbd0b20f2af152af2");
     }
 
     public static Context getContext() {

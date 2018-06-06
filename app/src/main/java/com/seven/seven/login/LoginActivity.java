@@ -1,18 +1,25 @@
 package com.seven.seven.login;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.seven.seven.R;
 import com.seven.seven.common.base.codereview.BaseActivity;
+import com.seven.seven.common.utils.AppManager;
 import com.seven.seven.common.utils.Constans;
 import com.seven.seven.common.utils.PreferencesUtils;
 import com.seven.seven.home.events.HomeEvents;
 import com.seven.seven.ui.MainActivity;
 import com.seven.seven.ui.SplashActivity;
+import com.seven.seven.user.view.CanleLoginDialog;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -27,16 +34,17 @@ import org.greenrobot.eventbus.ThreadMode;
 public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     private EditText accountEt, passwordEt;
-    private Button loginBt, registerBt;
+    private TextView loginBt, registerBt;
     private LoginPresenter loginPresenter;
     private RegisterInfo registerInfo;
+    private AlertDialog alertDilaog;
 
     @Override
     protected void initView(Bundle savedInstanceState) {
         loginPresenter = new LoginPresenter(this, this);
         EventBus.getDefault().register(this);
         accountEt = findViewById(R.id.et_account);
-        passwordEt = findViewById(R.id.et_account);
+        passwordEt = findViewById(R.id.et_password);
         loginBt = findViewById(R.id.bt_login);
         registerBt = findViewById(R.id.bt_register);
     }
@@ -49,11 +57,6 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void disposeLoginEvent(LoginEvent loginEvent) {
         switch (loginEvent.getWhat()) {
-            case Constans.REGISTER:
-                if (loginEvent.getData() != null) {
-                    registerInfo = (RegisterInfo) loginEvent.getData();
-                }
-                break;
             case Constans.LOGIN:
                 showSuccessToast("登录成功");
                 if (loginEvent.getData() != null) {
@@ -79,11 +82,8 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     protected void widgetClick(View v) {
         switch (v.getId()) {
             case R.id.bt_login:
-               /* if (registerInfo != null) {
-                    loginPresenter.login(registerInfo.getUsername(), registerInfo.getPassword());
-                }*/
-                String userNames = accountEt.getText().toString();
-                String passwords = passwordEt.getText().toString();
+                String userNames = accountEt.getText().toString().trim();
+                String passwords = passwordEt.getText().toString().trim();
                 if (!userNames.isEmpty() && !passwords.isEmpty()) {
                     loginPresenter.login(userNames, passwords);
                 } else {
@@ -91,13 +91,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
                 }
                 break;
             case R.id.bt_register:
-                String userName = accountEt.getText().toString();
-                String password = passwordEt.getText().toString();
-                if (!userName.isEmpty() && !password.isEmpty()) {
-                    loginPresenter.register(userName, password, password);
-                } else {
-                    showErrorToast("账号或密码不能为空");
-                }
+                startActivity(new Intent(mActivity, RejisterActivity.class));
                 break;
         }
     }
@@ -111,5 +105,33 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    DialogInterface.OnClickListener listenter = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            switch (which) {
+                case AlertDialog.BUTTON1:
+                    alertDilaog.dismiss();
+                    break;
+                case AlertDialog.BUTTON2:
+//                    AppManager.getAppManager().removedAlllActivity(mActivity);
+                    System.exit(0);
+                    break;
+            }
+        }
+    };
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            alertDilaog = new AlertDialog.Builder(mActivity).create();
+            alertDilaog.setTitle("你确定要退出App吗？");
+            alertDilaog.setMessage("");
+            alertDilaog.setButton("取消", listenter);
+            alertDilaog.setButton2("确定", listenter);
+            alertDilaog.show();
+        }
+        return false;
     }
 }

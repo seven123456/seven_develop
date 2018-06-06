@@ -1,8 +1,13 @@
 package com.seven.seven.common.network;
 
+import com.seven.seven.common.network.gank.GankIoCustom;
+import com.seven.seven.gank.model.GankIoWelfareBean;
 import com.seven.seven.home.model.HomeBannerInfos;
 import com.seven.seven.home.model.HomeNewsInfos;
 import com.seven.seven.login.RegisterInfo;
+import com.seven.seven.search.model.HotTagInfos;
+import com.seven.seven.search.model.SearchListInfos;
+import com.seven.seven.search.model.UsingURLinfos;
 import com.seven.seven.user.model.CollectListInfos;
 
 
@@ -15,6 +20,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Url;
 
 /**
  * Created  on 2018-03-19.
@@ -68,4 +74,39 @@ public interface ApiService {
     Observable<ResponseCustom<Object>> deleteCoolect(
             @Path("page") int page
     );
+
+    /*
+    * 获取热门搜索词
+    * */
+    @GET("/hotkey/json")
+    Observable<ResponseCustom<List<HotTagInfos>>> getHotTags();
+
+    /*
+    * 获取常用网站
+    * */
+    @GET("/friend/json")
+    Observable<ResponseCustom<List<UsingURLinfos>>> getUsingURL();
+
+    /*
+    * 动态搜索
+    * */
+    @FormUrlEncoded
+    @POST("/article/query/{page}/json")
+    Observable<ResponseCustom<SearchListInfos>> searchK(
+            @Path("page") int page,
+            @Field("k") Object k
+    );
+
+    /**
+     * 分类数据: http://gank.io/api/data/福利/请求个数/第几页
+     * 数据类型： 福利
+     * 请求个数： 数字，大于0
+     * 第几页：数字，大于0
+     * eg: http://gank.io/api/data/福利/40/1
+     */
+   /* @GET("/api/data/福利/{size}/{page}")
+    Observable<ResponseCustom<GankIoWelfareListBean>> getGankList(@Path("size") int pre_page,
+                                                  @Path("page") int page);*/
+    @GET
+    Observable<GankIoCustom<List<GankIoWelfareBean>>> getGankList(@Url String gankurl);
 }

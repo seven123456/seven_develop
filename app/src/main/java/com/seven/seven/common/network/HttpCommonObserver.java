@@ -63,7 +63,6 @@ public abstract class HttpCommonObserver<T> implements Observer<T> {
 //        this._onError(e);
     }
 
-
     @Override
     public void onComplete() {
 

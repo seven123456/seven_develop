@@ -11,6 +11,6 @@
         app:centerScale="1.3"
         app:interval="3000"
         app:itemSpace="20"
-        app:moveSpeed="1.8"
+        app:moveSpeed="0.8"
         app:showIndicator="false" />
 </RelativeLayout>

@@ -18,13 +18,15 @@
     </android.support.v4.widget.SwipeRefreshLayout>
 
 
-    <android.support.v7.widget.Toolbar
+    <!--<android.support.v7.widget.Toolbar
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/transition"
-        android:visibility="gone" />
+        android:background="@color/transition" />-->
 
+    <include
+        android:id="@+id/in_home_title"
+        layout="@layout/base_home_title" />
 
     <include
         android:id="@+id/error"

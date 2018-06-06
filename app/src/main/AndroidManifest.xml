@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.seven.seven">
 
     <permission
@@ -7,7 +8,9 @@
         android:protectionLevel="signature" />
     <!-- Required -->
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <application
         android:name=".ui.MyApplication"
         android:allowBackup="true"
@@ -15,9 +18,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:replace="android:name">
 
-        <activity android:name=".ui.MainActivity">
+        <activity
+            android:name=".ui.MainActivity"
+            >
 
         </activity>
         <activity
@@ -35,6 +41,9 @@
         <activity android:name=".home.HomeNewsDetailActivity" />
         <activity android:name=".login.LoginActivity" />
         <activity android:name=".user.CollectListActivity" />
+        <activity android:name=".search.SearchDetailActivity" />
+        <activity android:name=".login.RejisterActivity" />
+        <activity android:name=".search.LookImageActivity"/>
     </application>
 
 </manifest>

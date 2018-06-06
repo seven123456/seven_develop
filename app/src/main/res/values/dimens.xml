@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--main的底部tab -->
+    <dimen name="main_tab_height">49dp</dimen>
+    <dimen name="main_tab_size">22dp</dimen>
+    <dimen name="main_tab_icon_margin_top">7dp</dimen>
+    <dimen name="main_tab_name_margin_top">2dp</dimen>
+    <dimen name="main_tab_name_text_size">10sp</dimen>
+
+    <dimen name="main_holder_padding_left_right">15dp</dimen>
+
+    <dimen name="main_title_bar_height">44dp</dimen>
+
+    <dimen name="main_action_bar_height">44dp</dimen>
+    <dimen name="main_action_bar_title_text_size">16sp</dimen>
+
+</resources>

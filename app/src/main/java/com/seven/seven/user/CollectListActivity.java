@@ -9,12 +9,14 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.callback.ItemDragAndSwipeCallback;
 import com.chad.library.adapter.base.listener.OnItemSwipeListener;
 import com.seven.seven.R;
 import com.seven.seven.common.base.codereview.BaseActivity;
+import com.seven.seven.common.utils.AppManager;
 import com.seven.seven.common.utils.Constans;
 import com.seven.seven.common.utils.PreferencesUtils;
 import com.seven.seven.common.utils.StatusBarUtil;
@@ -51,6 +53,7 @@ public class CollectListActivity extends BaseActivity implements CollectContract
     private boolean enableDelete = true;
     private CollectInfo collectInfo;
     private int position;
+    private ImageView ivBack;
 
     @Override
     protected void initView(Bundle savedInstanceState) {
@@ -59,6 +62,7 @@ public class CollectListActivity extends BaseActivity implements CollectContract
         View view = findViewById(R.id.space);
         view.setBackground(mActivity.getResources().getDrawable(R.drawable.home_toolbar_bg));
         StatusBarUtil.setFadeStatusBarHeight(mActivity, view);
+        ivBack = findViewById(R.id.iv_back);
         recyclerView = findViewById(R.id.rv_collect);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         initRecycler();
@@ -173,12 +177,16 @@ public class CollectListActivity extends BaseActivity implements CollectContract
 
     @Override
     protected void setLisenter() {
-
+        ivBack.setOnClickListener(this);
     }
 
     @Override
     protected void widgetClick(View v) {
-
+        switch (v.getId()) {
+            case R.id.iv_back:
+                AppManager.getAppManager().finishActivity(this);
+                break;
+        }
     }
 
     @Override

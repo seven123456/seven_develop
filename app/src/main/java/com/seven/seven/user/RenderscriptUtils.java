@@ -29,7 +29,7 @@ public class RenderscriptUtils {
         Allocation allOut = Allocation.createFromBitmap(rs, outBitmap);
 
         //设定模糊度(注：Radius最大只能设置25.f)
-        blurScript.setRadius(24.f);
+        blurScript.setRadius(23.f);
 
         // Perform the Renderscript
         blurScript.setInput(allIn);

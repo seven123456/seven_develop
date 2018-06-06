@@ -2,11 +2,8 @@ package com.seven.seven.home.adapter;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.seven.seven.R;
@@ -46,7 +43,7 @@ public class HomeCommonAdapter extends BaseQuickAdapter<HomeNewsInfos.NewsInfos,
                /* Glide.with(mContext).load(item.getEnvelopePic() == null || item.getEnvelopePic().equals("") ? R.drawable.error_logo : item.getEnvelopePic())
                         .apply(requestOptions.placeholder(R.drawable.error_logo).error(R.drawable.error_logo)).into((ImageView) helper.getView(R.id.iv_right));*/
                 GlideUtils.loadImageViewLoading((ImageView) helper.getView(R.id.iv_right)
-                        ,item.getEnvelopePic() == null || item.getEnvelopePic().equals("") ? R.drawable.error_logo : item.getEnvelopePic(),R.drawable.error_logo,R.drawable.error_logo);
+                        ,item.getEnvelopePic() == null || item.getEnvelopePic().equals("") ? R.drawable.ic_error_logo : item.getEnvelopePic(),R.drawable.ic_error_logo,R.drawable.ic_error_logo);
             }
             helper.addOnClickListener(R.id.cd_item);
         }

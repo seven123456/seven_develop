@@ -2,6 +2,7 @@ package com.seven.seven.common.network;
 
 import com.seven.seven.common.event.ReloginEvent;
 import com.seven.seven.common.utils.Constans;
+import com.seven.seven.user.userevent.UserInfoEvent;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -29,8 +30,9 @@ public abstract class HttpResultObserver<T extends ResponseCustom> extends HttpC
     @Override
     protected void _onNext(T responseCustom) {
         if (responseCustom.getErrorCode() < 0) {
-            if (responseCustom.getErrorMsg().equals("请登录!")) {
+            if (responseCustom.getErrorMsg().contains("登录")) {
                 EventBus.getDefault().post(new ReloginEvent(Constans.RELOGIN));
+//                EventBus.getDefault().post(new UserInfoEvent(Constans.RELOGIN));
             } else {
                 onFail(new ApiException(responseCustom.getErrorCode(), responseCustom.getErrorMsg()));
             }

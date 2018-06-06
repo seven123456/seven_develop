@@ -58,6 +58,7 @@ public class ApiRetrofit {
                 .baseUrl(NetworkUrl.getNetWorkName())
                 .build();
         apiServise = retrofit.create(ApiService.class);
+        apiServise.getGankList("http://gank.io/api/data/福利/100/2");
     }
 
     /*

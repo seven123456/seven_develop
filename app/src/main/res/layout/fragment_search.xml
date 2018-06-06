@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <View
+        android:id="@+id/view_space"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="1px" />
+
+    <RelativeLayout
+        android:id="@+id/search_title"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_below="@+id/view_space"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="26dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/search_background">
+
+            <!--<ImageView
+                android:id="@+id/iv_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginRight="@dimen/dp_10"
+                android:src="@drawable/ic_search" />-->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:drawableLeft="@drawable/ic_search"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="搜索文章、博客"
+                android:textColor="@color/search_text"
+                android:textSize="13sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/sll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:layout_below="@+id/search_title">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:drawableLeft="@drawable/ic_hot_search"
+                android:text="热门搜索"
+                android:textColor="#4C4C4C"
+                android:textSize="12sp" />
+
+            <com.seven.seven.common.view.FlowLayout
+                android:id="@+id/flow_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_search"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:padding="5dp"
+                app:height_space="10dp"
+                app:width_space="10dp" />
+
+            <TextView
+                android:id="@+id/tv_url"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/flow_layout"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:drawableLeft="@drawable/ic_hot_search"
+                android:text="常用网址"
+                android:textColor="#4C4C4C"
+                android:textSize="12sp" />
+
+            <com.seven.seven.common.view.FlowLayout
+                android:id="@+id/flow_url_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_url"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:padding="5dp"
+                app:height_space="10dp"
+                app:width_space="10dp" />
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

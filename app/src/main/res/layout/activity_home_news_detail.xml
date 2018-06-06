@@ -1,6 +1,6 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/constraint"
+    android:id="@+id/cl_constraint"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -49,7 +49,7 @@
                     android:layout_centerVertical="true"
                     android:layout_gravity="right|center_vertical"
                     android:layout_marginRight="16dp"
-                    android:src="@drawable/heart_un_follow"
+                    android:src="@drawable/ic_heart_un_follow"
                     android:visibility="gone" />
 
             </android.support.v7.widget.Toolbar>
@@ -57,12 +57,21 @@
 
     </android.support.design.widget.AppBarLayout>
 
+    <!--<android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="16dp"
+        android:src="@drawable/ic_search" />-->
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:descendantFocusability="blocksDescendants"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+        <!--app:layout_anchorGravity="right|bottom"-->
         <com.seven.seven.common.view.NestedScrollWebView
             android:id="@+id/lly_webview_root"
             android:layout_width="match_parent"
@@ -84,6 +93,7 @@
                 android:layout_height="match_parent"/>-->
 
         </com.seven.seven.common.view.NestedScrollWebView>
+
 
     </FrameLayout>
     <!--<WebView

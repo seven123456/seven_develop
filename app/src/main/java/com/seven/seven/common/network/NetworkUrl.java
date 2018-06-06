@@ -10,7 +10,7 @@ import com.seven.seven.ui.MyApplication;
 
 public class NetworkUrl {
     public static final String ANDROID_TEST_SERVICE ="http://www.wanandroid.com/";
-    public static final String ANDROID_BAIDU_SERVICE ="http://www.baidu.com/";
+    public static final String ANDROID_BAIDU_SERVICE ="http://gank.io";
 
     public static String getNetWorkName(){
         if (MyApplication.getIsDebug()){

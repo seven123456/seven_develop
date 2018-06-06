@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.seven.seven.R;
+import com.seven.seven.common.utils.GlideUtils;
 import com.seven.seven.home.model.HomeBannerInfos;
 
 import java.util.List;
@@ -34,7 +35,8 @@ public class BannerViewAdapter extends BaseQuickAdapter<HomeBannerInfos, BaseVie
     @Override
     protected void convert(BaseViewHolder helper, HomeBannerInfos item) {
         if (item != null) {
-            Glide.with(mContext).load(item.getImagePath()).into((ImageView) helper.getView(R.id.iv_banner_image));
+//            Glide.with(mContext).load(item.getImagePath()).into((ImageView) helper.getView(R.id.iv_banner_image));
+            GlideUtils.loadImageViewLoading((ImageView) helper.getView(R.id.iv_banner_image),item.getImagePath(),R.drawable.ic_error_logo,R.drawable.ic_error_logo);
             helper.addOnClickListener(R.id.iv_banner_image);
         }
     }

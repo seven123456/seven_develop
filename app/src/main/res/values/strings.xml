@@ -7,7 +7,8 @@
     </string>
     <string name="tab_main_name">首页</string>
     <string name="tab_classify_name">分类</string>
-    <string name="tab_news_name">新闻</string>
+    <string name="tab_search_name">搜索</string>
+    <string name="tab_news_name">干货</string>
     <string name="tab_mine_name">个人</string>
     <string name="transition_news_img">transition_news_img</string>
 </resources>

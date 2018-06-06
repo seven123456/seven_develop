@@ -3,18 +3,17 @@ package com.seven.seven.home;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.seven.seven.R;
 import com.seven.seven.common.base.codereview.BaseActivity;
@@ -22,13 +21,11 @@ import com.seven.seven.common.utils.AppBarStateChangeListener;
 import com.seven.seven.common.utils.AppManager;
 import com.seven.seven.common.utils.Constans;
 import com.seven.seven.common.utils.GlideUtils;
-import com.seven.seven.common.utils.PreferencesUtils;
+import com.seven.seven.common.utils.ShareUtils;
 import com.seven.seven.common.utils.StatusBarUtil;
-import com.seven.seven.common.utils.ToastUtils;
 import com.seven.seven.common.view.NestedScrollWebView;
 import com.seven.seven.common.view.dialog.ShareMenuPop;
 import com.seven.seven.common.view.webview.H5Control;
-import com.seven.seven.common.view.webview.SevenWebView;
 import com.seven.seven.home.contract.BaseWebviewContract;
 import com.seven.seven.home.events.BaseWebViewEvents;
 import com.seven.seven.home.model.HomeToWebViewInfo;
@@ -38,6 +35,10 @@ import com.seven.seven.login.LoginActivity;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.wechat.friends.Wechat;
 
 /**
  * Created  on 2018-05-22.
@@ -55,6 +56,7 @@ public class HomeNewsDetailActivity extends BaseActivity implements H5Control, B
     private HomeNewsDetailActivity mActivity;
     private NestedScrollWebView webView;
     private BaseWebviewPresenter baseWebviewPresenter;
+    private CoordinatorLayout coordinatorLayout;
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -64,6 +66,7 @@ public class HomeNewsDetailActivity extends BaseActivity implements H5Control, B
         baseWebviewPresenter = new BaseWebviewPresenter(this, this);
         homeToWebViewInfo = (HomeToWebViewInfo) getIntent().getSerializableExtra("newsInfo");
         toolbar = findViewById(R.id.toolbar);
+        coordinatorLayout = findViewById(R.id.cl_constraint);
         this.setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         appBarLayout = findViewById(R.id.abl_appbar_layout);
@@ -121,7 +124,7 @@ public class HomeNewsDetailActivity extends BaseActivity implements H5Control, B
                                 : homeToWebViewInfo.imgUrl).into(imageView);*/
 //                        collapsingToolbarLayout.setTitle(homeToWebViewInfo.title);
                         GlideUtils.loadImageViewLoading(imageView, homeToWebViewInfo.imgUrl == null || homeToWebViewInfo.imgUrl.equals("") ? R.drawable.seven_logo
-                                : homeToWebViewInfo.imgUrl, R.drawable.error_logo, R.drawable.error_logo);
+                                : homeToWebViewInfo.imgUrl, R.drawable.ic_error_logo, R.drawable.ic_error_logo);
                         collapsingToolbarLayout.setTitle(" ");
                         ivFollow.setVisibility(View.GONE);
                         ivMenu.setVisibility(View.GONE);
@@ -161,16 +164,18 @@ public class HomeNewsDetailActivity extends BaseActivity implements H5Control, B
                 break;
             case R.id.iv_menu:
                 ShareMenuPop shareMenuPop = new ShareMenuPop(this);
-                shareMenuPop.showAsDropDown(toolbar, toolbar.getWidth(), 0);
+                shareMenuPop.show(coordinatorLayout);
                 shareMenuPop.setPopListenter(new ShareMenuPop.sharePopListenter() {
                     @Override
                     public void wxItemShare() {
-                        showSuccessToast("微信分享成功");
+//                        showSuccessToast("微信分享成功");
+                        ShareUtils.wxShare(ShareSDK.getPlatform(Wechat.NAME), homeToWebViewInfo);
                     }
 
                     @Override
                     public void pyqItemShare() {
-                        showSuccessToast("朋友圈分享成功");
+//                        showSuccessToast("朋友圈分享成功");
+                        ShareUtils.wxShare(ShareSDK.getPlatform(Wechat.NAME), homeToWebViewInfo);
                     }
                 });
                 break;
@@ -196,14 +201,15 @@ public class HomeNewsDetailActivity extends BaseActivity implements H5Control, B
     public void disposeBaseWebViewEvents(BaseWebViewEvents baseWebViewEvents) {
         switch (baseWebViewEvents.getWhat()) {
             case Constans.COLLECT:
-                ivFollow.setImageResource(R.drawable.heart_follow);
+                ivFollow.setImageResource(R.drawable.ic_heart_follow);
                 showSuccessToast("收藏成功");
                 break;
             case Constans.COLLECTERROR:
                 showErrorToast(baseWebViewEvents.getData().toString());
                 break;
-         /*   case Constans.RELOGIN:
+            /*case Constans.RELOGIN:
                 startActivity(new Intent(this, LoginActivity.class));
+                AppManager.getAppManager().finishActivity(this);
                 break;*/
         }
     }

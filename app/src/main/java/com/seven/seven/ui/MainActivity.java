@@ -9,8 +9,8 @@ import android.view.View;
 import com.seven.seven.R;
 import com.seven.seven.common.base.codereview.BaseActivity;
 import com.seven.seven.home.HomeFragment;
-import com.seven.seven.ui.base.fragment.SearchFragment;
-import com.seven.seven.ui.base.fragment.CFragment;
+import com.seven.seven.search.SearchFragment;
+import com.seven.seven.gank.GankFragment;
 import com.seven.seven.user.UserInfoFragment;
 import com.seven.seven.ui.base.fragment.TabItemInfo;
 
@@ -63,9 +63,9 @@ public class MainActivity extends BaseActivity {
         HomeFragment homeFragment = new HomeFragment();
         tabItemInfos.add(new TabItemInfo(homeFragment, R.drawable.home_button_selector, R.string.tab_main_name));
         SearchFragment searchFragment = new SearchFragment();
-        tabItemInfos.add(new TabItemInfo(searchFragment, R.drawable.error, R.string.tab_classify_name));
-        CFragment cFragment = new CFragment();
-        tabItemInfos.add(new TabItemInfo(cFragment, R.drawable.error, R.string.tab_news_name));
+        tabItemInfos.add(new TabItemInfo(searchFragment, R.drawable.search_button_selector, R.string.tab_search_name));
+        GankFragment gankFragment = new GankFragment();
+        tabItemInfos.add(new TabItemInfo(gankFragment, R.drawable.fuli_button_selector, R.string.tab_news_name));
         UserInfoFragment userInfoFragment = new UserInfoFragment();
         tabItemInfos.add(new TabItemInfo(userInfoFragment, R.drawable.my_button_selector, R.string.tab_mine_name));
 //        tabItemInfos.add(new EFragment());
@@ -76,7 +76,22 @@ public class MainActivity extends BaseActivity {
         viewPager.setOffscreenPageLimit(tabItemInfos.size());
         tabLayout.setupWithViewPager(viewPager);
 //        tabLayout.setTabTextColors(R.color.black, R.color.red);
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
 
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
         initTabView();
     }
 

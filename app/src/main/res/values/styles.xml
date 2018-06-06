@@ -53,7 +53,7 @@
 
     <style name="FlashTheme" parent="AppTheme">
         <!--<item name="android:windowBackground">@android:color/transparent</item>-->
-        <item name="android:windowBackground">@drawable/timg</item>
+        <item name="android:windowBackground">@drawable/timgs</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
         <item name="windowActionBar">false</item>
@@ -104,4 +104,24 @@
         <attr name="itemText" format="string|reference"></attr>
         <attr name="numText" format="string|reference"></attr>
     </declare-styleable>
+    <declare-styleable name="FlowLayout">
+        <attr name="width_space" format="dimension"/>
+        <attr name="height_space" format="dimension"/>
+    </declare-styleable>
+
+    <style name="DialogStyle" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <!--边框-->
+        <item name="android:windowIsFloating">true</item>
+        <!--是否浮现在activity之上-->
+        <item name="android:windowIsTranslucent">false</item>
+        <!--解决虚拟按键被挡住问题-->
+        <item name="android:fitsSystemWindows">true</item>
+        <!--半透明-->
+        <item name="android:windowNoTitle">true</item>
+        <!--无标题-->
+        <item name="android:windowBackground">@color/transition</item>
+        <!--背景透明-->
+
+    </style>
 </resources>

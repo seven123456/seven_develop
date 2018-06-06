@@ -27,7 +27,7 @@ public class CollectAdapter extends BaseItemDraggableAdapter<CollectInfo, BaseVi
     @Override
     protected void convert(BaseViewHolder helper, CollectInfo item) {
         if (item != null) {
-            helper.setText(R.id.tv_time, "发布时间:" + TimeUtils.longToString(item.getPublishTime(), "yyyy-MM-dd dd-hh-ss"))
+            helper.setText(R.id.tv_time, "发布时间:" + TimeUtils.longToString(item.getPublishTime(), "yyyy-MM-dd HH-mm-ss"))
                     .setText(R.id.tv_author, "作者:" + item.getAuthor())
                     .setText(R.id.tv_title, item.getTitle())
                     .addOnClickListener(R.id.cv_collect);
