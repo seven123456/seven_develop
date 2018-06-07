@@ -159,7 +159,6 @@ public class UserInfoFragment extends BaseFragment implements UserInfoContract.V
 
                     @Override
                     public void takeAlarm() {
-//                        ImageUtils.albumPic(getActivity(), GALLERY_CODE);
                         Intent intent = new Intent(Intent.ACTION_PICK);
                         intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -189,13 +188,8 @@ public class UserInfoFragment extends BaseFragment implements UserInfoContract.V
         //创建一个file，用来存储拍照后的照片
 //        com.seven.seven.common.utils.FileUtils.creatFile(outputfile);
         Uri imageuri;
-        /*if (Build.VERSION.SDK_INT >= 24) {
-            imageuri = FileProvider.getUriForFile(getContext(),
-                    getContext().getPackageName(), //可以是任意字符串
-                    outputfile);
-        } else {*/
+
         imageuri = Uri.fromFile(outputfile);
-//        }
         //启动相机程序
         Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imageuri);
