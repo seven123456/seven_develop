@@ -79,7 +79,7 @@ public class RegisterPresenter extends BasePresenterImpl<RegisterContract.View, 
                     @Override
                     protected void onFail(ApiException e) {
                         if (e.getCode() == 1000) {
-                            EventBus.getDefault().post(new RegisterEvent(Constans.USERERRORS, "未知错误"));
+                            EventBus.getDefault().post(new RegisterEvent(Constans.USERERRORS, "账号已被注册"));
                         } else {
                             EventBus.getDefault().post(new LoginEvent(Constans.USERERRORS, e.getMsg()));
                         }

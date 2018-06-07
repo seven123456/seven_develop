@@ -76,10 +76,10 @@ public class RejisterActivity extends BaseActivity implements RegisterContract.V
             case R.id.bt_login:
                 String username = userEt.getText().toString().trim();
                 String passwords = password.getText().toString().trim();
-                if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(passwords) && username.length() >= 6) {
+                if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(passwords) && username.length() >= 6 && passwords.length() >= 6) {
                     registerPresenter.register(username, passwords, passwords);
                 } else {
-                    showErrorToast("账号输入有误");
+                    showErrorToast("账号或密码输入有误");
                 }
                 break;
             case R.id.et_user:

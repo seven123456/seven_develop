@@ -87,7 +87,7 @@ public class CollectListActivity extends BaseActivity implements CollectContract
                         collectAdapter.addData(collectListInfosList.getDatas());
                     }
                 } else {
-                    collectAdapter.loadMoreEnd();
+                    collectAdapter.loadMoreEnd(true);
                 }
 
                 break;

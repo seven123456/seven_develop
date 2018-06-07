@@ -157,6 +157,7 @@ public class SearchDetailActivity extends BaseActivity implements SearchKContrac
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().register(this);
+        searchAdapter.setNewData(null);
+        EventBus.getDefault().unregister(this);
     }
 }
