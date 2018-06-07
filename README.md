@@ -11,4 +11,4 @@
 	感谢鸿洋大神的www.wanandroid.com提供的api
 	还有干货集中云的api:http://gank.io/api
 
-# 感兴趣的朋友可以[https://fir.im/mche?release_id=5b18bdaa548b7a1ce42c2e54](https://fir.im/mche?release_id=5b18bdaa548b7a1ce42c2e54 "下载demo")体验一下，欢迎各位star 下载 #
+# 感兴趣的朋友可以[下载demo](https://fir.im/mche?release_id=5b18bdaa548b7a1ce42c2e54 "下载demo")体验一下，欢迎各位star 下载 #
