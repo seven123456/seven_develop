@@ -140,7 +140,8 @@ public class UserInfoFragment extends BaseFragment implements UserInfoContract.V
                 startActivity(new Intent(getContext(), CollectListActivity.class));
                 break;
             case R.id.ui_author:
-                PreferencesUtils.putString(getContext(), Constans.COOKIE_PREF, "");
+//                PreferencesUtils.putString(getContext(), Constans.COOKIE_PREF, "");
+                showErrorToast("作者说太麻烦不写了");
                 break;
             case R.id.ui_setting:
                 TakePhototpop takePhototpop = new TakePhototpop(getContext());
@@ -394,15 +395,17 @@ public class UserInfoFragment extends BaseFragment implements UserInfoContract.V
                 break;*/
         }
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void disposeReLoginEvents(ReloginEvent reloginEvent){
-        switch (reloginEvent.getWhat()){
+    public void disposeReLoginEvents(ReloginEvent reloginEvent) {
+        switch (reloginEvent.getWhat()) {
             case Constans.RELOGIN:
                 startActivity(new Intent(getContext(), LoginActivity.class));
-                AppManager.getAppManager().finishActivity(getActivity());
+                AppManager.getAppManager().removedAlllActivity(getActivity());
                 break;
         }
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
