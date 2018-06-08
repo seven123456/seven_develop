@@ -68,16 +68,16 @@ public class SevenWebView extends WebView {
         setWebViewClient(webViewClient);
         setWebChromeClient(webChromeClient);
         h5JSInterface = new H5JSInterface(MyApplication.getContext());
-        addJavascriptInterface(h5JSInterface, "随便命名用于告诉h5是和谁交互");
+        addJavascriptInterface(h5JSInterface, "imagelistner");
         /*下面一顿copy就好了*/
         setClickable(true);
-        setOnTouchListener(new OnTouchListener() {
+       /* setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 requestDisallowInterceptTouchEvent(true);
                 return false;
             }
-        });
+        });*/
         WebSettings webSetting = getSettings();
         webSetting.setJavaScriptEnabled(true);
         webSetting.setJavaScriptCanOpenWindowsAutomatically(true);
@@ -117,6 +117,22 @@ public class SevenWebView extends WebView {
         public void onPageFinished(WebView view, String url) {
             isStart = false;
             super.onPageFinished(view, url);
+            addImageviewListenter(view);
+        }
+
+        private void addImageviewListenter(WebView webView) {
+            // 这段js函数的功能就是，遍历所有的img节点，并添加onclick函数，
+            // 函数的功能是在图片点击的时候调用本地java接口并传递url过去
+            webView.loadUrl("javascript:(function(){" +
+                    "var objs = document.getElementsByTagName(\"img\"); " +
+                    "for(var i=0;i<objs.length;i++)  " +
+                    "{"
+                    + "    objs[i].onclick=function()  " +
+                    "    {  "
+                    + "        window.imagelistner.openImage(this.src);  " +
+                    "    }  " +
+                    "}" +
+                    "})()");
         }
 
         @Override

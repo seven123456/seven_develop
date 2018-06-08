@@ -31,6 +31,7 @@ import com.seven.seven.home.events.BaseWebViewEvents;
 import com.seven.seven.home.model.HomeToWebViewInfo;
 import com.seven.seven.home.presenter.BaseWebviewPresenter;
 import com.seven.seven.login.LoginActivity;
+import com.seven.seven.search.LookImageActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -194,7 +195,11 @@ public class HomeNewsDetailActivity extends BaseActivity implements H5Control, B
 
     @Override
     public void H5ControlAndroidEvent(String url, Bundle bundle) {
-
+        if (url != null) {
+            Intent intent = new Intent(this, LookImageActivity.class);
+            intent.putExtra("image", url);
+            startActivity(intent);
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

@@ -1,6 +1,7 @@
 package com.seven.seven.common.view.webview;
 
 import android.content.Context;
+import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 
@@ -32,8 +33,8 @@ public class H5JSInterface {
     }
 
     /*
-    * h5发送数据到android
-    * */
+        * android发送数据到h5
+        * */
     @JavascriptInterface
     public String getDataFromAndroid(String datas) {
         final H5ToAndroidData h5ToAndroidData = GsonTools.changeGsonToBean(datas, H5ToAndroidData.class);
@@ -48,8 +49,9 @@ public class H5JSInterface {
     }
 
     /*
-    * android发送数据到h5
+    * h5发送数据到android
     * */
+    @JavascriptInterface
     public void sendInfoToAndroid(String datas) {
         final H5ToAndroidData h5ToAndroidData = GsonTools.changeGsonToBean(datas, H5ToAndroidData.class);
         switch (h5ToAndroidData.type) {
@@ -60,6 +62,16 @@ public class H5JSInterface {
                     control.H5ControlAndroidEvent(NetworkUrl.ANDROID_TEST_SERVICE + h5ToH5Info.url, null);
                 }
                 break;
+        }
+    }
+
+    /*
+    * 打开webview里面的图片
+    * */
+    @JavascriptInterface
+    public void openImage(String img) {
+        if (control != null) {
+            control.H5ControlAndroidEvent(img, null);
         }
     }
 
