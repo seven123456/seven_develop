@@ -73,7 +73,7 @@ public class MainActivity extends BaseActivity {
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         viewPager.setAdapter(pagerAdapter);
-        viewPager.setOffscreenPageLimit(tabItemInfos.size());
+        viewPager.setOffscreenPageLimit(1);
         tabLayout.setupWithViewPager(viewPager);
 //        tabLayout.setTabTextColors(R.color.black, R.color.red);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

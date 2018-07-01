@@ -141,7 +141,7 @@ public class HomePresenter extends BasePresenterImpl<HomeContract.View, MainActi
 
     @Override
     public void getMoreHomeData(int pageNum) {
-        HttpObservable.getObservable(ApiRetrofit.getApiRetrofit().getApiServis().getMoreHomeNewsInfos(pageNum))
+        HttpObservable.getObservable(apiRetrofit.getMoreHomeNewsInfos(pageNum))
                 .subscribe(new HttpResultObserver<ResponseCustom<HomeNewsInfos>>() {
                     @Override
                     protected void onLoading(Disposable d) {
